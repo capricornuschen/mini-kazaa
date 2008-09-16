@@ -7,6 +7,10 @@ package lpr.minikazaa.minikazaaclient;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import lpr.minikazaa.util.StringManipulationUtil;
 
 /**
@@ -15,10 +19,11 @@ import lpr.minikazaa.util.StringManipulationUtil;
  */
 public class SupernodeConfigurationFrame extends javax.swing.JFrame {
 
+    private Integer mycheck;
     /** Creates new form SupernodeConfigurationFrame */
-    public SupernodeConfigurationFrame() {
+    public SupernodeConfigurationFrame(Integer check) {
         initComponents();
-
+        mycheck = check;
         //Adding events on the frame.
         close_bt.addActionListener(
                 new ActionListener() {
@@ -176,6 +181,26 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                         //End check.
                         
                         //Creating file Cnfiguration.
+                        NodeConfig config = new NodeConfig();
+                        config.setUserName(user_name_str);
+                        config.setPort(port);
+                        config.setBootStrapAddress(bs_address);
+                        config.setMaxConnection(max_conn);
+                        config.setTimeToLeave(ttl);
+                        config.setIsSN(true);
+                        XMLEncoder config_xml;
+                        try {
+
+                             config_xml = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("config.xml")));
+                             config_xml.writeObject((Object)config);
+                             config_xml.flush();
+                             config_xml.close();
+                        } catch (FileNotFoundException ex) {                            
+                        }
+                        //End writing configuration file.
+                        mycheck = new Integer(1);
+                        dispose();
+        
                     }
                 });
 
