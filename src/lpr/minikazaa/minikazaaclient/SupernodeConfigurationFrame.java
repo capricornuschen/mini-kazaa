@@ -19,11 +19,11 @@ import lpr.minikazaa.util.StringManipulationUtil;
  */
 public class SupernodeConfigurationFrame extends javax.swing.JFrame {
 
-    private Integer mycheck;
+    
     /** Creates new form SupernodeConfigurationFrame */
-    public SupernodeConfigurationFrame(Integer check) {
+    public SupernodeConfigurationFrame() {
         initComponents();
-        mycheck = check;
+      
         //Adding events on the frame.
         close_bt.addActionListener(
                 new ActionListener() {
@@ -198,7 +198,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                         } catch (FileNotFoundException ex) {                            
                         }
                         //End writing configuration file.
-                        mycheck = new Integer(1);
+                        
                         dispose();
         
                     }
