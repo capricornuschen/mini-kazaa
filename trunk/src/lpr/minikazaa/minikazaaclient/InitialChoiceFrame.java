@@ -13,17 +13,17 @@ import java.awt.event.ActionListener;
  * @author  giovine
  */
 public class InitialChoiceFrame extends javax.swing.JFrame {
-    Integer mycheck;
+
     /** Creates new form InitialChoiceFrame */
-    public InitialChoiceFrame(Integer check) {
-        mycheck = check;
+    public InitialChoiceFrame() {
+       
         initComponents();
 
         super_node_bt.addActionListener(
                 new ActionListener() {
 
                     public void actionPerformed(ActionEvent event) {
-                        SupernodeConfigurationFrame sn_config = new SupernodeConfigurationFrame(mycheck);
+                        SupernodeConfigurationFrame sn_config = new SupernodeConfigurationFrame();
                         sn_config.setLocationRelativeTo(null);
                         sn_config.setVisible(true);
                         dispose();
