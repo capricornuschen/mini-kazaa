@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javax.swing.UIManager;
 
+import lpr.minikazaa.minikazaaclient.supernode.SupernodeEngine;
 /**
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
@@ -57,6 +58,11 @@ public class MiniKazaaClient {
 
             if (config.getIsSN()) {
                 System.out.println("We must load a Super node application.");
+                //Start a new thread with super node engine.
+                SupernodeEngine sn_eng = new SupernodeEngine(config);
+                Thread super_node_thread = new Thread(sn_eng);
+                super_node_thread.start();
+                
             }
             else{
                 System.out.println("We must load an Ordinary node application.");
