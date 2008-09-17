@@ -4,6 +4,7 @@ package lpr.minikazaa.bootstrap;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,5 +15,6 @@ import java.rmi.RemoteException;
 public interface BootStrapServerInterface extends Remote{
     public boolean addSuperNode(NodeInfo new_node) throws RemoteException;
     public boolean removeSuperNode(NodeInfo new_node) throws RemoteException;
+    public ArrayList<NodeInfo> getSuperNodeList() throws RemoteException;
     
 }

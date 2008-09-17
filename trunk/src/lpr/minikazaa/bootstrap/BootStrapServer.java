@@ -65,4 +65,18 @@ public class BootStrapServer implements BootStrapServerInterface{
         
         return false;
     }
+    
+    public ArrayList<NodeInfo>  getSuperNodeList() throws RemoteException{
+        System.out.println("Returning list of NodeInfo.");
+        File log = new File("./log.txt");
+            try {
+                PrintWriter writer = new PrintWriter(new FileWriter(log));
+                Date d = new Date();
+                writer.println(d.toString()+" : list returned.");
+                g.setWhatAppensLine("List returned");
+            } catch (IOException ex) {
+                System.out.println("removeSuperNode: "+ex);
+            }
+        return super_node_list;
+    }
 }
