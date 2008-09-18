@@ -31,12 +31,13 @@ public class SupernodeEngine implements Runnable {
 
     public void run() {
         System.out.println("Thread Super node engine init.");
-
+        BootStrapServerInterface stub;
         //Init the ArrayList with a list of super close super nodes.
         try {
             bootstrap_service = LocateRegistry.getRegistry(my_conf.getBootStrapAddress());
 
-            BootStrapServerInterface stub = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
+            stub = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
+
             
 
         } catch (RemoteException ex) {
