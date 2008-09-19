@@ -31,10 +31,10 @@ public class BootStrapService {
             System.out.println("Registry init.");
 
             BootStrapGui g = new BootStrapGui();
-            //g.setSize(400, 320);
+            
             //Frame appears in the center of the screen
             g.setLocationRelativeTo(null);
-            //g.setIconImage(new ImageIcon("lpr.minikazaa.icons.mini_icon.png"));
+            
             g.setVisible(true);
 
             BootStrapServer bss = new BootStrapServer(g);
