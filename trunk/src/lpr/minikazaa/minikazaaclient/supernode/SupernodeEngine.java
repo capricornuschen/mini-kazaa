@@ -4,14 +4,8 @@
  */
 package lpr.minikazaa.minikazaaclient.supernode;
 
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import lpr.minikazaa.bootstrap.BootStrapServerInterface;
-import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
+import lpr.minikazaa.minikazaaclient.SupernodeList;
 
 /**
  *
@@ -22,33 +16,20 @@ import lpr.minikazaa.minikazaaclient.NodeConfig;
 public class SupernodeEngine implements Runnable {
 
     NodeConfig my_conf;
-    ArrayList<NodeInfo> super_node_list;
-    Registry bootstrap_service;
-
+    
     public SupernodeEngine(NodeConfig conf) {
         this.my_conf = conf;
     }
 
     public void run() {
         System.out.println("Thread Super node engine init.");
-        BootStrapServerInterface stub;
-        //Init the ArrayList with a list of super close super nodes.
-        try {
-            bootstrap_service = LocateRegistry.getRegistry(my_conf.getBootStrapAddress());
-
-            stub = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
-
-            
-
-        } catch (RemoteException ex) {
-            SupernodeWarning snw = new SupernodeWarning("Can't find bootstrap server.", "bs_address", my_conf);
-            snw.setLocationRelativeTo(null);
-            snw.setVisible(true);
-        } catch (NotBoundException ex) {
-            SupernodeWarning snw = new SupernodeWarning("Can't find bootstrap server.", "bs_address", my_conf);
-            snw.setLocationRelativeTo(null);
-            snw.setVisible(true);
-        }
+        SupernodeList sn_list = new SupernodeList();
+        
+        
+        //Init RMI manager Thread.
+        SupernodeRMIManager sn_rmi = new SupernodeRMIManager(my_conf,sn_list);
+        Thread rmi_manager = new Thread(sn_rmi);
+        rmi_manager.start();
 
     }
 }

@@ -11,9 +11,13 @@ import lpr.minikazaa.bootstrap.NodeInfo;
 /**
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
- * @date 18-set-2008
- * @file SupernodeCallbacksInterface.java
+ * @date 19-set-2008
+ * @file SupernodeCallbacksImpl.java
  */
-public interface SupernodeCallbacksInterface {
-    public void notifyMe(NodeInfo new_node) throws RemoteException;
+public class SupernodeCallbacksImpl {
+    public SupernodeCallbacksImpl(){}
+    
+    public void notifyMe(NodeInfo new_node) throws RemoteException{
+        
+    }
 }
