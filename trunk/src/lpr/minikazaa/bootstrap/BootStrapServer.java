@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  *
@@ -30,7 +31,7 @@ public class BootStrapServer implements BootStrapServerInterface{
         
     }
     
-    public boolean addSuperNode(NodeInfo new_node) throws RemoteException{
+    public synchronized boolean addSuperNode(NodeInfo new_node) throws RemoteException{
         System.out.println("Adding new SuperNode.");
         if(this.super_node_list.add(new_node)){
             File log = new File("./log.txt");
@@ -39,6 +40,10 @@ public class BootStrapServer implements BootStrapServerInterface{
                 Date d = new Date();
                 writer.println(d.toString()+" : "+new_node.getId()+" added.");
                 g.setWhatAppensLine(new_node.getId()+" added.");
+                
+                //Notify every client
+                doCallbacksForAdd(new_node);
+                
             } catch (IOException ex) {
                 System.out.println("addSuperNode: "+ex);
             }
@@ -47,7 +52,7 @@ public class BootStrapServer implements BootStrapServerInterface{
         }
         return false;
     }
-    public boolean removeSuperNode(NodeInfo new_node) throws RemoteException{
+    public synchronized boolean removeSuperNode(NodeInfo new_node) throws RemoteException{
         System.out.println("Removing new SuperNode.");
         if(this.super_node_list.remove(new_node)){
             File log = new File("./log.txt");
@@ -56,6 +61,10 @@ public class BootStrapServer implements BootStrapServerInterface{
                 Date d = new Date();
                 writer.println(d.toString()+" : "+new_node.getId()+" removed.");
                 g.setWhatAppensLine(new_node.getId()+" removed.");
+                
+                //Notify every client
+                doCallbacksForRemove(new_node);
+                    
             } catch (IOException ex) {
                 System.out.println("removeSuperNode: "+ex);
             }
@@ -74,9 +83,39 @@ public class BootStrapServer implements BootStrapServerInterface{
                 Date d = new Date();
                 writer.println(d.toString()+" : list returned.");
                 g.setWhatAppensLine("List returned");
+                                
             } catch (IOException ex) {
                 System.out.println("removeSuperNode: "+ex);
             }
         return super_node_list;
+    }
+    
+    private synchronized void doCallbacksForAdd (NodeInfo node) throws RemoteException{
+        System.out.println("Starting callbacks.");
+        
+        Iterator i = super_node_list.iterator();
+        
+        while(i.hasNext()){
+            NodeInfo n = (NodeInfo) i.next();
+            //Scroll all the list and check if it is not the new added node.
+            if(!n.getId().equals(node.getId())){
+                n.getCallbackInterface().notifyMeAdd(node);
+            }
+        }
+        
+    }
+    
+    private synchronized void doCallbacksForRemove (NodeInfo node) throws RemoteException{
+        System.out.println("Starting callbacks.");
+        
+        Iterator i = super_node_list.iterator();
+        
+        while(i.hasNext()){
+            NodeInfo n = (NodeInfo) i.next();
+            //Scroll all the list and check if it is not the new added node.
+            if(!n.getId().equals(node.getId())){
+                n.getCallbackInterface().notifyMeRemove(node);
+            }
+        }
     }
 }

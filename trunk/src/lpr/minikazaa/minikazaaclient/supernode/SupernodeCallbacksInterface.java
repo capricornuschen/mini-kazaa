@@ -15,5 +15,6 @@ import lpr.minikazaa.bootstrap.NodeInfo;
  * @file SupernodeCallbacksInterface.java
  */
 public interface SupernodeCallbacksInterface {
-    public void notifyMe(NodeInfo new_node) throws RemoteException;
+    public void notifyMeAdd(NodeInfo new_node) throws RemoteException;
+    public void notifyMeRemove(NodeInfo new_node) throws RemoteException;
 }

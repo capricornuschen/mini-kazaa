@@ -20,4 +20,8 @@ public class SupernodeCallbacksImpl {
     public void notifyMe(NodeInfo new_node) throws RemoteException{
         
     }
+    
+    public void notifyMeRemove(NodeInfo old_node) throws RemoteException{
+    
+    }
 }
