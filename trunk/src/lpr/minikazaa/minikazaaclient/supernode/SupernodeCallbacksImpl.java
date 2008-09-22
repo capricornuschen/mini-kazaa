@@ -14,14 +14,16 @@ import lpr.minikazaa.bootstrap.NodeInfo;
  * @date 19-set-2008
  * @file SupernodeCallbacksImpl.java
  */
-public class SupernodeCallbacksImpl {
+public class SupernodeCallbacksImpl implements SupernodeCallbacksInterface{
     public SupernodeCallbacksImpl(){}
     
-    public void notifyMe(NodeInfo new_node) throws RemoteException{
+    public void notifyMeAdd(NodeInfo new_node) throws RemoteException{
         
     }
     
     public void notifyMeRemove(NodeInfo old_node) throws RemoteException{
     
     }
+
+   
 }
