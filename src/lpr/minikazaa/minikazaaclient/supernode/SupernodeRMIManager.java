@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import lpr.minikazaa.bootstrap.BootStrapServerInterface;
 import lpr.minikazaa.bootstrap.NodeInfo;
@@ -27,17 +28,27 @@ public class SupernodeRMIManager implements Runnable {
 
     public void run() {
         Registry bootstrap_service;
-        BootStrapServerInterface stub;
+        BootStrapServerInterface rmi_stub;
+        SupernodeCallbacksInterface callbacks_stub;
+        BootStrapServerInterface callbacks_remote;
+        
         
         try {
             bootstrap_service = LocateRegistry.getRegistry(my_conf.getBootStrapAddress());
 
-            stub = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
+            rmi_stub = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
+            callbacks_remote = (BootStrapServerInterface) bootstrap_service.lookup("Callback");
 
-            ArrayList <NodeInfo> ni_list = stub.getSuperNodeList();
+            ArrayList <NodeInfo> ni_list = rmi_stub.getSuperNodeList();
             sn_list.refreshList(ni_list);
             
+            //Managing callbacks.
+            SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl();
+            SupernodeCallbacksInterface callback_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject(callback_obj, 0);
             
+            
+            
+            callbacks_remote.addSuperNode(null);
 
         } catch (RemoteException ex) {
             SupernodeWarning snw = new SupernodeWarning("Can't find bootstrap server.", "bs_address", my_conf);

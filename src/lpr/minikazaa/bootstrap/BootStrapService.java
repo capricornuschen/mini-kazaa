@@ -8,6 +8,8 @@ import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import javax.swing.UIManager;
+import lpr.minikazaa.minikazaaclient.supernode.SupernodeCallbacksImpl;
+import lpr.minikazaa.minikazaaclient.supernode.SupernodeCallbacksInterface;
 
 /**
  *
@@ -25,7 +27,7 @@ public class BootStrapService {
 
         } catch (Exception ex) {
         }
-
+ 
         try {
             Registry registry = LocateRegistry.createRegistry(2008);
             System.out.println("Registry init.");
@@ -40,8 +42,12 @@ public class BootStrapService {
             BootStrapServer bss = new BootStrapServer(g);
 
             BootStrapServerInterface stub = (BootStrapServerInterface) UnicastRemoteObject.exportObject(bss, 0);
+            SupernodeCallbacksImpl client_impl = new SupernodeCallbacksImpl();
+            
+            SupernodeCallbacksInterface client_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject( client_impl,0);
 
             registry.bind("BootStrap", stub);
+            registry.bind("Callback", client_stub);
 
         } catch (Exception e) {
             System.err.println("BootStrapService: " + e);

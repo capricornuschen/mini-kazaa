@@ -29,6 +29,10 @@ public class SupernodeList {
         this.sn_list.add(node);
     }
     
+    public synchronized void removeOldNode( NodeInfo node){
+        this.sn_list.remove(node);
+    }
+    
     public synchronized ArrayList <NodeInfo> getList(){
         return this.sn_list;
     }
