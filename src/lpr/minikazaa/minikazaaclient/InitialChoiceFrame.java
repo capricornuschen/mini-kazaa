@@ -54,6 +54,7 @@ public class InitialChoiceFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mini-Kazaa");
         setResizable(false);
         setUndecorated(true);
 
@@ -63,7 +64,7 @@ public class InitialChoiceFrame extends javax.swing.JFrame {
         ordinary_node_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/on_icon.png"))); // NOI18N
         ordinary_node_bt.setText("Ordinary Node");
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 24));
         jLabel1.setText("What do you want to be?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -71,7 +72,7 @@ public class InitialChoiceFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
+                .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(super_node_bt, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(95, 95, 95)
                 .addComponent(ordinary_node_bt)

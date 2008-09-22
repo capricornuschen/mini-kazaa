@@ -4,6 +4,7 @@ package lpr.minikazaa.bootstrap;
 
 import java.io.Serializable;
 import java.net.InetAddress;
+import lpr.minikazaa.minikazaaclient.supernode.SupernodeCallbacksInterface;
 
 /**
  * Da commentare.
@@ -17,6 +18,7 @@ public class NodeInfo implements Serializable {
     private InetAddress ia_node;
     private int door;
     private String id_node;
+    private SupernodeCallbacksInterface stub;
     
     public NodeInfo(InetAddress ia_node, int door){
         this.ia_node = ia_node;
@@ -34,5 +36,9 @@ public class NodeInfo implements Serializable {
     
     public String getId(){
         return this.id_node;
+    }
+    
+    public SupernodeCallbacksInterface getCallbackInterface(){
+        return this.stub;
     }
 }
