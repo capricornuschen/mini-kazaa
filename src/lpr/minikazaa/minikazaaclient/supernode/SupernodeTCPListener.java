@@ -13,6 +13,11 @@ package lpr.minikazaa.minikazaaclient.supernode;
  */
 public class SupernodeTCPListener implements Runnable{
     
+    
+    public SupernodeTCPListener(){
+    
+    }
+    
     public void run(){
     //Server that liste all TCP requests.
     }
