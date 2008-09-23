@@ -39,7 +39,7 @@ public class BootStrapServer implements BootStrapServerInterface{
                 PrintWriter writer = new PrintWriter(new FileWriter(log));
                 Date d = new Date();
                 writer.println(d.toString()+" : "+new_node.getId()+" added.");
-                g.setWhatAppensLine(new_node.getId()+" added.");
+                g.setWhatAppensLine(new_node.getId()+" added.\n");
                 
                 //Notify every client
                 doCallbacksForAdd(new_node);
@@ -60,7 +60,7 @@ public class BootStrapServer implements BootStrapServerInterface{
                 PrintWriter writer = new PrintWriter(new FileWriter(log));
                 Date d = new Date();
                 writer.println(d.toString()+" : "+new_node.getId()+" removed.");
-                g.setWhatAppensLine(new_node.getId()+" removed.");
+                g.setWhatAppensLine(new_node.getId()+" removed.\n");
                 
                 //Notify every client
                 doCallbacksForRemove(new_node);
@@ -82,16 +82,18 @@ public class BootStrapServer implements BootStrapServerInterface{
                 PrintWriter writer = new PrintWriter(new FileWriter(log));
                 Date d = new Date();
                 writer.println(d.toString()+" : list returned.");
-                g.setWhatAppensLine("List returned");
+                g.setWhatAppensLine("List returned\n");
                                 
             } catch (IOException ex) {
-                System.out.println("removeSuperNode: "+ex);
+                System.out.println("Send Supernode List: "+ex);
             }
         return super_node_list;
     }
     
     private synchronized void doCallbacksForAdd (NodeInfo node) throws RemoteException{
         System.out.println("Starting callbacks.");
+        
+        if(super_node_list.size() <= 1){return;}
         
         Iterator i = super_node_list.iterator();
         
@@ -107,6 +109,8 @@ public class BootStrapServer implements BootStrapServerInterface{
     
     private synchronized void doCallbacksForRemove (NodeInfo node) throws RemoteException{
         System.out.println("Starting callbacks.");
+        
+        if(super_node_list.size() <= 1){return;}
         
         Iterator i = super_node_list.iterator();
         

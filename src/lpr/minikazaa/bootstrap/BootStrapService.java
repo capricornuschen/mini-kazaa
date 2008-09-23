@@ -31,6 +31,7 @@ public class BootStrapService {
         try {
             Registry registry = LocateRegistry.createRegistry(2008);
             System.out.println("Registry init.");
+            System.out.println(registry.toString());
 
             BootStrapGui g = new BootStrapGui();
             
@@ -45,9 +46,17 @@ public class BootStrapService {
             SupernodeCallbacksImpl client_impl = new SupernodeCallbacksImpl();
             
             SupernodeCallbacksInterface client_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject( client_impl,0);
-
+            
+            System.out.println("Ready to bind.");
             registry.bind("BootStrap", stub);
             registry.bind("Callback", client_stub);
+            
+            //List of remote interfaces
+            String [] list = registry.list();
+            for(String i : list){
+                System.out.println(i);
+            }
+            
 
         } catch (Exception e) {
             System.err.println("BootStrapService: " + e);
