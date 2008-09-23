@@ -6,6 +6,7 @@
 package lpr.minikazaa.minikazaaclient;
 
 import java.io.Serializable;
+import java.net.InetAddress;
 
 /**
  * @author giovine
@@ -20,6 +21,10 @@ public class NodeConfig extends Object implements Serializable {
     private boolean is_sn;
     private int max_sim_down;
     private int max_sim_up;
+    
+    //My infos
+    private String my_address;
+    
     
     
     //Get methods
@@ -48,6 +53,11 @@ public class NodeConfig extends Object implements Serializable {
         return max_sim_up;
     }
     
+    public String getMyAddress(){
+        return my_address;
+    }
+    
+    
     
     
     //Set methods
@@ -74,5 +84,8 @@ public class NodeConfig extends Object implements Serializable {
     }
     public void setMaxUp(int n){
         this.max_sim_up = n;
+    }
+    public void setMyAddress(String addr){
+        this.my_address = addr;
     }
 }

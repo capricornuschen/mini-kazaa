@@ -11,6 +11,11 @@ import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import lpr.minikazaa.util.NetUtil;
 import lpr.minikazaa.util.StringManipulationUtil;
 
 /**
@@ -19,11 +24,10 @@ import lpr.minikazaa.util.StringManipulationUtil;
  */
 public class SupernodeConfigurationFrame extends javax.swing.JFrame {
 
-    
     /** Creates new form SupernodeConfigurationFrame */
     public SupernodeConfigurationFrame() {
         initComponents();
-      
+
         //Adding events on the frame.
         close_bt.addActionListener(
                 new ActionListener() {
@@ -177,9 +181,9 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                                 return;
                             }
                         }
-                        
+
                         //End check.
-                        
+
                         //Creating file Cnfiguration.
                         NodeConfig config = new NodeConfig();
                         config.setUserName(user_name_str);
@@ -188,19 +192,32 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                         config.setMaxConnection(max_conn);
                         config.setTimeToLeave(ttl);
                         config.setIsSN(true);
+                        //My numbers
+                        InetAddress my_address;
+                        try {
+
+                            my_address = NetUtil.getAddress();
+                            System.out.println("My Address: "+my_address.toString());
+                            String sub_address = my_address.toString().substring(1);
+                            config.setMyAddress(sub_address.toString());
+                        } catch (SocketException ex) {
+                            Logger.getLogger(SupernodeConfigurationFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+
                         XMLEncoder config_xml;
                         try {
 
-                             config_xml = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("config.xml")));
-                             config_xml.writeObject((Object)config);
-                             config_xml.flush();
-                             config_xml.close();
-                        } catch (FileNotFoundException ex) {                            
+                            config_xml = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("config.xml")));
+                            config_xml.writeObject((Object) config);
+                            config_xml.flush();
+                            config_xml.close();
+                        } catch (FileNotFoundException ex) {
                         }
                         //End writing configuration file.
-                        
+
                         dispose();
-        
+
                     }
                 });
 
@@ -392,5 +409,4 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
     private javax.swing.JTextField ttl_tf;
     private javax.swing.JTextField user_name_tf;
     // End of variables declaration//GEN-END:variables
-
 }

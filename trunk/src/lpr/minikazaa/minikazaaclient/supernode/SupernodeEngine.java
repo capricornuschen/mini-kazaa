@@ -26,10 +26,12 @@ public class SupernodeEngine implements Runnable {
         SupernodeList sn_list = new SupernodeList();
         
         
+        
         //Init RMI manager Thread.
         SupernodeRMIManager sn_rmi = new SupernodeRMIManager(my_conf,sn_list);
         Thread rmi_manager = new Thread(sn_rmi);
         rmi_manager.start();
+        
 
     }
 }

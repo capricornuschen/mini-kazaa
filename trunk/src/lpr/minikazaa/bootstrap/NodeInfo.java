@@ -20,10 +20,11 @@ public class NodeInfo implements Serializable {
     private String id_node;
     private SupernodeCallbacksInterface stub;
     
-    public NodeInfo(InetAddress ia_node, int door){
+    public NodeInfo(InetAddress ia_node, int door, SupernodeCallbacksInterface callback){
         this.ia_node = ia_node;
         this.door = door;
         this.id_node = ia_node.getHostAddress()+":"+door;
+        this.stub = callback;
     }
     
     public InetAddress getIaNode(){
@@ -40,5 +41,10 @@ public class NodeInfo implements Serializable {
     
     public SupernodeCallbacksInterface getCallbackInterface(){
         return this.stub;
+    }
+    
+    @Override
+    public String toString(){
+        return this.ia_node.toString();
     }
 }
