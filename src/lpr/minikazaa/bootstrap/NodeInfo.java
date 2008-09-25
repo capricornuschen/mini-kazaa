@@ -19,13 +19,14 @@ public class NodeInfo implements Serializable {
     private int door;
     private String id_node;
     private SupernodeCallbacksInterface stub;
-    private int ping;
+    private long ping;
     
     public NodeInfo(InetAddress ia_node, int door, SupernodeCallbacksInterface callback){
         this.ia_node = ia_node;
         this.door = door;
         this.id_node = ia_node.getHostAddress()+":"+door;
         this.stub = callback;
+        this.ping = -1;
     }
     
     public InetAddress getIaNode(){
@@ -44,13 +45,13 @@ public class NodeInfo implements Serializable {
         return this.stub;
     }
     
-    public int getPing(){
+    public long getPing(){
         return this.ping;
     }
     
     
     //Set methods
-    public void setPing(int fresh_ping){
+    public void setPing(long fresh_ping){
         this.ping = fresh_ping;
     }
     

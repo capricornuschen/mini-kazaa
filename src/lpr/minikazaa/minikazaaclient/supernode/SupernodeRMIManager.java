@@ -43,12 +43,15 @@ public class SupernodeRMIManager implements Runnable {
             System.out.println("BootStrapAddress: "+my_conf.getBootStrapAddress()+"\nPort: 2008");
             bootstrap_service = LocateRegistry.getRegistry(my_conf.getBootStrapAddress(),2008);
 
+            //Logical division of remote porcedure calls.
             rmi_stub = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
             callbacks_remote = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
 
             ArrayList<NodeInfo> ni_list = rmi_stub.getSuperNodeList();
             sn_list.refreshList(ni_list);
-
+            //Refreshing pings.
+            sn_list.refreshPing();
+            
             //Managing callbacks.
             SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl();
             callbacks_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject(callback_obj, 0);
@@ -61,7 +64,7 @@ public class SupernodeRMIManager implements Runnable {
             }
             try {
 
-                Thread.sleep(2000);
+                Thread.sleep(15000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(SupernodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
             }

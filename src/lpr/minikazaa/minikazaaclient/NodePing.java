@@ -67,7 +67,7 @@ public class NodePing implements Runnable {
         
         long ping = arrive_time - start_time;
         
-        this.my_sn_list.refreshPing(host_ia, host_port, host_port);
+        this.my_sn_list.refreshPing(host_ia, host_port, ping);
         
     }
 }
