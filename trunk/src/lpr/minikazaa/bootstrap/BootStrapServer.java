@@ -75,7 +75,7 @@ public class BootStrapServer implements BootStrapServerInterface{
         return false;
     }
     
-    public ArrayList<NodeInfo>  getSuperNodeList() throws RemoteException{
+    public synchronized ArrayList<NodeInfo>  getSuperNodeList() throws RemoteException{
         System.out.println("Returning list of NodeInfo.");
         File log = new File("./log.txt");
             try {

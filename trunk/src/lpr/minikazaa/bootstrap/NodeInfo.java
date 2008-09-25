@@ -19,6 +19,7 @@ public class NodeInfo implements Serializable {
     private int door;
     private String id_node;
     private SupernodeCallbacksInterface stub;
+    private int ping;
     
     public NodeInfo(InetAddress ia_node, int door, SupernodeCallbacksInterface callback){
         this.ia_node = ia_node;
@@ -41,6 +42,16 @@ public class NodeInfo implements Serializable {
     
     public SupernodeCallbacksInterface getCallbackInterface(){
         return this.stub;
+    }
+    
+    public int getPing(){
+        return this.ping;
+    }
+    
+    
+    //Set methods
+    public void setPing(int fresh_ping){
+        this.ping = fresh_ping;
     }
     
     @Override
