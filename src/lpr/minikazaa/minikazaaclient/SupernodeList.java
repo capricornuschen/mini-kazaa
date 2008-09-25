@@ -67,11 +67,23 @@ public class SupernodeList {
         my_thread_pool.shutdown();
     }
     
-    public synchronized ArrayList <NodeInfo> subSet(int set_size){
+    public synchronized ArrayList <NodeInfo> subSet(int set_size, long threshold){
+        ArrayList <NodeInfo> neighbors = new ArrayList();
         
+        for(NodeInfo n : this.sn_list){
+            if(n.getPing() != -1){
+                //Unactive node.
+                if(n.getPing() <= threshold){
+                    neighbors.add(n);
+                    if(neighbors.size() == set_size)
+                        return neighbors;
+                }
+            }
+        }
         
-        return null; //to be checked.
+        return neighbors;
     }
+    
     //Check point is modified
     public synchronized void isModified(){
         this.is_updated = true;
