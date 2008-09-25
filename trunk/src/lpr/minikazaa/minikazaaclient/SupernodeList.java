@@ -5,7 +5,11 @@
 
 package lpr.minikazaa.minikazaaclient;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import lpr.minikazaa.bootstrap.NodeInfo;
 
 /**
@@ -35,6 +39,32 @@ public class SupernodeList {
     
     public synchronized ArrayList <NodeInfo> getList(){
         return this.sn_list;
+    }
+    
+    public synchronized void refreshPing(InetAddress ia, int port, int new_ping){
+        for(NodeInfo n : sn_list){
+            //Now we compare the 2 toString methods, comparing 2 strings.
+            if(n.getIaNode().toString().equals(ia.toString())){
+                if(n.getDoor() == port){
+                    n.setPing(new_ping);
+                }
+            }
+        }
+    }
+    
+    public synchronized void refreshPing(){
+        //Thread pool
+        ThreadPoolExecutor my_thread_pool = 
+                new ThreadPoolExecutor(10,15,50000L,TimeUnit.MILLISECONDS, 
+                new LinkedBlockingQueue<Runnable>());
+        
+        for(NodeInfo n : sn_list){
+            NodePing pinging = new NodePing(n.getIaNode(),n.getDoor(),this);
+            
+            my_thread_pool.execute(pinging);
+        }
+        
+        my_thread_pool.shutdown();
     }
     
     //Check point is modified
