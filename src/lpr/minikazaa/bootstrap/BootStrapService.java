@@ -54,7 +54,7 @@ public class BootStrapService {
             //List of remote interfaces
             String [] list = registry.list();
             for(String i : list){
-                System.out.println(i);
+                System.out.println("Interface:"+ i);
             }
             
 

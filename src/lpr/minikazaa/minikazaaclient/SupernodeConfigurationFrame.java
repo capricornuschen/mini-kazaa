@@ -235,17 +235,17 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         user_name_tf = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         port_tf = new javax.swing.JTextField();
+        bootstrap_address_tf = new javax.swing.JTextField();
+        max_conn_tf = new javax.swing.JTextField();
+        ttl_tf = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         ok_bt = new javax.swing.JButton();
         clean_bt = new javax.swing.JButton();
         close_bt = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        bootstrap_address_tf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        max_conn_tf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        ttl_tf = new javax.swing.JTextField();
         clean_user_bt = new javax.swing.JButton();
         clean_port_bt = new javax.swing.JButton();
         clean_bsa_bt = new javax.swing.JButton();
@@ -281,14 +281,19 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
         jLabel6.setText("Time to leave (default 100):");
 
         clean_user_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_clean_icon.png"))); // NOI18N
+        clean_user_bt.setFocusable(false);
 
         clean_port_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_clean_icon.png"))); // NOI18N
+        clean_port_bt.setFocusable(false);
 
         clean_bsa_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_clean_icon.png"))); // NOI18N
+        clean_bsa_bt.setFocusable(false);
 
         clean_max_conn_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_clean_icon.png"))); // NOI18N
+        clean_max_conn_bt.setFocusable(false);
 
         clean_ttl_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_clean_icon.png"))); // NOI18N
+        clean_ttl_bt.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -300,24 +305,12 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(bootstrap_address_tf)
                             .addComponent(user_name_tf, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
@@ -339,7 +332,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                 .addComponent(clean_bt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(close_bt)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
