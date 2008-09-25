@@ -41,7 +41,7 @@ public class SupernodeList {
         return this.sn_list;
     }
     
-    public synchronized void refreshPing(InetAddress ia, int port, int new_ping){
+    public synchronized void refreshPing(InetAddress ia, int port, long new_ping){
         for(NodeInfo n : sn_list){
             //Now we compare the 2 toString methods, comparing 2 strings.
             if(n.getIaNode().toString().equals(ia.toString())){
@@ -67,6 +67,11 @@ public class SupernodeList {
         my_thread_pool.shutdown();
     }
     
+    public synchronized ArrayList <NodeInfo> subSet(int set_size){
+        
+        
+        return null; //to be checked.
+    }
     //Check point is modified
     public synchronized void isModified(){
         this.is_updated = true;
