@@ -23,18 +23,24 @@ public class SupernodeList {
    private ArrayList <NodeInfo> sn_list;
    private boolean is_updated;
     
-    public SupernodeList(){}
+    public SupernodeList(){
+        this.sn_list = new ArrayList();
+        this.is_updated = false;
+    }
     
     public synchronized void refreshList( ArrayList <NodeInfo> list){
         this.sn_list = list;
+        this.is_updated = true;
     }
     
     public synchronized void addNewNode( NodeInfo node){
         this.sn_list.add(node);
+        this.is_updated = true;
     }
     
     public synchronized void removeOldNode( NodeInfo node){
         this.sn_list.remove(node);
+        this.is_updated = true;
     }
     
     public synchronized ArrayList <NodeInfo> getList(){
@@ -50,6 +56,7 @@ public class SupernodeList {
                 }
             }
         }
+        this.is_updated = true;
     }
     
     public synchronized void refreshPing(){
@@ -65,6 +72,7 @@ public class SupernodeList {
         }
         
         my_thread_pool.shutdown();
+        this.is_updated = true;
     }
     
     public synchronized ArrayList <NodeInfo> subSet(int set_size, long threshold){
@@ -73,6 +81,7 @@ public class SupernodeList {
         for(NodeInfo n : this.sn_list){
             if(n.getPing() != -1){
                 //Unactive node.
+                this.is_updated = true;
                 if(n.getPing() <= threshold){
                     neighbors.add(n);
                     if(neighbors.size() == set_size)
@@ -85,9 +94,14 @@ public class SupernodeList {
     }
     
     //Check point is modified
-    public synchronized void isModified(){
-        this.is_updated = true;
+    public synchronized void guiUpdated(){
+                
+        if(is_updated = false)
+            this.is_updated = true;
+        else
+            this.is_updated = false;
     }
+    
     public synchronized boolean getStatus(){
         return this.is_updated;
     }

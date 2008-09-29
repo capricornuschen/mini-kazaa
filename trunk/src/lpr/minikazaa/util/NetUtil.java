@@ -16,6 +16,7 @@ import java.util.Enumeration;
  * @file NetUtil.java
  */
 public class NetUtil {
+    
 
     public static InetAddress getAddress() throws SocketException {
         try {
