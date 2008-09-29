@@ -21,12 +21,18 @@ public class NodeInfo implements Serializable {
     private SupernodeCallbacksInterface stub;
     private long ping;
     
+    private int my_connection;
+    private int my_files;
+    
     public NodeInfo(InetAddress ia_node, int door, SupernodeCallbacksInterface callback){
         this.ia_node = ia_node;
         this.door = door;
         this.id_node = ia_node.getHostAddress()+":"+door;
         this.stub = callback;
         this.ping = -1;
+        
+        this.my_connection = 0;
+        this.my_files = 0;
     }
     
     public InetAddress getIaNode(){
@@ -50,6 +56,21 @@ public class NodeInfo implements Serializable {
     }
     
     
+    public void addFiles(int n_new_files){
+        this.my_files = this.my_files + n_new_files;
+    }
+    public void removeFiles(int n_old_files){
+        this.my_files = this.my_files - n_old_files;
+    }
+    
+    
+    public void addConnection(){
+        this.my_connection ++;
+    }
+    public void removeConnection(){
+        this.my_connection --;
+    }
+    
     //Set methods
     public void setPing(long fresh_ping){
         this.ping = fresh_ping;
@@ -58,5 +79,9 @@ public class NodeInfo implements Serializable {
     @Override
     public String toString(){
         return this.ia_node.toString();
+    }
+    
+    public String toTable(){
+        return ""+this.ia_node.toString()+"\n"+this.my_files+"\n"+this.my_connection+"\n";
     }
 }

@@ -7,6 +7,7 @@ package lpr.minikazaa.minikazaaclient.supernode;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 
+
 /**
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
@@ -32,6 +33,13 @@ public class SupernodeEngine implements Runnable {
         Thread rmi_manager = new Thread(sn_rmi);
         rmi_manager.start();
         
-
+        SupernodeMainGui main_gui = new SupernodeMainGui(my_conf,sn_list);
+        main_gui.setLocationRelativeTo(null);
+        main_gui.setVisible(true);
+        
+        SupernodeGuiEngine gui_engine = new SupernodeGuiEngine(main_gui, my_conf, sn_list);
+        Thread gui_engine_thread = new Thread(gui_engine);
+        gui_engine_thread.start();
+        
     }
 }
