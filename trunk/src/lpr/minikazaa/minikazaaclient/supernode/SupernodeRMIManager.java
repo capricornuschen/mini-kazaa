@@ -8,6 +8,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.BootStrapServerInterface;
@@ -48,12 +49,19 @@ public class SupernodeRMIManager implements Runnable {
             callbacks_remote = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
 
             ArrayList<NodeInfo> ni_list = rmi_stub.getSuperNodeList();
+            
+            System.out.println("List of node info: ");
+            Iterator l = ni_list.iterator();
+            while(l.hasNext()){
+                System.out.println("-"+l.next().toString());
+            }
+            
             sn_list.refreshList(ni_list);
             //Refreshing pings.
             sn_list.refreshPing();
             
             //Managing callbacks.
-            SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl();
+            SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl(this.sn_list, this.my_conf);
             callbacks_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject(callback_obj, 0);
 
             NodeInfo my_info = null;

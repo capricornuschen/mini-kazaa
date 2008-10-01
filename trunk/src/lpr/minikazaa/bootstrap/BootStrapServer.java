@@ -33,9 +33,10 @@ public class BootStrapServer implements BootStrapServerInterface{
     
     public synchronized boolean addSuperNode(NodeInfo new_node) throws RemoteException{
         System.out.println("Adding new SuperNode.");
-        if(this.super_node_list.add(new_node)){
+        
             File log = new File("./log.txt");
             try {
+                this.super_node_list.add(new_node);
                 PrintWriter writer = new PrintWriter(new FileWriter(log));
                 Date d = new Date();
                 writer.println(d.toString()+" : "+new_node.getId()+" added.");
@@ -49,8 +50,8 @@ public class BootStrapServer implements BootStrapServerInterface{
             }
             
             return true;
-        }
-        return false;
+        
+        
     }
     public synchronized boolean removeSuperNode(NodeInfo new_node) throws RemoteException{
         System.out.println("Removing new SuperNode.");
@@ -92,17 +93,19 @@ public class BootStrapServer implements BootStrapServerInterface{
     
     private synchronized void doCallbacksForAdd (NodeInfo node) throws RemoteException{
         System.out.println("Starting callbacks.");
-        
+        System.out.println("Numer of nodes: "+super_node_list.size());
         if(super_node_list.size() <= 1){return;}
         
         Iterator i = super_node_list.iterator();
         
         while(i.hasNext()){
             NodeInfo n = (NodeInfo) i.next();
+            System.out.println("Node tryed to notified: "+n.getId());
             //Scroll all the list and check if it is not the new added node.
-            if(!n.getId().equals(node.getId())){
+            //if(!n.getId().equals(node.getId())){ //To add again in final version.
+                System.out.println("Node notified.");
                 n.getCallbackInterface().notifyMeAdd(node);
-            }
+            //}
         }
         
     }
@@ -116,8 +119,10 @@ public class BootStrapServer implements BootStrapServerInterface{
         
         while(i.hasNext()){
             NodeInfo n = (NodeInfo) i.next();
+            System.out.println("Node tryed to notified: "+n.getId());
             //Scroll all the list and check if it is not the new added node.
             if(!n.getId().equals(node.getId())){
+                System.out.println("Node notified: "+n.getId());
                 n.getCallbackInterface().notifyMeRemove(node);
             }
         }

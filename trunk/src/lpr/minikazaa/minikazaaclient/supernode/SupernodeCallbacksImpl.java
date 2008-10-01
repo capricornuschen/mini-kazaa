@@ -7,6 +7,8 @@ package lpr.minikazaa.minikazaaclient.supernode;
 
 import java.rmi.RemoteException;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.NodeConfig;
+import lpr.minikazaa.minikazaaclient.SupernodeList;
 
 /**
  *
@@ -15,14 +17,23 @@ import lpr.minikazaa.bootstrap.NodeInfo;
  * @file SupernodeCallbacksImpl.java
  */
 public class SupernodeCallbacksImpl implements SupernodeCallbacksInterface{
-    public SupernodeCallbacksImpl(){}
+    
+    SupernodeList my_sn_list;
+    NodeConfig my_conf;
+    
+    public SupernodeCallbacksImpl(SupernodeList list, NodeConfig conf){
+        this.my_conf = conf;
+        this.my_sn_list = list;
+    }
     
     public void notifyMeAdd(NodeInfo new_node) throws RemoteException{
-        
+        System.out.println("NotifyMeAdd received.");
+        this.my_sn_list.addNewNode(new_node);
     }
     
     public void notifyMeRemove(NodeInfo old_node) throws RemoteException{
-    
+        System.out.println("NotifyMeRemove received.");
+        this.my_sn_list.removeOldNode(old_node);
     }
 
    
