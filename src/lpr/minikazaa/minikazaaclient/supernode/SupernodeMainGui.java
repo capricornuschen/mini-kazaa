@@ -35,6 +35,7 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         String [] a = new String[1];
         a[0] = n.toTable();
         def_sn_table.addRow(a);
+        this.Sn_connection_table.setModel(def_sn_table);
     }
 
     /** This method is called from within the constructor to
@@ -65,23 +66,23 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        file_menu = new javax.swing.JMenu();
+        connect_item = new javax.swing.JMenuItem();
+        disconnect_item = new javax.swing.JMenuItem();
+        close_item = new javax.swing.JMenuItem();
+        edit_menu = new javax.swing.JMenu();
+        add_sn_item = new javax.swing.JMenuItem();
+        remove_sn_item = new javax.swing.JMenuItem();
+        add_on_item = new javax.swing.JMenuItem();
+        remove_on_item = new javax.swing.JMenuItem();
+        configure_item = new javax.swing.JMenuItem();
+        question_menu = new javax.swing.JMenu();
+        help_item = new javax.swing.JMenuItem();
+        italian_help_item = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Jokerman", 0, 24));
+        jLabel1.setFont(new java.awt.Font("Jokerman", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("SUPERNODE Control Panel");
 
@@ -205,94 +206,105 @@ public class SupernodeMainGui extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("File list ", jPanel2);
 
-        jMenu1.setText("File");
+        file_menu.setText("File");
 
-        jMenuItem2.setText("Connect");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        connect_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        connect_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/connect_icon.png"))); // NOI18N
+        connect_item.setText("Connect");
+        connect_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                connect_itemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        file_menu.add(connect_item);
 
-        jMenuItem3.setText("Disconnect");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        disconnect_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        disconnect_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/disconnect_icon.png"))); // NOI18N
+        disconnect_item.setText("Disconnect");
+        disconnect_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                disconnect_itemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        file_menu.add(disconnect_item);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_icon.png"))); // NOI18N
-        jMenuItem1.setText("Close");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        close_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        close_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_icon.png"))); // NOI18N
+        close_item.setText("Close");
+        close_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                close_itemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        file_menu.add(close_item);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(file_menu);
 
-        jMenu2.setText("Edit");
+        edit_menu.setText("Edit");
 
-        jMenuItem4.setText("Add S.N");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        add_sn_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/add_icon.png"))); // NOI18N
+        add_sn_item.setText("Add S.N");
+        add_sn_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                add_sn_itemActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        edit_menu.add(add_sn_item);
 
-        jMenuItem5.setText("Remove S.N");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        remove_sn_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/remove_icon.png"))); // NOI18N
+        remove_sn_item.setText("Remove S.N");
+        remove_sn_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                remove_sn_itemActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        edit_menu.add(remove_sn_item);
 
-        jMenuItem7.setText("Add O.N.");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        add_on_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/add_icon.png"))); // NOI18N
+        add_on_item.setText("Add O.N.");
+        add_on_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                add_on_itemActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem7);
+        edit_menu.add(add_on_item);
 
-        jMenuItem8.setText("Remove O.N.");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        remove_on_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/remove_icon.png"))); // NOI18N
+        remove_on_item.setText("Remove O.N.");
+        remove_on_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                remove_on_itemActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        edit_menu.add(remove_on_item);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/config_icon.png"))); // NOI18N
-        jMenuItem6.setText("Configure");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        configure_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/config_icon.png"))); // NOI18N
+        configure_item.setText("Configure");
+        configure_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                configure_itemActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        edit_menu.add(configure_item);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(edit_menu);
 
-        jMenu3.setText("?");
+        question_menu.setText("?");
 
-        jMenuItem9.setText("Help");
-        jMenu3.add(jMenuItem9);
+        help_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/about_icon.png"))); // NOI18N
+        help_item.setText("Help");
+        question_menu.add(help_item);
 
-        jMenuItem10.setText("Italian Help");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        italian_help_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/italian_about_icon.png"))); // NOI18N
+        italian_help_item.setText("Italian Help");
+        italian_help_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                italian_help_itemActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem10);
+        question_menu.add(italian_help_item);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(question_menu);
 
         setJMenuBar(jMenuBar1);
 
@@ -311,9 +323,9 @@ public class SupernodeMainGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addGap(93, 93, 93)
                 .addComponent(jLabel1)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,41 +350,41 @@ private void my_address_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 // RILEVAMENTO ED INSERIMENTO DELL INDIRIZZO IP DEL SUPERNODO....
 }//GEN-LAST:event_my_address_tfActionPerformed
 
-private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+private void italian_help_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_italian_help_itemActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jMenuItem10ActionPerformed
+}//GEN-LAST:event_italian_help_itemActionPerformed
 
-private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+private void connect_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connect_itemActionPerformed
 // CONNETTE ALLA RETE MINIKAZAAAAAAA....
-}//GEN-LAST:event_jMenuItem2ActionPerformed
+}//GEN-LAST:event_connect_itemActionPerformed
 
-private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+private void disconnect_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnect_itemActionPerformed
 // DISCONNETTI ALLA RETE MINIKAZAAAAA....
-}//GEN-LAST:event_jMenuItem3ActionPerformed
+}//GEN-LAST:event_disconnect_itemActionPerformed
 
-private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+private void close_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_itemActionPerformed
 // CHIUDI APPLICAZIONE ...
-}//GEN-LAST:event_jMenuItem1ActionPerformed
+}//GEN-LAST:event_close_itemActionPerformed
 
-private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+private void add_sn_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_sn_itemActionPerformed
 // AGGIUNGI UNA SN CONNECTION...
-}//GEN-LAST:event_jMenuItem4ActionPerformed
+}//GEN-LAST:event_add_sn_itemActionPerformed
 
-private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+private void remove_sn_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_sn_itemActionPerformed
 // RIMUOVI UNA SN CONNECTION....
-}//GEN-LAST:event_jMenuItem5ActionPerformed
+}//GEN-LAST:event_remove_sn_itemActionPerformed
 
-private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+private void add_on_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_on_itemActionPerformed
 // AGGIUNGI UNA ON CONNECTION...
-}//GEN-LAST:event_jMenuItem7ActionPerformed
+}//GEN-LAST:event_add_on_itemActionPerformed
 
-private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+private void remove_on_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_on_itemActionPerformed
 // RIMUOVI UNA ON CONNECTION...
-}//GEN-LAST:event_jMenuItem8ActionPerformed
+}//GEN-LAST:event_remove_on_itemActionPerformed
 
-private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+private void configure_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configure_itemActionPerformed
 // APRIRE L' INTEFACCIA DI CONFIGURAZIONE...
-}//GEN-LAST:event_jMenuItem6ActionPerformed
+}//GEN-LAST:event_configure_itemActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // AGGIUNGI UN FILE ALLA LISTA DI QUELLI IN POSSESSO...
@@ -385,26 +397,23 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable On_connection_table;
     private javax.swing.JTable Sn_connection_table;
+    private javax.swing.JMenuItem add_on_item;
+    private javax.swing.JMenuItem add_sn_item;
+    private javax.swing.JMenuItem close_item;
+    private javax.swing.JMenuItem configure_item;
+    private javax.swing.JMenuItem connect_item;
+    private javax.swing.JMenuItem disconnect_item;
+    private javax.swing.JMenu edit_menu;
+    private javax.swing.JMenu file_menu;
+    private javax.swing.JMenuItem help_item;
+    private javax.swing.JMenuItem italian_help_item;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -415,6 +424,9 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField my_address_tf;
+    private javax.swing.JMenu question_menu;
+    private javax.swing.JMenuItem remove_on_item;
+    private javax.swing.JMenuItem remove_sn_item;
     // End of variables declaration//GEN-END:variables
 
 }
