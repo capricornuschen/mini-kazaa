@@ -63,8 +63,8 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        add_file_bt = new javax.swing.JButton();
+        remove_file_bt = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         file_menu = new javax.swing.JMenu();
         connect_item = new javax.swing.JMenuItem();
@@ -81,8 +81,9 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         italian_help_item = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mini-KaZaA");
 
-        jLabel1.setFont(new java.awt.Font("Jokerman", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Jokerman", 0, 24));
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("SUPERNODE Control Panel");
 
@@ -164,17 +165,17 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        add_file_bt.setText("Add");
+        add_file_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                add_file_btActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Remove");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        remove_file_bt.setText("Remove");
+        remove_file_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                remove_file_btActionPerformed(evt);
             }
         });
 
@@ -186,9 +187,9 @@ public class SupernodeMainGui extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(add_file_bt, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(remove_file_bt))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -199,8 +200,8 @@ public class SupernodeMainGui extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(remove_file_bt)
+                    .addComponent(add_file_bt))
                 .addGap(30, 30, 30))
         );
 
@@ -386,17 +387,18 @@ private void configure_itemActionPerformed(java.awt.event.ActionEvent evt) {//GE
 // APRIRE L' INTEFACCIA DI CONFIGURAZIONE...
 }//GEN-LAST:event_configure_itemActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void add_file_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_file_btActionPerformed
 // AGGIUNGI UN FILE ALLA LISTA DI QUELLI IN POSSESSO...
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_add_file_btActionPerformed
 
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+private void remove_file_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_file_btActionPerformed
 // RIMUOVI UN FILE DALLA LISTA DI QUELLI IN POSSESSO...
-}//GEN-LAST:event_jButton2ActionPerformed
+}//GEN-LAST:event_remove_file_btActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable On_connection_table;
     private javax.swing.JTable Sn_connection_table;
+    private javax.swing.JButton add_file_bt;
     private javax.swing.JMenuItem add_on_item;
     private javax.swing.JMenuItem add_sn_item;
     private javax.swing.JMenuItem close_item;
@@ -407,8 +409,6 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JMenu file_menu;
     private javax.swing.JMenuItem help_item;
     private javax.swing.JMenuItem italian_help_item;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -425,6 +425,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField my_address_tf;
     private javax.swing.JMenu question_menu;
+    private javax.swing.JButton remove_file_bt;
     private javax.swing.JMenuItem remove_on_item;
     private javax.swing.JMenuItem remove_sn_item;
     // End of variables declaration//GEN-END:variables
