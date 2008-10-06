@@ -84,4 +84,11 @@ public class NodeInfo implements Serializable {
     public String toTable(){
         return ""+this.ia_node.toString()+"\n"+this.my_files+"\n"+this.my_connection+"\n";
     }
+    
+    public boolean theSame(NodeInfo n){
+        if(this.id_node.equals(n.id_node))
+            return true;
+        else
+            return false;
+    }
 }

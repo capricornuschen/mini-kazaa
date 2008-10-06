@@ -37,6 +37,11 @@ public class SupernodeEngine implements Runnable {
         Thread rmi_manager = new Thread(sn_rmi);
         rmi_manager.start();
         
+        //Init TCP requests manager
+        SupernodeTCPListener listener_tcp = new SupernodeTCPListener(this.my_conf,sn_list);
+        Thread tcp_listen = new Thread(listener_tcp);
+        tcp_listen.start();
+        
         //Init main GUI of supernode
         SupernodeMainGui main_gui = new SupernodeMainGui(my_conf,sn_list);
         main_gui.setLocationRelativeTo(null);

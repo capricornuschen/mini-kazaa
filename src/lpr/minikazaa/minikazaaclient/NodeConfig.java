@@ -6,7 +6,6 @@
 package lpr.minikazaa.minikazaaclient;
 
 import java.io.Serializable;
-import java.net.InetAddress;
 
 /**
  * @author giovine
@@ -88,4 +87,5 @@ public class NodeConfig extends Object implements Serializable {
     public void setMyAddress(String addr){
         this.my_address = addr;
     }
+
 }
