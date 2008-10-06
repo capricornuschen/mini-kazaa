@@ -16,19 +16,24 @@ import lpr.minikazaa.bootstrap.NodeInfo;
  */
 public class Query implements Serializable{
     private NodeInfo sender;
-    private Object body;
+    private String body_q;
+    private Answer body_a;
+    private NodeInfo id_origin;
     private NodeInfo receiver;
     
     public Query(){
         //Empty constructor
     }
     
-    public void setAskingQuery(String query){this.body = query;}
-    public void setAnswerQuery(Answer a){this.body = a;}
+    public void setAskingQuery(String query){this.body_q = query;}
+    public void setAnswerQuery(Answer a){this.body_a = a;}
     public void setSender(NodeInfo s){this.sender = s;}
     public void setReceiver(NodeInfo r){this.receiver = r;}
+    public void setOrigin(NodeInfo o){this.id_origin = o;}
     
-    public Object getBody(){return this.body;}
+    public String getBodyQ(){return this.body_q;}
+    public Answer getBodyA(){return this.body_a;}
     public NodeInfo getSender(){return this.sender;}
     public NodeInfo getReceiver(){return this.receiver;}
+    public NodeInfo getOrigin(){return this.id_origin;}
 }
