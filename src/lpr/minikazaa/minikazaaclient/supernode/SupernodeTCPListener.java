@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package lpr.minikazaa.minikazaaclient.supernode;
 
 import java.io.IOException;
@@ -36,6 +31,7 @@ public class SupernodeTCPListener implements Runnable{
         //Server that liste all TCP requests.
         ServerSocket listen_sock = null;
         Socket client_socket = null;
+        SupernodeQueryList query_list = new SupernodeQueryList();
         ThreadPoolExecutor answer_pool = new ThreadPoolExecutor
                 (10,15,50000L,TimeUnit.MILLISECONDS, new LinkedBlockingQueue <Runnable>());
         try{
@@ -47,7 +43,8 @@ public class SupernodeTCPListener implements Runnable{
         while(true){
             try {
                 client_socket = listen_sock.accept();
-                SupernodeTCPWorkingThread answer = new SupernodeTCPWorkingThread(client_socket,this.my_conf, this.my_list);
+                SupernodeTCPWorkingThread answer = new SupernodeTCPWorkingThread
+                        (client_socket,this.my_conf, this.my_list, query_list);
                 answer_pool.execute(answer);
             } catch (IOException ex) {
                 Logger.getLogger(SupernodeTCPListener.class.getName()).log(Level.SEVERE, null, ex);

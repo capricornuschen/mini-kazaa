@@ -20,9 +20,10 @@ public class SupernodeQueryList {
     
     public SupernodeQueryList(){this.query_list = new ArrayList();}
     
-    public boolean isIn(NodeInfo origin){
+    public boolean isIn(Query external_query){
         for(Query q : this.query_list){
-            if(q.getOrigin().theSame(origin))
+            if(q.getOrigin().theSame(external_query.getOrigin())&&
+               q.getBodyQ().equals(external_query.getBodyQ()))
                 return true;
         }
         return false;
@@ -57,7 +58,8 @@ public class SupernodeQueryList {
         return null;
     }
     
-    public ArrayList <Query> generateQuery(Query q, ArrayList <NodeInfo> list){
+    public ArrayList <Query> generateQueryList
+            (Query q, ArrayList <NodeInfo> list){
         
         ArrayList <Query> q_list = new ArrayList();
         
