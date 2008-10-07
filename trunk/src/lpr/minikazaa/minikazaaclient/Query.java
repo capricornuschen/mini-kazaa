@@ -22,7 +22,12 @@ public class Query implements Serializable{
     private NodeInfo receiver;
     
     public Query(){
-        //Empty constructor
+        //Inizialize variables
+        this.sender = null;
+        this.body_a = null;
+        this.body_q = null;
+        this.receiver = null;
+        this.id_origin = null;
     }
     
     public void setAskingQuery(String query){this.body_q = query;}
