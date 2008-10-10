@@ -43,7 +43,8 @@ public class SupernodeGuiEngine implements Runnable {
                 System.out.println("Ancora non modificata.");
             }
 
-            ArrayList<NodeInfo> sub_set_list = my_list.subSet(my_conf.getMaxConnection(), 100);
+            my_list.subSet(my_conf.getMaxConnection(), 100);
+            ArrayList<NodeInfo> sub_set_list = my_list.getSubSet();
             my_list.guiUpdated();
             //Debug printlns
             Iterator i = sub_set_list.iterator();

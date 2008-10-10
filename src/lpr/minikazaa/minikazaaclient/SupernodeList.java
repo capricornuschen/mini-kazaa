@@ -22,10 +22,13 @@ public class SupernodeList {
     
    private ArrayList <NodeInfo> sn_list;
    private boolean is_updated;
+   
+   private ArrayList <NodeInfo> sub_set_list;
     
     public SupernodeList(){
         this.sn_list = new ArrayList();
         this.is_updated = false;
+        this.sub_set_list = null;
     }
     
     public synchronized void refreshList( ArrayList <NodeInfo> list){
@@ -75,7 +78,9 @@ public class SupernodeList {
         this.is_updated = true;
     }
     
-    public synchronized ArrayList <NodeInfo> subSet(int set_size, long threshold){
+    public synchronized void subSet(int set_size, long threshold){
+        
+        
         ArrayList <NodeInfo> neighbors = new ArrayList();
         
         for(NodeInfo n : this.sn_list){
@@ -85,12 +90,21 @@ public class SupernodeList {
                 if(n.getPing() <= threshold){
                     neighbors.add(n);
                     if(neighbors.size() == set_size)
-                        return neighbors;
+                        this.sub_set_list = neighbors;
                 }
             }
         }
         
-        return neighbors;
+        this.sub_set_list = neighbors;
+    }
+    
+    public synchronized ArrayList <NodeInfo> getSubSet(){
+    
+        if(this.sub_set_list == null){
+            subSet(10,100);
+        }
+        
+        return this.sub_set_list;
     }
     
     //Check point is modified
