@@ -7,6 +7,7 @@ package lpr.minikazaa.minikazaaclient.supernode;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -44,13 +45,31 @@ public class SupernodeTCPWorkingThread implements Runnable{
              
              if(!this.my_q_list.isIn(peer_query)){
                 this.my_q_list.addQuery(peer_query);
-                //Send query
+                
+                Query out_query = this.my_q_list.getRelativeQuery(peer_query);
+                ArrayList <Query> sending_queries = 
+                        this.my_q_list.generateQueryList(out_query, this.my_list.getSubSet());
+                
+                Socket sock = null;
+                for(Query q : sending_queries){
+                     sock = new Socket(q.getReceiver().getIaNode().toString(),q.getReceiver().getDoor());
+                    ObjectOutputStream output = new ObjectOutputStream(sock.getOutputStream());
+                    output.writeObject(q);
+                }
+                sock.close();
              }
              else{
                 Query out_query = this.my_q_list.getRelativeQuery(peer_query);
                 ArrayList <Query> sending_queries = 
-                        this.my_q_list.generateQueryList(out_query, this.my_list.subSet(10, 10));
-                //Send queries
+                        this.my_q_list.generateQueryList(out_query, this.my_list.getSubSet());
+                
+                Socket sock = null;
+                for(Query q : sending_queries){
+                    sock = new Socket(q.getReceiver().getIaNode().toString(),q.getReceiver().getDoor());
+                    ObjectOutputStream output = new ObjectOutputStream(sock.getOutputStream());
+                    output.writeObject(q);
+                }
+                sock.close();
              }
         } catch (IOException ex) {
             Logger.getLogger(SupernodeTCPWorkingThread.class.getName()).log(Level.SEVERE, null, ex);
