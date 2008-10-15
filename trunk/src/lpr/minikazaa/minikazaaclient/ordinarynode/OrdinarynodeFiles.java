@@ -28,10 +28,13 @@ public class OrdinarynodeFiles implements Serializable{
         this.file_list.add(new_files);
     }
     
+    //Get methods
     public ArrayList<File []> getFileList(){
         return file_list;
     }
-    
+    public NodeInfo getOwner(){
+        return this.my_info;
+    }
     /**
      * This method simply checks if a file, identified by a string (s), 
      * appears in list file_list.
@@ -49,4 +52,9 @@ public class OrdinarynodeFiles implements Serializable{
         }
         return false;
     }
+    
+    public void resetList(ArrayList <File[]> l){
+        this.file_list = l;
+    }
+    
 }

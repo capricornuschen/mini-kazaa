@@ -3,6 +3,7 @@ package lpr.minikazaa.minikazaaclient.supernode;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -10,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 
 /**
  *
@@ -21,8 +23,10 @@ public class SupernodeTCPListener implements Runnable{
     
     NodeConfig my_conf;
     SupernodeList my_list;
+    ArrayList <OrdinarynodeFiles> on_files;
     
-    public SupernodeTCPListener(NodeConfig conf, SupernodeList list){
+    public SupernodeTCPListener(NodeConfig conf, SupernodeList list, ArrayList <OrdinarynodeFiles> file_list){
+        this.on_files = file_list;
         this.my_conf = conf;
         this.my_list = list;
     }

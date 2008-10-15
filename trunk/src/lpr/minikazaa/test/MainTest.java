@@ -4,11 +4,11 @@
  */
 package lpr.minikazaa.test;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lpr.minikazaa.minikazaaclient.Query;
 
 /**
  *
@@ -31,7 +31,9 @@ public class MainTest {
         test_list.add("ciao papà");
         System.out.println("Enter regex: ");
         Pattern pattern = Pattern.compile(s.nextLine());
-
+        
+        Query q = new Query();
+        assert q.getClass().equals("lpr.minikazaa.minikazaaclient.Query");
 
         boolean found = false;
         for (String sc : test_list) {
