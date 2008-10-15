@@ -4,9 +4,11 @@
  */
 package lpr.minikazaa.minikazaaclient.supernode;
 
+import java.util.ArrayList;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.NodePong;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 
 
 /**
@@ -27,6 +29,8 @@ public class SupernodeEngine implements Runnable {
         System.out.println("Thread Super node engine init.");
         SupernodeList sn_list = new SupernodeList();
         
+        ArrayList <OrdinarynodeFiles> on_files = new ArrayList();
+        
         //Init ping service to receive pings
         NodePong pong = new NodePong(this.my_conf);
         Thread ping_service = new Thread(pong);
@@ -38,7 +42,7 @@ public class SupernodeEngine implements Runnable {
         rmi_manager.start();
         
         //Init TCP requests manager
-        SupernodeTCPListener listener_tcp = new SupernodeTCPListener(this.my_conf,sn_list);
+        SupernodeTCPListener listener_tcp = new SupernodeTCPListener(this.my_conf,sn_list,on_files);
         Thread tcp_listen = new Thread(listener_tcp);
         tcp_listen.start();
         
