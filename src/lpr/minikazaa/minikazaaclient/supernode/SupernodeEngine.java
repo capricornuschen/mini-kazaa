@@ -29,7 +29,7 @@ public class SupernodeEngine implements Runnable {
         System.out.println("Thread Super node engine init.");
         SupernodeList sn_list = new SupernodeList();
         
-        ArrayList <OrdinarynodeFiles> on_files = new ArrayList();
+        SupernodeOnFileList on_files = new SupernodeOnFileList();
         
         //Init ping service to receive pings
         NodePong pong = new NodePong(this.my_conf);

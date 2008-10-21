@@ -1,7 +1,11 @@
 
 package lpr.minikazaa.minikazaaclient.supernode;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 
 /**
@@ -41,5 +45,47 @@ public class SupernodeOnFileList {
         }
         
         this.file_list.add(new_file_list);
+    }
+    
+    public ArrayList <OrdinarynodeFiles> searchFiles(String regex){
+        ArrayList <OrdinarynodeFiles> l = new ArrayList();
+        
+        Pattern pattern = Pattern.compile(regex);
+        for(OrdinarynodeFiles files : this.file_list){
+            
+            ArrayList <File[]> node_files = files.getFileList();
+            OrdinarynodeFiles files_found = new OrdinarynodeFiles(files.getOwner());
+            File [] new_array = null;
+            
+            for(File[] arr_files : node_files){
+                
+                ArrayList <File> found_list = new ArrayList();
+                
+                for(int i = 0; i< arr_files.length; i++){
+                    Matcher matcher = pattern.matcher(arr_files[i].getName());
+                    
+                    while(matcher.find()){
+                        found_list.add(arr_files[i]);
+                    }
+                }
+                
+                 new_array = (File [])found_list.toArray();
+            }
+            files_found.addFiles(new_array);
+        }
+        
+        return l;
+    }
+    
+    public void removeFiles(NodeInfo n){
+        int i = 0;
+        for(OrdinarynodeFiles f : this.file_list){
+            if(f.getOwner().getId().equals(n))
+            {
+                this.file_list.remove(i);
+                return;
+            }
+            i++;
+        }
     }
 }
