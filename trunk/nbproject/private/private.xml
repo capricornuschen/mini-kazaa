@@ -1,24 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/bootstrap/BootStrapServer.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/bootstrap/BootStrapService.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/bootstrap/NodeInfo.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/Answer.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/NodeConfig.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/NodePing.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/NodePong.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/Query.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/SupernodeList.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeCallbacksImpl.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeCallbacksInterface.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeEngine.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeGuiEngine.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeQueryList.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeRMIManager.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeTCPListener.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/minikazaaclient/supernode/SupernodeTCPWorkingThread.java</file>
-        <file>file:/home/giovine/Mini-Kazaa/src/lpr/minikazaa/util/NetUtil.java</file>
-    </open-files>
 </project-private>

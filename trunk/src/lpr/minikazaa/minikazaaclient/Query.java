@@ -22,6 +22,7 @@ public class Query implements Serializable{
     private OrdinarynodeFiles body_f;
     private NodeInfo id_origin;
     private NodeInfo receiver;
+    private int ttl;
     
     public Query(){
         //Inizialize variables
@@ -39,6 +40,9 @@ public class Query implements Serializable{
     public void setSender(NodeInfo s){this.sender = s;}
     public void setReceiver(NodeInfo r){this.receiver = r;}
     public void setOrigin(NodeInfo o){this.id_origin = o;}
+    public void setTTL(int n){this.ttl = n;}
+    
+    public void decrementTTL(){this.ttl -= 1;}
     
     public String getBodyQ(){return this.body_q;}
     public Answer getBodyA(){return this.body_a;}
@@ -46,4 +50,5 @@ public class Query implements Serializable{
     public NodeInfo getSender(){return this.sender;}
     public NodeInfo getReceiver(){return this.receiver;}
     public NodeInfo getOrigin(){return this.id_origin;}
+    public int getTTL(){return this.ttl;}
 }

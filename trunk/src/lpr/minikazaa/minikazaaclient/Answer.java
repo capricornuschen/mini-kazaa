@@ -8,6 +8,7 @@ package lpr.minikazaa.minikazaaclient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 
 /**
  *
@@ -16,32 +17,25 @@ import lpr.minikazaa.bootstrap.NodeInfo;
  * @file Answer.java
  */
 public class Answer implements Serializable {
-    private ArrayList <String> files;
-    private NodeInfo owner;
+    private ArrayList <OrdinarynodeFiles> files;
+    
     
     public Answer(){}
-    public Answer(ArrayList <String> owner_list){
+    public Answer(ArrayList <OrdinarynodeFiles> owner_list){
         this.files = owner_list;
     }
-    public Answer(NodeInfo ow_info){
-        this.owner = ow_info;
-    }
-    public Answer(ArrayList <String> owner_list, NodeInfo ow_info){
+   
+    public Answer(ArrayList <OrdinarynodeFiles> owner_list, NodeInfo ow_info){
         this.files = owner_list;
-        this.owner = ow_info;
+        
     }
     
-    public void setFilesList(ArrayList <String> l){
+    public void setFilesList(ArrayList <OrdinarynodeFiles> l){
         this.files = l;
     }
-    public void setOwner(NodeInfo n){
-        this.owner = n;
-    }
-    
-    public ArrayList <String> getFilesList(){
+       
+    public ArrayList <OrdinarynodeFiles> getFilesList(){
         return this.files;
     }
-    public NodeInfo getNodeInfo(){
-        return this.owner;
-    }
+    
 }
