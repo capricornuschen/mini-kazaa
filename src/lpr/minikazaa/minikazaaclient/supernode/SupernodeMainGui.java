@@ -6,10 +6,13 @@
 
 package lpr.minikazaa.minikazaaclient.supernode;
 
+import java.io.File;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 
 /**
  *
@@ -19,6 +22,7 @@ public class SupernodeMainGui extends javax.swing.JFrame {
     
     NodeConfig my_conf;
     SupernodeList my_list;
+    DefaultTableModel file_list_dtm;
 
     /** Creates new form SupernodeMainGui */
     public SupernodeMainGui(NodeConfig conf, SupernodeList list) {
@@ -26,7 +30,7 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         this.my_list = list;
         
         initComponents();
-        
+        file_list_dtm = (DefaultTableModel)this.file_list_table.getModel();
         this.my_address_tf.setText(my_conf.getMyAddress());
     }
     
@@ -36,6 +40,25 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         a[0] = n.toTable();
         def_sn_table.addRow(a);
         this.Sn_connection_table.setModel(def_sn_table);
+    }
+    
+    //M Y  P U B L I C  F U N C T I O N S
+    
+    //Functions about file list table updating.
+    public void addFileListTableRows(OrdinarynodeFiles node_files){
+        ArrayList <File []> node_file_list = node_files.getFileList();
+        
+        for(File[] file_array : node_file_list){
+            for(int i = 0;i< file_array.length; i++){
+                String [] row = new String[3]; 
+                row[0] = file_array[i].getName();
+                row[1] = file_array[i].length()/1024+" Kb";
+                row[2] = node_files.getOwner().toString();
+                
+                file_list_dtm.addRow(row);
+                this.file_list_table.setModel(file_list_dtm);
+            }
+        }
     }
 
     /** This method is called from within the constructor to
@@ -62,7 +85,7 @@ public class SupernodeMainGui extends javax.swing.JFrame {
         On_connection_table = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        file_list_table = new javax.swing.JTable();
         add_file_bt = new javax.swing.JButton();
         remove_file_bt = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -155,15 +178,15 @@ public class SupernodeMainGui extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Connection zone", jPanel1);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        file_list_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "Name", "Size", "Owner"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(file_list_table);
 
         add_file_bt.setText("Add");
         add_file_bt.addActionListener(new java.awt.event.ActionListener() {
@@ -406,6 +429,7 @@ private void remove_file_btActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem connect_item;
     private javax.swing.JMenuItem disconnect_item;
     private javax.swing.JMenu edit_menu;
+    private javax.swing.JTable file_list_table;
     private javax.swing.JMenu file_menu;
     private javax.swing.JMenuItem help_item;
     private javax.swing.JMenuItem italian_help_item;
@@ -422,7 +446,6 @@ private void remove_file_btActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField my_address_tf;
     private javax.swing.JMenu question_menu;
     private javax.swing.JButton remove_file_bt;

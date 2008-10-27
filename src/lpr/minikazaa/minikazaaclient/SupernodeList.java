@@ -11,6 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.supernode.SupernodeGuiEngine;
 
 /**
  *
@@ -24,11 +25,14 @@ public class SupernodeList {
    private boolean is_updated;
    
    private ArrayList <NodeInfo> sub_set_list;
+   
+   private SupernodeGuiEngine sn_gui_engine;
     
     public SupernodeList(){
         this.sn_list = new ArrayList();
         this.is_updated = false;
         this.sub_set_list = null;
+        this.sn_gui_engine = null;
     }
     
     public synchronized void refreshList( ArrayList <NodeInfo> list){
@@ -106,6 +110,8 @@ public class SupernodeList {
         
         return this.sub_set_list;
     }
+    
+    public void setGuiEngine(SupernodeGuiEngine sge){this.sn_gui_engine = sge;}
     
     //Check point is modified
     public synchronized void guiUpdated(){
