@@ -71,6 +71,7 @@ public class SupernodeQueryList {
                new_q.setOrigin(q.getOrigin());
                new_q.setReceiver(n);
                new_q.setSender(q.getReceiver());
+               new_q.setTTL(q.getTTL()-1);
                
                q_list.add(new_q);
         }

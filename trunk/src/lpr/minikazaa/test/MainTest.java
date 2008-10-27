@@ -4,6 +4,7 @@
  */
 package lpr.minikazaa.test;
 
+import lpr.minikazaa.test.GUI.Prova_grafica;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -19,7 +20,8 @@ import lpr.minikazaa.minikazaaclient.Query;
 public class MainTest {
 
     public static void main(String[] args) {
-        main1();
+        Prova_grafica.main_function();
+        //main1();
     }
 
     public static void main1() {

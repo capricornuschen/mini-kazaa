@@ -26,10 +26,12 @@ public class SupernodeRMIManager implements Runnable {
 
     NodeConfig my_conf;
     SupernodeList sn_list;
+    SupernodeMainGui my_gui;
 
-    public SupernodeRMIManager(NodeConfig conf, SupernodeList list) {
+    public SupernodeRMIManager(NodeConfig conf, SupernodeList list, SupernodeMainGui gui) {
         this.my_conf = conf;
         this.sn_list = list;
+        this.my_gui = gui;
     }
 
     public void run() {

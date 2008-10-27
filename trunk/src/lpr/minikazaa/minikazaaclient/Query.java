@@ -15,7 +15,7 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
  * @date 3-ott-2008
  * @file Query.java
  */
-public class Query implements Serializable{
+public class Query implements Serializable, Cloneable{
     private NodeInfo sender;
     private String body_q;
     private Answer body_a;

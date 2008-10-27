@@ -17,8 +17,11 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 public class SupernodeOnFileList {
     private ArrayList <OrdinarynodeFiles> file_list;
     
+    private SupernodeGuiEngine sn_gui_engine;
+    
     public SupernodeOnFileList(){
         this.file_list = null;
+        this.sn_gui_engine = null;
     }
     
     public boolean alreadyHave(OrdinarynodeFiles f){
@@ -45,6 +48,8 @@ public class SupernodeOnFileList {
         }
         
         this.file_list.add(new_file_list);
+        
+        
     }
     
     public ArrayList <OrdinarynodeFiles> searchFiles(String regex){
@@ -88,4 +93,6 @@ public class SupernodeOnFileList {
             i++;
         }
     }
+    
+    public void setGuiEngine(SupernodeGuiEngine sge){this.sn_gui_engine = sge;}
 }
