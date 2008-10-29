@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lpr.minikazaa.minikazaaclient.Query;
+import lpr.minikazaa.test.GUI.TableTest;
 
 /**
  *
@@ -20,7 +21,8 @@ import lpr.minikazaa.minikazaaclient.Query;
 public class MainTest {
 
     public static void main(String[] args) {
-        Prova_grafica.main_function();
+        TableTest.main_function();
+        //Prova_grafica.main_function();
         //main1();
     }
 
