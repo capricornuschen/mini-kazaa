@@ -3,6 +3,7 @@ package lpr.minikazaa.minikazaaclient.supernode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lpr.minikazaa.bootstrap.NodeInfo;
@@ -14,7 +15,7 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
  * @date 14-ott-2008
  * @file SupernodeOnFileList.java
  */
-public class SupernodeOnFileList {
+public class SupernodeOnFileList extends Observable{
     private ArrayList <OrdinarynodeFiles> file_list;
     
     private SupernodeGuiEngine sn_gui_engine;
@@ -36,7 +37,7 @@ public class SupernodeOnFileList {
         return false;
     }
     
-    public void addNewOnFileList(OrdinarynodeFiles new_file_list){
+    public synchronized void addNewOnFileList(OrdinarynodeFiles new_file_list){
         //Check if we already have it in our data struct.
         
         for(OrdinarynodeFiles o : this.file_list){
@@ -49,10 +50,11 @@ public class SupernodeOnFileList {
         
         this.file_list.add(new_file_list);
         
-        
+        this.setChanged();
+        this.notifyObservers();
     }
     
-    public ArrayList <OrdinarynodeFiles> searchFiles(String regex){
+    public synchronized ArrayList <OrdinarynodeFiles> searchFiles(String regex){
         ArrayList <OrdinarynodeFiles> l = new ArrayList();
         
         Pattern pattern = Pattern.compile(regex);
@@ -82,17 +84,19 @@ public class SupernodeOnFileList {
         return l;
     }
     
-    public void removeFiles(NodeInfo n){
+    public synchronized void removeFiles(NodeInfo n){
         int i = 0;
         for(OrdinarynodeFiles f : this.file_list){
             if(f.getOwner().getId().equals(n))
             {
                 this.file_list.remove(i);
+                this.setChanged();
+                this.notifyObservers();
                 return;
             }
             i++;
-        }
+        }       
     }
     
-    public void setGuiEngine(SupernodeGuiEngine sge){this.sn_gui_engine = sge;}
+    
 }

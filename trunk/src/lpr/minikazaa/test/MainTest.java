@@ -21,8 +21,8 @@ import lpr.minikazaa.test.GUI.TableTest;
 public class MainTest {
 
     public static void main(String[] args) {
-        TableTest.main_function();
-        //Prova_grafica.main_function();
+        //TableTest.main_function();
+        Prova_grafica.main_function();
         //main1();
     }
 
