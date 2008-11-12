@@ -6,11 +6,9 @@
 
 package lpr.minikazaa.test.GUI;
 
-import java.awt.Image;
-import java.io.File;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.filechooser.FileSystemView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +25,7 @@ public class GuiTableTest extends javax.swing.JFrame {
         initComponents();
         this.dtm = (DefaultTableModel)this.main_table.getModel();
         this.main_table.getColumn("Strings").setCellRenderer(new FileCellRenderer());
+        this.main_table.getColumn("Delete").setCellRenderer(new DoSomethingCell());
         this.main_table.setRowHeight(24);
         
         
@@ -54,11 +53,11 @@ public class GuiTableTest extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Strings"
+                "Strings", "Delete"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -108,15 +107,25 @@ public class GuiTableTest extends javax.swing.JFrame {
 
 private void add_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_tfActionPerformed
     
-    Object [] row = new Object[1];
+    Object [] row = new Object[2];
     
     row[0] = this.add_tf.getText();
+    
     
     
     this.add_tf.setText("");
     
     this.dtm.addRow(row);
     this.main_table.setModel(dtm);
+    
+    JButton bt = (JButton)this.main_table.getCellRenderer(0,1).getTableCellRendererComponent(main_table, row, rootPaneCheckingEnabled, rootPaneCheckingEnabled, WIDTH, WIDTH);
+    bt.addActionListener(new ActionListener()
+{
+    public void actionPerformed(ActionEvent e)
+    { 
+    }
+});
+
 }//GEN-LAST:event_add_tfActionPerformed
 
 

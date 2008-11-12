@@ -14,11 +14,11 @@ package lpr.minikazaa.test.GUI;
 public class Prova_grafica {
     public static void main_function(){
         SharedDataStructure sh = new SharedDataStructure();
-        GuiTest gui = new GuiTest(sh);
-        AddFrame add = new AddFrame(sh,gui);
+        GuiObserver gui = new GuiObserver(sh);
+        
         
         gui.setVisible(true);
-        add.setVisible(true);
+        
         
     }
 }

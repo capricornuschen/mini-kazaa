@@ -7,6 +7,7 @@ package lpr.minikazaa.minikazaaclient;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,7 @@ import lpr.minikazaa.minikazaaclient.supernode.SupernodeGuiEngine;
  * @date 19-set-2008
  * @file SupernodeList.java
  */
-public class SupernodeList {
+public class SupernodeList extends Observable {
     
    private ArrayList <NodeInfo> sn_list;
    private boolean is_updated;
@@ -43,11 +44,17 @@ public class SupernodeList {
     public synchronized void addNewNode( NodeInfo node){
         this.sn_list.add(node);
         this.is_updated = true;
+        
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public synchronized void removeOldNode( NodeInfo node){
         this.sn_list.remove(node);
         this.is_updated = true;
+        
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public synchronized ArrayList <NodeInfo> getList(){
@@ -80,6 +87,8 @@ public class SupernodeList {
         
         my_thread_pool.shutdown();
         this.is_updated = true;
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public synchronized void subSet(int set_size, long threshold){
@@ -111,18 +120,4 @@ public class SupernodeList {
         return this.sub_set_list;
     }
     
-    public void setGuiEngine(SupernodeGuiEngine sge){this.sn_gui_engine = sge;}
-    
-    //Check point is modified
-    public synchronized void guiUpdated(){
-                
-        if(is_updated = false)
-            this.is_updated = true;
-        else
-            this.is_updated = false;
-    }
-    
-    public synchronized boolean getStatus(){
-        return this.is_updated;
-    }
 }
