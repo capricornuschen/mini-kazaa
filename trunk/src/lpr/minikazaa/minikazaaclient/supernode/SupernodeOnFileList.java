@@ -18,11 +18,10 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 public class SupernodeOnFileList extends Observable{
     private ArrayList <OrdinarynodeFiles> file_list;
     
-    private SupernodeGuiEngine sn_gui_engine;
+   
     
     public SupernodeOnFileList(){
         this.file_list = null;
-        this.sn_gui_engine = null;
     }
     
     public boolean alreadyHave(OrdinarynodeFiles f){

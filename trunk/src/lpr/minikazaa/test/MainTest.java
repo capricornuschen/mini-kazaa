@@ -4,13 +4,14 @@
  */
 package lpr.minikazaa.test;
 
-import lpr.minikazaa.test.GUI.Prova_grafica;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.UIManager;
+import lpr.minikazaa.minikazaaclient.MainGui;
+import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.Query;
-import lpr.minikazaa.test.GUI.TableTest;
 
 /**
  *
@@ -21,9 +22,16 @@ import lpr.minikazaa.test.GUI.TableTest;
 public class MainTest {
 
     public static void main(String[] args) {
+        try {
+
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+        } catch (Exception ex) {
+        }
         //TableTest.main_function();
-        Prova_grafica.main_function();
+        //Prova_grafica.main_function();
         //main1();
+        main2();
     }
 
     public static void main1() {
@@ -55,5 +63,15 @@ public class MainTest {
         if (!found) {
             System.out.println("Non ho trovato niente.");
         }
+    }
+    
+    public static void main2(){
+        NodeConfig conf = new NodeConfig();
+        
+        conf.setIsSN(false);
+        MainGui mg = new MainGui(conf);
+        mg.setVisible(true);
+       
+       
     }
 }

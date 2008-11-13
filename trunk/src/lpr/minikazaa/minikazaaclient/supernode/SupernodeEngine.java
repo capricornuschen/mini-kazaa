@@ -4,6 +4,7 @@
  */
 package lpr.minikazaa.minikazaaclient.supernode;
 
+import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.NodePong;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
@@ -30,7 +31,7 @@ public class SupernodeEngine implements Runnable {
         SupernodeOnFileList on_files = new SupernodeOnFileList();
         
         //Init main GUI of supernode
-        SupernodeMainGui main_gui = new SupernodeMainGui(my_conf,sn_list);
+        MainGui main_gui = new MainGui(this.my_conf);
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
         

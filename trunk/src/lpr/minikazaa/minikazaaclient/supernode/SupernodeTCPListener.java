@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 
@@ -22,13 +23,13 @@ public class SupernodeTCPListener implements Runnable{
     NodeConfig my_conf;
     SupernodeList my_list;
     SupernodeOnFileList on_files;
-    SupernodeMainGui my_gui;
+    MainGui my_gui;
     
     public SupernodeTCPListener(
             NodeConfig conf, 
             SupernodeList list, 
             SupernodeOnFileList file_list,
-            SupernodeMainGui gui){
+            MainGui gui){
         this.on_files = file_list;
         this.my_conf = conf;
         this.my_list = list;
