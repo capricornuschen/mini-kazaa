@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.BootStrapServerInterface;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 
@@ -26,9 +27,9 @@ public class SupernodeRMIManager implements Runnable {
 
     NodeConfig my_conf;
     SupernodeList sn_list;
-    SupernodeMainGui my_gui;
+    MainGui my_gui;
 
-    public SupernodeRMIManager(NodeConfig conf, SupernodeList list, SupernodeMainGui gui) {
+    public SupernodeRMIManager(NodeConfig conf, SupernodeList list, MainGui gui) {
         this.my_conf = conf;
         this.sn_list = list;
         this.my_gui = gui;
