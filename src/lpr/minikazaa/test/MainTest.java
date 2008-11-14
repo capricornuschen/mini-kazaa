@@ -67,7 +67,6 @@ public class MainTest {
     
     public static void main2(){
         NodeConfig conf = new NodeConfig();
-        
         conf.setIsSN(false);
         MainGui mg = new MainGui(conf);
         mg.setVisible(true);

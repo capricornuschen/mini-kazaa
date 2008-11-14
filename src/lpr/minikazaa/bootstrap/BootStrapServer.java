@@ -22,11 +22,13 @@ import java.util.Iterator;
  */
 public class BootStrapServer implements BootStrapServerInterface{
     
+    private ArrayList <NodeInfo> ordinary_node_list;
     private ArrayList <NodeInfo> super_node_list;
     private BootStrapGui g;
         
     public BootStrapServer(BootStrapGui g){
         this.super_node_list = new ArrayList();
+        this.ordinary_node_list = new ArrayList();
         this.g = g;
         
     }
