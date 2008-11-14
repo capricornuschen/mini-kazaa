@@ -6,6 +6,7 @@
 
 package lpr.minikazaa.minikazaaclient;
 
+import lpr.minikazaa.GUI.SearchPanel;
 import lpr.minikazaa.util.Constants;
 
 /**
@@ -16,9 +17,11 @@ public class MainGui extends javax.swing.JFrame {
     private NodeConfig my_conf;
     /** Creates new form MainGui */
     public MainGui(NodeConfig conf) {
+        
         this.my_conf = conf;
         initComponents();
-        this.search_tf.selectAll();
+        
+        
                
     }
 
@@ -31,9 +34,6 @@ public class MainGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        main_menu_bar = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
         jToolBar1 = new javax.swing.JToolBar();
         connect_bt = new javax.swing.JButton();
         disconnect_bt = new javax.swing.JButton();
@@ -41,27 +41,14 @@ public class MainGui extends javax.swing.JFrame {
         transfer_bt = new javax.swing.JButton();
         shared_bt = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        search_panel = new javax.swing.JPanel();
-        search_tf = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        start_search_bt = new javax.swing.JButton();
-        stop_search_bt = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         connection_status = new javax.swing.JLabel();
-        main_menu_bar = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        main_tab = new javax.swing.JTabbedPane();
+        main_menu_bar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(Constants.SAVE_EVERYTHING);
-
-        jMenu1.setText("File");
-        main_menu_bar.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        main_menu_bar.add(jMenu2);
-
-        setJMenuBar(main_menu_bar);
+        setTitle("MiNi-KaZaA");
 
         jToolBar1.setRollover(true);
 
@@ -84,6 +71,11 @@ public class MainGui extends javax.swing.JFrame {
         search_bt.setFocusable(false);
         search_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         search_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        search_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_btActionPerformed(evt);
+            }
+        });
         jToolBar1.add(search_bt);
 
         transfer_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/transfer_icon.png"))); // NOI18N
@@ -91,6 +83,11 @@ public class MainGui extends javax.swing.JFrame {
         transfer_bt.setFocusable(false);
         transfer_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         transfer_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        transfer_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transfer_btActionPerformed(evt);
+            }
+        });
         jToolBar1.add(transfer_bt);
 
         shared_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/shared_files_icon.png"))); // NOI18N
@@ -107,95 +104,47 @@ public class MainGui extends javax.swing.JFrame {
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton2);
 
-        search_tf.setText("...type research parameters here...");
-
-        jLabel1.setText("Search:");
-
-        start_search_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_connect_icon.png"))); // NOI18N
-
-        stop_search_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_stop_icon.png"))); // NOI18N
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout search_panelLayout = new javax.swing.GroupLayout(search_panel);
-        search_panel.setLayout(search_panelLayout);
-        search_panelLayout.setHorizontalGroup(
-            search_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, search_panelLayout.createSequentialGroup()
-                .addGroup(search_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, search_panelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
-                    .addGroup(search_panelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(search_tf, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(start_search_bt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stop_search_bt)))
-                .addContainerGap())
-        );
-        search_panelLayout.setVerticalGroup(
-            search_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(search_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(search_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(search_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(start_search_bt)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(search_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(stop_search_bt))
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         connection_status.setText("jLabel2");
 
-        jMenu1.setText("File");
-        main_menu_bar.add(jMenu1);
+        jMenu3.setText("File");
+        main_menu_bar1.add(jMenu3);
 
-        jMenu2.setText("Edit");
-        main_menu_bar.add(jMenu2);
+        jMenu4.setText("Edit");
+        main_menu_bar1.add(jMenu4);
 
-        setJMenuBar(main_menu_bar);
+        setJMenuBar(main_menu_bar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-            .addComponent(search_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(682, Short.MAX_VALUE)
+                .addContainerGap(598, Short.MAX_VALUE)
                 .addComponent(connection_status)
                 .addContainerGap())
+            .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(search_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(connection_status))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
+    this.main_tab.addTab("Search", new SearchPanel());
+}//GEN-LAST:event_search_btActionPerformed
+
+private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transfer_btActionPerformed
+    
+}//GEN-LAST:event_transfer_btActionPerformed
 
     
     @Override
@@ -209,6 +158,7 @@ public class MainGui extends javax.swing.JFrame {
     
     private void myDefaultCloseOperation(){
         //Operation to do on close.
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -216,19 +166,13 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JLabel connection_status;
     private javax.swing.JButton disconnect_bt;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JMenuBar main_menu_bar;
+    private javax.swing.JMenuBar main_menu_bar1;
+    private javax.swing.JTabbedPane main_tab;
     private javax.swing.JButton search_bt;
-    private javax.swing.JPanel search_panel;
-    private javax.swing.JTextField search_tf;
     private javax.swing.JButton shared_bt;
-    private javax.swing.JButton start_search_bt;
-    private javax.swing.JButton stop_search_bt;
     private javax.swing.JButton transfer_bt;
     // End of variables declaration//GEN-END:variables
 

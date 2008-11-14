@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javax.swing.UIManager;
 
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeEngine;
 import lpr.minikazaa.minikazaaclient.supernode.SupernodeEngine;
 /**
  *
@@ -89,6 +90,9 @@ public class MiniKazaaClient {
             }
             else{
                 System.out.println("We must load an Ordinary node application.");
+                OrdinarynodeEngine on_eng = new OrdinarynodeEngine(config);
+                Thread ordinary_node_thread = new Thread(on_eng);
+                ordinary_node_thread.start();
             }
         }
 

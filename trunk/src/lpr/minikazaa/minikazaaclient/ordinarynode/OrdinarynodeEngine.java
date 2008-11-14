@@ -5,6 +5,8 @@
 
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
+import lpr.minikazaa.minikazaaclient.NodeConfig;
+
 /**
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
@@ -12,8 +14,18 @@ package lpr.minikazaa.minikazaaclient.ordinarynode;
  * @file OrdinarynodeEngine.java
  */
 public class OrdinarynodeEngine implements Runnable {
+    NodeConfig my_conf;
     
+    public OrdinarynodeEngine(NodeConfig conf){
+        this.my_conf = conf;
+    }
     public void run(){
+        
+        
+        //Init TCP listener
+        OrdinarynodeTCPListener ontcp = new OrdinarynodeTCPListener(this.my_conf);
+        Thread tcp_thread = new Thread(ontcp);
+        tcp_thread.start();
         
     }
 
