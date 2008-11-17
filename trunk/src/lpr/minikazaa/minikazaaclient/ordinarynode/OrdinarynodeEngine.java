@@ -20,10 +20,10 @@ public class OrdinarynodeEngine implements Runnable {
         this.my_conf = conf;
     }
     public void run(){
-        
+        OrdinarynodeQuestionsList found_list = new OrdinarynodeQuestionsList();
         
         //Init TCP listener
-        OrdinarynodeTCPListener ontcp = new OrdinarynodeTCPListener(this.my_conf);
+        OrdinarynodeTCPListener ontcp = new OrdinarynodeTCPListener(this.my_conf,found_list);
         Thread tcp_thread = new Thread(ontcp);
         tcp_thread.start();
         

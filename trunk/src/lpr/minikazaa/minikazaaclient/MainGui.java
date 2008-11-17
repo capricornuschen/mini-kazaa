@@ -6,6 +6,7 @@
 
 package lpr.minikazaa.minikazaaclient;
 
+import javax.swing.ImageIcon;
 import lpr.minikazaa.GUI.SearchPanel;
 import lpr.minikazaa.util.Constants;
 
@@ -139,7 +140,8 @@ public class MainGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
-    this.main_tab.addTab("Search", new SearchPanel());
+    ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_search_icon.png"));   
+    this.main_tab.addTab("Search",icon, new SearchPanel(),"Search files in the network.");
 }//GEN-LAST:event_search_btActionPerformed
 
 private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transfer_btActionPerformed

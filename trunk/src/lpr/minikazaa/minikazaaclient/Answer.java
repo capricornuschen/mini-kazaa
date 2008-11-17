@@ -18,11 +18,12 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
  */
 public class Answer implements Serializable {
     private ArrayList <OrdinarynodeFiles> files;
+    private int id;
     
-    
-    public Answer(){}
-    public Answer(ArrayList <OrdinarynodeFiles> owner_list){
+    public Answer(int n){this.id = n;}
+    public Answer(ArrayList <OrdinarynodeFiles> owner_list,int n){
         this.files = owner_list;
+        this.id = n;
     }
    
     public Answer(ArrayList <OrdinarynodeFiles> owner_list, NodeInfo ow_info){
@@ -37,5 +38,7 @@ public class Answer implements Serializable {
     public ArrayList <OrdinarynodeFiles> getFilesList(){
         return this.files;
     }
+    
+    public int getID(){return this.id;}
     
 }
