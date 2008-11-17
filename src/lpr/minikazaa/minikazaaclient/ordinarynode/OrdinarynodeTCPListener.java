@@ -23,10 +23,13 @@ import lpr.minikazaa.minikazaaclient.NodeConfig;
  */
 public class OrdinarynodeTCPListener implements Runnable {
     
-    NodeConfig my_conf;
+    private NodeConfig my_conf;
+    private OrdinarynodeQuestionsList my_found_list;
     
-    public OrdinarynodeTCPListener(NodeConfig conf){
+    
+    public OrdinarynodeTCPListener(NodeConfig conf, OrdinarynodeQuestionsList list){
         this.my_conf = conf;
+        this.my_found_list = list;
     }
 
     public void run() {
@@ -45,9 +48,9 @@ public class OrdinarynodeTCPListener implements Runnable {
         while(true){
             try {
                 incoming_sock = listen_sock.accept();
-                OrdinarynodeTCPWorkingThread answer = new OrdinarynodeTCPWorkingThread
-                        (incoming_sock);
-                answer_pool.execute(answer);
+                OrdinarynodeTCPWorkingThread tcp_job = 
+                        new OrdinarynodeTCPWorkingThread(incoming_sock,this.my_found_list);
+                answer_pool.execute(tcp_job);
             } catch (IOException ex) {
                 Logger.getLogger(OrdinarynodeTCPListener.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -81,7 +81,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                 answer_query.setOrigin(peer_query.getOrigin());
                 answer_query.setAskingQuery(peer_query.getBodyQ());
 
-                Answer answer = new Answer(query_answer);
+                Answer answer = new Answer(query_answer,peer_query.getBodyA().getID());
                 answer_query.setAnswerQuery(answer);
 
                 output_stream.writeObject(answer_query);
