@@ -1,13 +1,13 @@
 
 package lpr.minikazaa.minikazaaclient.supernode;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
+import lpr.minikazaa.util.MKFileDescriptor;
 
 /**
  *
@@ -59,23 +59,23 @@ public class SupernodeOnFileList extends Observable{
         Pattern pattern = Pattern.compile(regex);
         for(OrdinarynodeFiles files : this.file_list){
             
-            ArrayList <File[]> node_files = files.getFileList();
+            ArrayList <MKFileDescriptor[]> node_files = files.getFileList();
             OrdinarynodeFiles files_found = new OrdinarynodeFiles(files.getOwner());
-            File [] new_array = null;
+            MKFileDescriptor [] new_array = null;
             
-            for(File[] arr_files : node_files){
+            for(MKFileDescriptor[] arr_files : node_files){
                 
-                ArrayList <File> found_list = new ArrayList();
+                ArrayList <MKFileDescriptor> found_list = new ArrayList();
                 
                 for(int i = 0; i< arr_files.length; i++){
-                    Matcher matcher = pattern.matcher(arr_files[i].getName());
+                    Matcher matcher = pattern.matcher(arr_files[i].getFileName());
                     
                     while(matcher.find()){
                         found_list.add(arr_files[i]);
                     }
                 }
                 
-                 new_array = (File [])found_list.toArray();
+                 new_array = (MKFileDescriptor [])found_list.toArray();
             }
             files_found.addFiles(new_array);
         }

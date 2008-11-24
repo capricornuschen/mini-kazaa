@@ -18,6 +18,7 @@ public class NodeInfo implements Serializable {
     private InetAddress ia_node;
     private int door;
     private String id_node;
+    private String username; //Useless mnemonic username
     private SupernodeCallbacksInterface stub;
     private long ping;
     
@@ -55,6 +56,10 @@ public class NodeInfo implements Serializable {
         return this.ping;
     }
     
+    public String getUsername(){
+        return this.username;
+    }
+    
     
     public void addFiles(int n_new_files){
         this.my_files = this.my_files + n_new_files;
@@ -74,6 +79,9 @@ public class NodeInfo implements Serializable {
     //Set methods
     public void setPing(long fresh_ping){
         this.ping = fresh_ping;
+    }
+    public void setUsername(String name){
+        this.username = name;
     }
     
     @Override

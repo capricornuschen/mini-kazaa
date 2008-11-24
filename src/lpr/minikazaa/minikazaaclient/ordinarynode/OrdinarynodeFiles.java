@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.util.MKFileDescriptor;
 
 /**
  *
@@ -17,19 +18,19 @@ import lpr.minikazaa.bootstrap.NodeInfo;
  * @file OrdinarynodeFiles.java
  */
 public class OrdinarynodeFiles implements Serializable{
-    private ArrayList <File []> file_list;
+    private ArrayList <MKFileDescriptor []> file_list;
     private NodeInfo my_info;
     
     public OrdinarynodeFiles(NodeInfo infos){
         this.my_info = infos;
     }
     
-    public void addFiles(File [] new_files){
+    public void addFiles(MKFileDescriptor [] new_files){
         this.file_list.add(new_files);
     }
     
     //Get methods
-    public ArrayList<File []> getFileList(){
+    public ArrayList<MKFileDescriptor []> getFileList(){
         return file_list;
     }
     public NodeInfo getOwner(){
@@ -43,9 +44,9 @@ public class OrdinarynodeFiles implements Serializable{
      * @return true if file s is in list, false otherwise.
      */
     public boolean isIn(String s){
-        for(File[] arr_f : file_list){
+        for(MKFileDescriptor[] arr_f : file_list){
             for(int i = 0; i< arr_f.length; i++){
-                if(s.equals(arr_f[i].getName())){
+                if(/*s.equals(arr_f[i].getName())*/true){
                     return true;
                 }
             }
@@ -53,7 +54,7 @@ public class OrdinarynodeFiles implements Serializable{
         return false;
     }
     
-    public void resetList(ArrayList <File[]> l){
+    public void resetList(ArrayList <MKFileDescriptor[]> l){
         this.file_list = l;
     }
     

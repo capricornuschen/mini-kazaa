@@ -23,6 +23,7 @@ public class Query implements Serializable, Cloneable{
     private NodeInfo id_origin;
     private NodeInfo receiver;
     private int ttl;
+    private int id;
     
     public Query(){
         //Inizialize variables
@@ -41,7 +42,7 @@ public class Query implements Serializable, Cloneable{
     public void setReceiver(NodeInfo r){this.receiver = r;}
     public void setOrigin(NodeInfo o){this.id_origin = o;}
     public void setTTL(int n){this.ttl = n;}
-    
+    public void setId(int x){this.id = x;}
     public void decrementTTL(){this.ttl -= 1;}
     
     public String getBodyQ(){return this.body_q;}
@@ -51,4 +52,5 @@ public class Query implements Serializable, Cloneable{
     public NodeInfo getReceiver(){return this.receiver;}
     public NodeInfo getOrigin(){return this.id_origin;}
     public int getTTL(){return this.ttl;}
+    public int getId(){return this.id;}
 }
