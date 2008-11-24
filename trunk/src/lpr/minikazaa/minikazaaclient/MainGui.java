@@ -8,11 +8,12 @@ package lpr.minikazaa.minikazaaclient;
 
 import javax.swing.ImageIcon;
 import lpr.minikazaa.GUI.SearchPanel;
+import lpr.minikazaa.GUI.TransferPanel;
 import lpr.minikazaa.util.Constants;
 
 /**
  *
- * @author  giovine
+ * @author Andrea Di Grazia, Massimiliano Giovine
  */
 public class MainGui extends javax.swing.JFrame {
     private NodeConfig my_conf;
@@ -22,8 +23,10 @@ public class MainGui extends javax.swing.JFrame {
         this.my_conf = conf;
         initComponents();
         
-        
-               
+        if(!this.my_conf.getIsSN()){
+            //Unable to watch net monitor
+            this.net_bt.setEnabled(false);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -41,7 +44,9 @@ public class MainGui extends javax.swing.JFrame {
         search_bt = new javax.swing.JButton();
         transfer_bt = new javax.swing.JButton();
         shared_bt = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        net_bt = new javax.swing.JButton();
+        close_tab_bt = new javax.swing.JButton();
+        shut_down_bt = new javax.swing.JButton();
         connection_status = new javax.swing.JLabel();
         main_tab = new javax.swing.JTabbedPane();
         main_menu_bar1 = new javax.swing.JMenuBar();
@@ -50,6 +55,7 @@ public class MainGui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(Constants.SAVE_EVERYTHING);
         setTitle("MiNi-KaZaA");
+        setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
 
         jToolBar1.setRollover(true);
 
@@ -98,12 +104,31 @@ public class MainGui extends javax.swing.JFrame {
         shared_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(shared_bt);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/network_icon.png"))); // NOI18N
-        jButton2.setText("Net Monitor");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        net_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/network_icon.png"))); // NOI18N
+        net_bt.setText("Net Monitor");
+        net_bt.setFocusable(false);
+        net_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        net_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(net_bt);
+
+        close_tab_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_tab_icon.png"))); // NOI18N
+        close_tab_bt.setText("Close Tab");
+        close_tab_bt.setFocusable(false);
+        close_tab_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        close_tab_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        close_tab_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                close_tab_btActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(close_tab_bt);
+
+        shut_down_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/shut_down_icon.png"))); // NOI18N
+        shut_down_bt.setText("Shut Down");
+        shut_down_bt.setFocusable(false);
+        shut_down_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        shut_down_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(shut_down_bt);
 
         connection_status.setText("jLabel2");
 
@@ -145,8 +170,32 @@ private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_search_btActionPerformed
 
 private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transfer_btActionPerformed
+    int index = 0;
     
+    try{
+        String s = null;
+        while(true){
+            s = this.main_tab.getTitleAt(index);
+            
+            if(s.equals("Transfer"))
+                return;
+            index ++;
+        }
+    }
+    catch(IndexOutOfBoundsException ex){
+            
+            ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_transfer_icon.png"));
+            this.main_tab.addTab("Transfer",icon, new TransferPanel(),"Monitor your transfert.");
+        
+            return;
+    }
 }//GEN-LAST:event_transfer_btActionPerformed
+
+private void close_tab_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_tab_btActionPerformed
+   
+    int tab_to_remove = this.main_tab.getSelectedIndex();
+    this.main_tab.remove(tab_to_remove);
+}//GEN-LAST:event_close_tab_btActionPerformed
 
     
     @Override
@@ -164,17 +213,19 @@ private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton close_tab_bt;
     private javax.swing.JButton connect_bt;
     private javax.swing.JLabel connection_status;
     private javax.swing.JButton disconnect_bt;
-    private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuBar main_menu_bar1;
     private javax.swing.JTabbedPane main_tab;
+    private javax.swing.JButton net_bt;
     private javax.swing.JButton search_bt;
     private javax.swing.JButton shared_bt;
+    private javax.swing.JButton shut_down_bt;
     private javax.swing.JButton transfer_bt;
     // End of variables declaration//GEN-END:variables
 

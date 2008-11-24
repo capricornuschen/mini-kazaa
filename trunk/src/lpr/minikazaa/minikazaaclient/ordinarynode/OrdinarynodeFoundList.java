@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -6,6 +7,7 @@ package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.Answer;
 
 /**
@@ -49,5 +51,20 @@ public class OrdinarynodeFoundList extends Observable {
     
     public ArrayList <Answer> getFoundList(){
         return this.found;
+    }
+    
+    public int getId(){return this.id;}
+    
+    public ArrayList <NodeInfo> getOwners(String md5){
+        ArrayList <NodeInfo> owner_list = new ArrayList();
+        
+        for(Answer a : found){
+            ArrayList <OrdinarynodeFiles> files = a.getFilesList();
+            for(OrdinarynodeFiles f : files){
+                
+            }
+        }
+        
+        return owner_list;
     }
 }
