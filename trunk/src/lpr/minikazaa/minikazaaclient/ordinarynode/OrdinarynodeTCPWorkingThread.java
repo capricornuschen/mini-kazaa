@@ -9,7 +9,8 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lpr.minikazaa.minikazaaclient.DownloadRequest;
+import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.DownloadPartRequest;
 import lpr.minikazaa.minikazaaclient.Query;
 
 /**
@@ -34,7 +35,7 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
         //2 - Answer from an outgone query.
         ObjectInputStream input_object = null;
         Query peer_query = null;
-        DownloadRequest peer_request = null;
+        DownloadPartRequest peer_request = null;
         Object incoming_obj;
 
         try {
@@ -51,8 +52,12 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
                     //This query is correct
                     this.my_found_list.add(peer_query.getBodyA());
                 }
-            } else if (incoming_obj instanceof DownloadRequest) {
-                peer_request = (DownloadRequest) incoming_obj;
+            } else if (incoming_obj instanceof DownloadPartRequest) {
+                //Incoming download reuest
+                peer_request = (DownloadPartRequest) incoming_obj;
+                NodeInfo source = peer_request.getSource();
+                Socket response_socket = new Socket();
+
             }
 
 
