@@ -18,7 +18,7 @@ import lpr.minikazaa.util.MKFileDescriptor;
  * @file OrdinarynodeFiles.java
  */
 public class OrdinarynodeFiles extends Observable implements Serializable {
-    private ArrayList <MKFileDescriptor []> file_list;
+    private ArrayList <MKFileDescriptor> file_list;
     private NodeInfo my_info;
     
     public OrdinarynodeFiles(NodeInfo infos){
@@ -27,33 +27,35 @@ public class OrdinarynodeFiles extends Observable implements Serializable {
     }
     
     public void addFiles(MKFileDescriptor [] new_files){
-        this.file_list.add(new_files);
+        for(int i = 0; i< new_files.length; i++){
+            
+            if(!isIn(new_files[i]))
+                this.file_list.add(new_files[i]);
+        }
         this.setChanged();
         this.notifyObservers();
     }
+
+    public void removeFiles(MKFileDescriptor [] old_files){
+        
+    }
     
     //Get methods
-    public ArrayList<MKFileDescriptor []> getFileList(){
+    public ArrayList<MKFileDescriptor> getFileList(){
         return file_list;
     }
     public NodeInfo getOwner(){
         return this.my_info;
     }
-    
-    /**
-     * This method simply checks if a file, identified by a string (s), 
-     * appears in list file_list.
-     * 
-     * @param s
-     * @return true if file s is in list, false otherwise.
-     */
-    public boolean isIn(String s){
-        for(MKFileDescriptor[] arr_f : file_list){
-            for(int i = 0; i< arr_f.length; i++){
-                if(/*s.equals(arr_f[i].getName())*/true){
-                    return true;
-                }
-            }
+
+    public boolean isIn(MKFileDescriptor f){
+        for(MKFileDescriptor file : this.file_list){
+            if((f.getFileName().equals(file.getFileName())) &&
+               f.getMd5().equals(file.getMd5()) &&
+               f.getPath().equals(file.getPath()) &&
+               f.getSize() == file.getSize()
+               )
+                return true;
         }
         return false;
     }
@@ -64,9 +66,9 @@ public class OrdinarynodeFiles extends Observable implements Serializable {
         else
             return false;
     }
-    public void resetList(ArrayList <MKFileDescriptor[]> l){
-        this.file_list = l;
+
+    public void resetList(ArrayList <MKFileDescriptor> list){
+        this.file_list = list;
     }
-    
     
 }

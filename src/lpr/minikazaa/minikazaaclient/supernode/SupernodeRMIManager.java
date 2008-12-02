@@ -68,7 +68,7 @@ public class SupernodeRMIManager implements Runnable {
 
             NodeInfo my_info = null;
             try {
-                my_info = new NodeInfo(InetAddress.getByName(my_conf.getMyAddress()), my_conf.getPort(), callbacks_stub);
+                my_info = new NodeInfo(InetAddress.getByName(my_conf.getMyAddress()), my_conf.getPort(), callbacks_stub,my_conf.getIsSN());
             } catch (UnknownHostException ex) {
                 Logger.getLogger(SupernodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
             }

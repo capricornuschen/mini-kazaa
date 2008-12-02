@@ -15,6 +15,7 @@ import lpr.minikazaa.GUI.SearchPanel;
 import lpr.minikazaa.GUI.SharedFilesPanel;
 import lpr.minikazaa.GUI.TransferPanel;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
+import lpr.minikazaa.util.FileUtil;
 
 /**
  *
@@ -289,7 +290,7 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
      */
     public void windowClosing(WindowEvent e) {
         System.out.println("Everything saved.");
-        
+        FileUtil.saveMySharedFiles(my_files);
         System.exit(0);
     }
 

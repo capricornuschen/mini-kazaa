@@ -40,7 +40,7 @@ public class SharedFilesPanel extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Shared files panel"));
 
-        files_table = new SharedFilesTable();
+        files_table = new SharedFilesTable(this.my_files);
         /*
         files_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -71,6 +71,11 @@ public class SharedFilesPanel extends javax.swing.JPanel {
 
         remove_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/remove_icon.png"))); // NOI18N
         remove_bt.setText("Remove");
+        remove_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remove_btActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,6 +121,10 @@ public class SharedFilesPanel extends javax.swing.JPanel {
 
          
     }//GEN-LAST:event_add_btActionPerformed
+
+    private void remove_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_btActionPerformed
+        // TODO remove actions.
+    }//GEN-LAST:event_remove_btActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

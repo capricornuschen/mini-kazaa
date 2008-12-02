@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import lpr.minikazaa.bootstrap.NodeInfo;
@@ -136,12 +137,7 @@ public class FileUtil {
             file_stream = new FileOutputStream(sh_files_save);
             object_stream = new ObjectOutputStream(file_stream);
 
-
-            ArrayList <MKFileDescriptor []> file_list = shared_files.getFileList();
-
-            for(MKFileDescriptor [] file_array : file_list){
-                //To do: save every array.
-            }
+            object_stream.writeObject(shared_files);
         }
         catch(FileNotFoundException file_ex){
             System.err.println("File shared.mk not Found.");
@@ -154,8 +150,31 @@ public class FileUtil {
     }
 
     public static OrdinarynodeFiles loadMySharedFiles(NodeInfo my_infos){
-        OrdinarynodeFiles my_files = new OrdinarynodeFiles(my_infos);
+        OrdinarynodeFiles my_files = null;
+        File my_shared_files = new File("shared.mk");
 
+        FileInputStream file_stream = null;
+        ObjectInputStream input_stream = null;
+
+        try{
+            file_stream = new FileInputStream(my_shared_files);
+            input_stream = new ObjectInputStream(file_stream);
+
+            my_files = (OrdinarynodeFiles)input_stream.readObject();
+
+        }
+        catch(FileNotFoundException file_ex){
+            System.err.println("File shared.mk not Found.");
+            return new OrdinarynodeFiles(my_infos);
+        }
+        catch(IOException io_ex){
+            System.err.println("IO error while initializing Object stream on file_stream.");
+            return  new OrdinarynodeFiles(my_infos);
+        }
+        catch(ClassNotFoundException class_ex){
+            System.err.println("No serializable class inside shared.mk.");
+            return null;
+        }
         return my_files;
     }
 }
