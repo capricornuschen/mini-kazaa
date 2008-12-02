@@ -38,4 +38,27 @@ public class StringManipulationUtil {
         
         return result;
     }
+
+    public static String getRapresentableSize(long file_size){
+        String size = null;
+        //Bytes
+        if(file_size < 1024) {
+            size = file_size+" bytes";
+            if(file_size == 1)
+                size = file_size+" byte";
+        }
+        else if(file_size < 1024*1024){
+            size = (file_size / 1024) + " Kb";
+        }
+        else if(file_size < 1024*1024*1024){
+            size = (file_size /(1024*1024)) + " Mb";
+        }
+        else if(file_size < 1024*1024*1024*1024){
+            size = (file_size / (1024*1024*1024)) + " Gb";
+        }
+        else
+            size = (file_size / (1024*1024*1024*1024)) + " Tb";
+
+        return size;
+    }
 }

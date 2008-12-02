@@ -39,6 +39,7 @@ public class OrdinarynodeFiles extends Observable implements Serializable {
     public NodeInfo getOwner(){
         return this.my_info;
     }
+    
     /**
      * This method simply checks if a file, identified by a string (s), 
      * appears in list file_list.
@@ -56,7 +57,13 @@ public class OrdinarynodeFiles extends Observable implements Serializable {
         }
         return false;
     }
-    
+
+    public boolean isEmpty(){
+        if(this.file_list.size() == 0)
+            return true;
+        else
+            return false;
+    }
     public void resetList(ArrayList <MKFileDescriptor[]> l){
         this.file_list = l;
     }
