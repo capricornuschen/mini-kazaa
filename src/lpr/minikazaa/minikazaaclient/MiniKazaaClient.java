@@ -80,6 +80,8 @@ public class MiniKazaaClient {
 
             config = (NodeConfig) decode_xml.readObject();
 
+
+            
             if (config.getIsSN()) {
                 System.out.println("We must load a Super node application.");
                 //Start a new thread with super node engine.

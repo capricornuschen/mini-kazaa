@@ -9,9 +9,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.UIManager;
+import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.Query;
+import lpr.minikazaa.test.GUI.GuiTest;
+import lpr.minikazaa.test.GUI.SharedDataStructure;
+import lpr.minikazaa.util.FileUtil;
 
 /**
  *
@@ -31,7 +35,9 @@ public class MainTest {
         //TableTest.main_function();
         //Prova_grafica.main_function();
         //main1();
-        main2();
+        //main2();
+        //main3();
+        main4();
     }
 
     public static void main1() {
@@ -45,7 +51,7 @@ public class MainTest {
         Pattern pattern = Pattern.compile(s.nextLine());
         
         Query q = new Query();
-        assert q.getClass().equals("lpr.minikazaa.minikazaaclient.Query");
+
 
         boolean found = false;
         for (String sc : test_list) {
@@ -68,9 +74,19 @@ public class MainTest {
     public static void main2(){
         NodeConfig conf = new NodeConfig();
         conf.setIsSN(false);
-        MainGui mg = new MainGui(conf);
+        MainGui mg = new MainGui(conf, null);
         mg.setVisible(true);
        
        
+    }
+
+    public static void main3(){
+        byte [] array = FileUtil.getFilePart("/home/giovine/pp-scommessa.pps", 0, 4096);
+        System.out.println("Bytes estratti: "+array);
+    }
+
+    public static void main4(){
+        GuiTest t = new GuiTest(new SharedDataStructure());
+        t.setVisible(true);
     }
 }

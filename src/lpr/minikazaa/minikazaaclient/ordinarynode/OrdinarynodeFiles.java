@@ -5,9 +5,9 @@
 
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.util.MKFileDescriptor;
 
@@ -17,16 +17,19 @@ import lpr.minikazaa.util.MKFileDescriptor;
  * @date 9-ott-2008
  * @file OrdinarynodeFiles.java
  */
-public class OrdinarynodeFiles implements Serializable{
+public class OrdinarynodeFiles extends Observable implements Serializable {
     private ArrayList <MKFileDescriptor []> file_list;
     private NodeInfo my_info;
     
     public OrdinarynodeFiles(NodeInfo infos){
         this.my_info = infos;
+        this.file_list = new ArrayList();
     }
     
     public void addFiles(MKFileDescriptor [] new_files){
         this.file_list.add(new_files);
+        this.setChanged();
+        this.notifyObservers();
     }
     
     //Get methods

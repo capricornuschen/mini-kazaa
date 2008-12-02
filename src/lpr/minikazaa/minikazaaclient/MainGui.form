@@ -33,6 +33,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
@@ -44,13 +45,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jToolBar1" alignment="1" pref="654" max="32767" attributes="0"/>
+          <Component id="jToolBar1" alignment="1" pref="780" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="598" max="32767" attributes="0"/>
+              <EmptySpace pref="724" max="32767" attributes="0"/>
               <Component id="connection_status" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="main_tab" alignment="0" pref="654" max="32767" attributes="0"/>
+          <Component id="main_tab" alignment="0" pref="780" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -58,7 +59,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="main_tab" pref="471" max="32767" attributes="0"/>
+              <Component id="main_tab" pref="545" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="connection_status" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -133,6 +134,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shared_btActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="net_bt">
           <Properties>
