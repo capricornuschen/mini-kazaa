@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.Answer;
-import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.Query;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
@@ -33,21 +32,21 @@ public class SupernodeTCPWorkingThread implements Runnable {
     private SupernodeList my_list;
     private SupernodeQueryList my_q_list;
     private SupernodeOnFileList my_f_list;
-    private MainGui my_gui;
+    
 
     public SupernodeTCPWorkingThread(
             Socket sock, 
             NodeConfig conf, 
             SupernodeList list,
             SupernodeQueryList q_list, 
-            SupernodeOnFileList f_list,
-            MainGui gui) {
+            SupernodeOnFileList f_list
+            ) {
         this.client_socket = sock;
         this.my_conf = conf;
         this.my_list = list;
         this.my_q_list = q_list;
         this.my_f_list = f_list;
-        this.my_gui = gui;
+        
     }
 
     public void run() {

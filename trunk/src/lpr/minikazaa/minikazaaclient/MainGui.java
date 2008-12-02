@@ -3,12 +3,13 @@
  *
  * Created on 12 novembre 2008, 10.00
  */
-
 package lpr.minikazaa.minikazaaclient;
 
 import javax.swing.ImageIcon;
 import lpr.minikazaa.GUI.SearchPanel;
+import lpr.minikazaa.GUI.SharedFilesPanel;
 import lpr.minikazaa.GUI.TransferPanel;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.util.Constants;
 
 /**
@@ -16,14 +17,17 @@ import lpr.minikazaa.util.Constants;
  * @author Andrea Di Grazia, Massimiliano Giovine
  */
 public class MainGui extends javax.swing.JFrame {
+
     private NodeConfig my_conf;
+    private OrdinarynodeFiles my_files;
+
     /** Creates new form MainGui */
-    public MainGui(NodeConfig conf) {
-        
+    public MainGui(NodeConfig conf, OrdinarynodeFiles file_list) {
+        this.my_files = file_list;
         this.my_conf = conf;
         initComponents();
-        
-        if(!this.my_conf.getIsSN()){
+
+        if (!this.my_conf.getIsSN()) {
             //Unable to watch net monitor
             this.net_bt.setEnabled(false);
         }
@@ -102,6 +106,11 @@ public class MainGui extends javax.swing.JFrame {
         shared_bt.setFocusable(false);
         shared_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         shared_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        shared_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shared_btActionPerformed(evt);
+            }
+        });
         jToolBar1.add(shared_bt);
 
         net_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/network_icon.png"))); // NOI18N
@@ -144,19 +153,19 @@ public class MainGui extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(598, Short.MAX_VALUE)
+                .addContainerGap(724, Short.MAX_VALUE)
                 .addComponent(connection_status)
                 .addContainerGap())
-            .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+            .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(connection_status))
         );
@@ -165,51 +174,79 @@ public class MainGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
-    ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_search_icon.png"));   
-    this.main_tab.addTab("Search",icon, new SearchPanel(),"Search files in the network.");
+    ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_search_icon.png"));
+    this.main_tab.addTab("Search", icon, new SearchPanel(), "Search files in the network.");
 }//GEN-LAST:event_search_btActionPerformed
 
 private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transfer_btActionPerformed
     int index = 0;
-    
-    try{
+
+    try {
         String s = null;
-        while(true){
+        while (true) {
             s = this.main_tab.getTitleAt(index);
-            
-            if(s.equals("Transfer"))
+
+            if (s.equals("Transfer")) {
                 return;
-            index ++;
+            }
+            index++;
         }
-    }
-    catch(IndexOutOfBoundsException ex){
-            
-            ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_transfer_icon.png"));
-            this.main_tab.addTab("Transfer",icon, new TransferPanel(),"Monitor your transfert.");
-        
-            return;
+    } catch (IndexOutOfBoundsException ex) {
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_transfer_icon.png"));
+        this.main_tab.addTab("Transfer", icon, new TransferPanel(), "Monitor your transfert.");
+
+        return;
     }
 }//GEN-LAST:event_transfer_btActionPerformed
 
 private void close_tab_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_tab_btActionPerformed
-   
+
     int tab_to_remove = this.main_tab.getSelectedIndex();
     this.main_tab.remove(tab_to_remove);
 }//GEN-LAST:event_close_tab_btActionPerformed
 
-    
-    @Override
-    public void setDefaultCloseOperation(int operation){
-        switch(operation){
-            case Constants.SAVE_EVERYTHING: this.myDefaultCloseOperation();break;
-            default: super.setDefaultCloseOperation(operation);break;
-                
+private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shared_btActionPerformed
+    //Call a new panel to view, add or remove files to share with other users.
+
+    int index = 0;
+
+    try {
+        String s = null;
+        while (true) {
+            s = this.main_tab.getTitleAt(index);
+
+            if (s.equals("Shared Files")) {
+                return;
+            }
+            index++;
         }
-    } 
-    
-    private void myDefaultCloseOperation(){
+    } catch (IndexOutOfBoundsException ex) {
+
+        SharedFilesPanel shared_files_panel = new SharedFilesPanel(this.my_files);
+        ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_shared_files_icon.png"));
+        this.main_tab.addTab("Shared Files", icon, shared_files_panel, "Manage your sharings.");
+
+        return;
+    }
+
+}//GEN-LAST:event_shared_btActionPerformed
+
+    @Override
+    public void setDefaultCloseOperation(int operation) {
+        switch (operation) {
+            case Constants.SAVE_EVERYTHING:
+                this.myDefaultCloseOperation();
+                break;
+            default:
+                super.setDefaultCloseOperation(operation);
+                break;
+
+        }
+    }
+
+    private void myDefaultCloseOperation() {
         //Operation to do on close.
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -228,5 +265,4 @@ private void close_tab_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JButton shut_down_bt;
     private javax.swing.JButton transfer_bt;
     // End of variables declaration//GEN-END:variables
-
 }

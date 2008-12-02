@@ -137,7 +137,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                         }
 
                         //Checking maximum numerber of connection permitted
-                        int max_conn;
+                        int max_conn = -1;
 
                         try {
                             max_conn = Integer.parseInt(max_conn_tf.getText());
@@ -153,8 +153,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             String warning = "Number of connection must be integer.";
                             SupernodeConfigurationWarningFrame war = new SupernodeConfigurationWarningFrame(warning);
                             war.setLocationRelativeTo(null);
-                            war.setVisible(true);
-                            return;
+                            war.setVisible(true);                                                       
                         }
 
                         //Checking time to live, min 100.
@@ -166,8 +165,8 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             try {
                                 ttl = Integer.parseInt(ttl_tf.getText());
 
-                                if (ttl < 100) {
-                                    String warning = "Number of connection must be integer.";
+                                if (ttl < 0) {
+                                    String warning = "Time to live must be more than 0.";
                                     SupernodeConfigurationWarningFrame war = new SupernodeConfigurationWarningFrame(warning);
                                     war.setLocationRelativeTo(null);
                                     war.setVisible(true);
