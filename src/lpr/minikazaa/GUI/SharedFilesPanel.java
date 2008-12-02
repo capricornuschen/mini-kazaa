@@ -9,6 +9,7 @@ package lpr.minikazaa.GUI;
 import java.io.File;
 import javax.swing.JFileChooser;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
+import lpr.minikazaa.util.FileUtil;
 
 /**
  *
@@ -101,9 +102,19 @@ public class SharedFilesPanel extends javax.swing.JPanel {
     private void add_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btActionPerformed
         //Invoke new panel to select a folder.
         JFileChooser choose_shared_dir = new JFileChooser(new File("./"));
+        choose_shared_dir.setDialogTitle("Mini-Kazaa - Select your shared files");
         choose_shared_dir.setApproveButtonText("Ok");
+        choose_shared_dir.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        choose_shared_dir.setMultiSelectionEnabled(true);
         int value = choose_shared_dir.showOpenDialog(null);
-        
+
+        if(value == JFileChooser.APPROVE_OPTION){
+            File [] selected_file = choose_shared_dir.getSelectedFiles();
+
+            this.my_files.addFiles(FileUtil.transformFileToMKFile(selected_file));
+        }
+
+         
     }//GEN-LAST:event_add_btActionPerformed
 
 

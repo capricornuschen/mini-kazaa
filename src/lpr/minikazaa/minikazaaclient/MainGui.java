@@ -5,18 +5,22 @@
  */
 package lpr.minikazaa.minikazaaclient;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import lpr.minikazaa.GUI.SearchPanel;
 import lpr.minikazaa.GUI.SharedFilesPanel;
 import lpr.minikazaa.GUI.TransferPanel;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
-import lpr.minikazaa.util.Constants;
 
 /**
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
  */
-public class MainGui extends javax.swing.JFrame {
+public class MainGui extends javax.swing.JFrame implements WindowListener, WindowFocusListener, WindowStateListener {
 
     private NodeConfig my_conf;
     private OrdinarynodeFiles my_files;
@@ -31,6 +35,12 @@ public class MainGui extends javax.swing.JFrame {
             //Unable to watch net monitor
             this.net_bt.setEnabled(false);
         }
+
+        //Listeners to our window
+        addWindowListener(this);
+        addWindowFocusListener(this);
+        addWindowStateListener(this);
+
     }
 
     /** This method is called from within the constructor to
@@ -57,7 +67,7 @@ public class MainGui extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(Constants.SAVE_EVERYTHING);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setTitle("MiNi-KaZaA");
         setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
 
@@ -231,24 +241,6 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
 }//GEN-LAST:event_shared_btActionPerformed
-
-    @Override
-    public void setDefaultCloseOperation(int operation) {
-        switch (operation) {
-            case Constants.SAVE_EVERYTHING:
-                this.myDefaultCloseOperation();
-                break;
-            default:
-                super.setDefaultCloseOperation(operation);
-                break;
-
-        }
-    }
-
-    private void myDefaultCloseOperation() {
-        //Operation to do on close.
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton close_tab_bt;
     private javax.swing.JButton connect_bt;
@@ -265,4 +257,51 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JButton shut_down_bt;
     private javax.swing.JButton transfer_bt;
     // End of variables declaration//GEN-END:variables
+
+    public void windowOpened(WindowEvent arg0) {
+        //Do nothing
+    }
+
+    public void windowClosed(WindowEvent arg0) {
+        //Do nothing.
+    }
+
+    public void windowIconified(WindowEvent arg0) {
+        //Do nothing
+    }
+
+    public void windowDeiconified(WindowEvent arg0) {
+        //Do nothing
+    }
+
+    public void windowActivated(WindowEvent arg0) {
+        //Do nothing
+    }
+
+    public void windowDeactivated(WindowEvent arg0) {
+        //Do nothing
+    }
+
+    /**
+     *
+     *
+     * @param e event that handle windows closing operation.
+     */
+    public void windowClosing(WindowEvent e) {
+        System.out.println("Everything saved.");
+        
+        System.exit(0);
+    }
+
+    public void windowGainedFocus(WindowEvent arg0) {
+        //Do nothing
+    }
+
+    public void windowLostFocus(WindowEvent arg0) {
+        //Do nothing
+    }
+
+    public void windowStateChanged(WindowEvent arg0) {
+        //Do nothing
+    }
 }
