@@ -59,21 +59,21 @@ public class SupernodeOnFileList extends Observable{
         Pattern pattern = Pattern.compile(regex);
         for(OrdinarynodeFiles files : this.file_list){
             
-            ArrayList <MKFileDescriptor[]> node_files = files.getFileList();
+            ArrayList <MKFileDescriptor> node_files = files.getFileList();
             OrdinarynodeFiles files_found = new OrdinarynodeFiles(files.getOwner());
             MKFileDescriptor [] new_array = null;
             
-            for(MKFileDescriptor[] arr_files : node_files){
+            for(MKFileDescriptor file : node_files){
                 
                 ArrayList <MKFileDescriptor> found_list = new ArrayList();
                 
-                for(int i = 0; i< arr_files.length; i++){
-                    Matcher matcher = pattern.matcher(arr_files[i].getFileName());
+                
+                    Matcher matcher = pattern.matcher(file.getFileName());
                     
                     while(matcher.find()){
-                        found_list.add(arr_files[i]);
+                        found_list.add(file);
                     }
-                }
+                
                 
                  new_array = (MKFileDescriptor [])found_list.toArray();
             }

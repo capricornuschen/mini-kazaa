@@ -21,16 +21,18 @@ public class NodeInfo implements Serializable {
     private String username; //Useless mnemonic username
     private SupernodeCallbacksInterface stub;
     private long ping;
-    
+    private boolean is_sn;
+
     private int my_connection;
     private int my_files;
     
-    public NodeInfo(InetAddress ia_node, int door, SupernodeCallbacksInterface callback){
+    public NodeInfo(InetAddress ia_node, int door, SupernodeCallbacksInterface callback, boolean sn){
         this.ia_node = ia_node;
         this.door = door;
         this.id_node = ia_node.getHostAddress()+":"+door;
         this.stub = callback;
         this.ping = -1;
+        this.is_sn = sn;
         
         this.my_connection = 0;
         this.my_files = 0;
@@ -98,5 +100,9 @@ public class NodeInfo implements Serializable {
             return true;
         else
             return false;
+    }
+
+    public boolean isSN(){
+        return this.is_sn;
     }
 }
