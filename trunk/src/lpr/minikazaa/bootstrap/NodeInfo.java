@@ -91,6 +91,24 @@ public class NodeInfo implements Serializable {
         return this.ia_node.toString();
     }
     
+    @Override
+    public boolean equals(Object obj){
+
+        if(obj instanceof NodeInfo){
+            NodeInfo n = (NodeInfo) obj;
+            if(n.getId().equals(this.id_node))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + (this.id_node != null ? this.id_node.hashCode() : 0);
+        return hash;
+    }
+    
     public String toTable(){
         return ""+this.ia_node.toString()+"\n"+this.my_files+"\n"+this.my_connection+"\n";
     }

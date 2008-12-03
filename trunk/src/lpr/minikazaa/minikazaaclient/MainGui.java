@@ -9,6 +9,14 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import lpr.minikazaa.GUI.SearchPanel;
@@ -16,6 +24,7 @@ import lpr.minikazaa.GUI.SharedFilesPanel;
 import lpr.minikazaa.GUI.TransferPanel;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.util.FileUtil;
+import lpr.minikazaa.util.NetUtil;
 
 /**
  *
@@ -41,6 +50,14 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         addWindowListener(this);
         addWindowFocusListener(this);
         addWindowStateListener(this);
+
+        try {
+            InetAddress temp_infos = NetUtil.getAddress();
+            this.connection_status.setText("Address: " + temp_infos.toString().substring(1));
+            this.my_conf.setMyAddress(temp_infos.toString().substring(1));
+        } catch (SocketException ex) {
+            Logger.getLogger(MainGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -291,6 +308,17 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public void windowClosing(WindowEvent e) {
         System.out.println("Everything saved.");
         FileUtil.saveMySharedFiles(my_files);
+
+        XMLEncoder config_xml;
+        try {
+
+            config_xml = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("config.xml")));
+            config_xml.writeObject((Object) this.my_conf);
+            config_xml.flush();
+            config_xml.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println("Error while saving configuration on config.xml.");
+        }
         System.exit(0);
     }
 

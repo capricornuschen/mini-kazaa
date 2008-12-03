@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public interface BootStrapServerInterface extends Remote{
     public boolean addSuperNode(NodeInfo new_node) throws RemoteException;
     public boolean removeSuperNode(NodeInfo new_node) throws RemoteException;
+    public boolean addOrdinaryNode(NodeInfo new_node) throws RemoteException;
+    public boolean removeOrdinaryNode(NodeInfo new_node) throws RemoteException;
     public ArrayList<NodeInfo> getSuperNodeList() throws RemoteException;
     
 }
