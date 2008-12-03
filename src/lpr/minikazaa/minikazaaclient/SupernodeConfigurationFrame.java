@@ -212,6 +212,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             config_xml.flush();
                             config_xml.close();
                         } catch (FileNotFoundException ex) {
+                            System.err.println("Error while saving configuration on config.xml.");
                         }
                         //End writing configuration file.
 

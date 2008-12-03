@@ -46,7 +46,7 @@ public class SupernodeEngine implements Runnable {
         ping_service.start();
         
         //Init RMI manager Thread.
-        SupernodeRMIManager sn_rmi = new SupernodeRMIManager(my_conf,sn_list);
+        SupernodeRMIManager sn_rmi = new SupernodeRMIManager(my_conf,sn_list,my_infos);
         Thread rmi_manager = new Thread(sn_rmi);
         rmi_manager.start();
         

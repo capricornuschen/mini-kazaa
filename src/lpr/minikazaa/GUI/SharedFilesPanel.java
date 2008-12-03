@@ -10,6 +10,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.util.FileUtil;
+import lpr.minikazaa.util.MKFileDescriptor;
 
 /**
  *
@@ -123,7 +124,23 @@ public class SharedFilesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_add_btActionPerformed
 
     private void remove_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remove_btActionPerformed
-        // TODO remove actions.
+        //We have to call the proper function to remove shared files.
+        int [] selected_rows = this.files_table.getSelectedRows();
+        
+        MKFileDescriptor [] files_to_remove = new MKFileDescriptor[selected_rows.length];
+
+        for(int i = 0; i < selected_rows.length; i++){
+
+            String file_name = (String) this.files_table.getValueAt(selected_rows[i], 0);
+            System.out.println(file_name);
+            String md5 = (String) this.files_table.getValueAt(selected_rows[i], 2);
+            System.out.println(md5);
+            String abs_path = (String) this.files_table.getValueAt(selected_rows[i], 3);
+            System.out.println(abs_path);
+            files_to_remove[i] = new MKFileDescriptor(file_name,md5,0,abs_path);
+        }
+
+        this.my_files.removeFiles(files_to_remove);
     }//GEN-LAST:event_remove_btActionPerformed
 
 

@@ -26,12 +26,13 @@ public class SupernodeRMIManager implements Runnable {
 
     NodeConfig my_conf;
     SupernodeList sn_list;
+    NodeInfo my_infos;
     
 
-    public SupernodeRMIManager(NodeConfig conf, SupernodeList list) {
+    public SupernodeRMIManager(NodeConfig conf, SupernodeList list, NodeInfo infos) {
         this.my_conf = conf;
         this.sn_list = list;
-        
+        this.my_infos = infos;
     }
 
     public void run() {
@@ -66,9 +67,9 @@ public class SupernodeRMIManager implements Runnable {
             SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl(this.sn_list, this.my_conf);
             callbacks_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject(callback_obj, 0);
 
-            NodeInfo my_info = null;
+            
             try {
-                my_info = new NodeInfo(InetAddress.getByName(my_conf.getMyAddress()), my_conf.getPort(), callbacks_stub,my_conf.getIsSN());
+                my_infos = new NodeInfo(InetAddress.getByName(my_conf.getMyAddress()), my_conf.getPort(), callbacks_stub,my_conf.getIsSN());
             } catch (UnknownHostException ex) {
                 Logger.getLogger(SupernodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -79,7 +80,7 @@ public class SupernodeRMIManager implements Runnable {
                 Logger.getLogger(SupernodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            callbacks_remote.addSuperNode(my_info);
+            callbacks_remote.addSuperNode(my_infos);
 
         } catch (RemoteException ex) {
             SupernodeWarning snw = new SupernodeWarning("Can't find bootstrap server.", "bs_address", my_conf);
