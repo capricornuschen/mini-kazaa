@@ -25,7 +25,7 @@ public class OrdinarynodeQuestionsList {
         this.my_res_list = new ArrayList();
     }
     
-    public void add(Answer a){
+    public synchronized void add(Answer a){
         for(OrdinarynodeFoundList l : this.my_res_list){
             if(a.getID() == l.getId()){
                 l.add(a);

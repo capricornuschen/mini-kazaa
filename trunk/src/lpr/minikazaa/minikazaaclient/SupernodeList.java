@@ -116,5 +116,24 @@ public class SupernodeList extends Observable {
         
         return this.sub_set_list;
     }
+
+    public synchronized NodeInfo getBest(){
+        NodeInfo best = null;
+        if(this.sub_set_list.size() == 0){
+            //If no subset exists we create a new small subset.
+            this.subSet(10, 100);            
+        }
+        
+        for(NodeInfo candidate :  this.sub_set_list){
+            if(best ==  null)
+                best = candidate;
+            else{
+                if(candidate.getConnections() < best.getConnections())
+                    best = candidate;
+            }
+        }
+
+        return best;
+    }
     
 }

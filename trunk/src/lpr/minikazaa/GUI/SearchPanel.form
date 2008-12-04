@@ -7,10 +7,14 @@
         <TitledBorder title="Search Panel"/>
       </Border>
     </Property>
+    <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="search_tf"/>
+    </Property>
   </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
@@ -22,14 +26,38 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="search_tf" min="-2" pref="450" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="search_bt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="clean_bt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="75" max="32767" attributes="0"/>
+          </Group>
           <Component id="jScrollPane1" alignment="0" pref="651" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="84" max="32767" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="343" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="search_tf" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="search_bt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="clean_bt" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="335" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -47,14 +75,48 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="0">
                 <Column editable="false" title="Nome File" type="java.lang.Object"/>
-                <Column editable="true" title="Dimensione" type="java.lang.Object"/>
-                <Column editable="true" title="N&#xb0; Fonti" type="java.lang.Object"/>
-                <Column editable="true" title="MD5" type="java.lang.Object"/>
+                <Column editable="false" title="Dimensione" type="java.lang.Object"/>
+                <Column editable="false" title="N&#xb0; Fonti" type="java.lang.Object"/>
+                <Column editable="false" title="MD5" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Search:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="search_tf">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="...type here your research parameters..."/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="search_tfActionPerformed"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="search_tfFocusGained"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="search_bt">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/lpr/minikazaa/icons/mini_connect_icon.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="search_btActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="clean_bt">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/lpr/minikazaa/icons/mini_clean_icon.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clean_btActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
