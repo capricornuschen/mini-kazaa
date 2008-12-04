@@ -17,8 +17,8 @@ import lpr.minikazaa.minikazaaclient.Answer;
  */
 public class OrdinarynodeFoundList extends Observable {
     private int id;
-    private ArrayList<Answer> found = new ArrayList();
-
+    private ArrayList<Answer> found;
+    
     public OrdinarynodeFoundList(int n) {
         this.id = n;
         found = new ArrayList();

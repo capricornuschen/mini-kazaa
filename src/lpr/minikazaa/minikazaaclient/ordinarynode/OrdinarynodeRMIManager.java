@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -34,11 +31,15 @@ public class OrdinarynodeRMIManager implements Runnable{
     NodeConfig my_conf;
     NodeInfo my_infos;
     SupernodeList sn_list;
+    Socket sn_connection;
+    NodeInfo best_sn;
 
-    public OrdinarynodeRMIManager(NodeConfig conf, NodeInfo info, SupernodeList list){
+    public OrdinarynodeRMIManager(NodeConfig conf, NodeInfo info, SupernodeList list, Socket sock, NodeInfo best){
         this.my_conf = conf;
         this.my_infos = info;
         this.sn_list = list;
+        this.sn_connection = sock;
+        this.best_sn = best;
     }
 
     public void run() {
@@ -67,6 +68,16 @@ public class OrdinarynodeRMIManager implements Runnable{
             sn_list.refreshList(ni_list);
             //Refreshing pings.
             sn_list.refreshPing();
+
+            //Istantiate socket to the best supernode.
+            best_sn = sn_list.getBest();
+            try {
+                this.sn_connection = new Socket(best_sn.getIaNode().toString().substring(1), best_sn.getDoor());
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             //Managing callbacks.
             SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl(this.sn_list, this.my_conf);

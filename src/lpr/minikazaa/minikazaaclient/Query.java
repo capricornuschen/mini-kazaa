@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package lpr.minikazaa.minikazaaclient;
 
 import java.io.Serializable;
@@ -16,14 +11,15 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
  * @file Query.java
  */
 public class Query implements Serializable, Cloneable{
-    private NodeInfo sender;
-    private String body_q;
-    private Answer body_a;
-    private OrdinarynodeFiles body_f;
-    private NodeInfo id_origin;
-    private NodeInfo receiver;
-    private int ttl;
-    private int id;
+
+    private NodeInfo sender;            //NodeInfo of sender node.
+    private String body_q;              //Regex of a sended query
+    private Answer body_a;              //Answer query
+    private OrdinarynodeFiles body_f;   //Notify a supernode to have many
+    private NodeInfo id_origin;         //Source of a query
+    private NodeInfo receiver;          //NodeInfo of receiver node
+    private int ttl;                    //Time to live of a query
+    private int id;                     //Id of origin query
     
     public Query(){
         //Inizialize variables

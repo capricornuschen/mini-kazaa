@@ -22,13 +22,17 @@ import lpr.minikazaa.minikazaaclient.supernode.SupernodeEngine;
 public class MiniKazaaClient {
 
     public static void main(String[] args) throws FileNotFoundException {
-
         try {
 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         } catch (Exception ex) {
         }
+
+        //Create downloads directory if it doesn't exist
+        File down_dir = new File("./downloads");
+        if(!down_dir.exists() || !down_dir.isDirectory())
+            down_dir.mkdir();
 
         File xml_config = new File("./config.xml");
 
@@ -67,6 +71,9 @@ public class MiniKazaaClient {
             }
             else{
                 System.out.println("We must load an Ordinary node application.");
+                OrdinarynodeEngine on_eng = new OrdinarynodeEngine(config);
+                Thread ordinary_node_thread = new Thread(on_eng);
+                ordinary_node_thread.start();
             }
         }
         else{

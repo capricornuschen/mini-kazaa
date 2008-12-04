@@ -6,23 +6,31 @@
 
 package lpr.minikazaa.GUI;
 
+import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.NodeConfig;
+import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
+
 /**
  *
  * @author  giovine
  */
 public class SearchPanel extends javax.swing.JPanel {
-   
 
+    NodeInfo my_infos;
+    NodeConfig my_conf;
+    OrdinarynodeQuestionsList searches_list;
+    SupernodeList sn_list;
 
     /** Creates new form SearchPanel */
-    public SearchPanel() {
-        
+    public SearchPanel(NodeInfo info, NodeConfig conf, OrdinarynodeQuestionsList src_list, SupernodeList sn_list) {
+
+        this.my_infos = info;
+        this.my_conf = conf;
+        this.searches_list = src_list;
+        this.sn_list = sn_list;
         initComponents();
-        //unset default FlowLayout' gaps
-        
-        
-    
-    
+            
 }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -35,8 +43,13 @@ public class SearchPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        search_tf = new javax.swing.JTextField();
+        search_bt = new javax.swing.JButton();
+        clean_bt = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Search Panel"));
+        setNextFocusableComponent(search_tf);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -47,7 +60,7 @@ public class SearchPanel extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -56,24 +69,91 @@ public class SearchPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setText("Search:");
+
+        search_tf.setText("...type here your research parameters...");
+        search_tf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_tfActionPerformed(evt);
+            }
+        });
+        search_tf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                search_tfFocusGained(evt);
+            }
+        });
+
+        search_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_connect_icon.png"))); // NOI18N
+        search_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_btActionPerformed(evt);
+            }
+        });
+
+        clean_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_clean_icon.png"))); // NOI18N
+        clean_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clean_btActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(search_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(search_bt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clean_bt)
+                .addContainerGap(75, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(search_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(search_bt)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(clean_bt)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void search_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_tfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_search_tfActionPerformed
+
+    private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_search_btActionPerformed
+
+    private void clean_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clean_btActionPerformed
+        this.search_tf.setText("");
+}//GEN-LAST:event_clean_btActionPerformed
+
+    private void search_tfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_search_tfFocusGained
+        this.search_tf.selectAll();
+    }//GEN-LAST:event_search_tfFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton clean_bt;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton search_bt;
+    private javax.swing.JTextField search_tf;
     // End of variables declaration//GEN-END:variables
 
 }

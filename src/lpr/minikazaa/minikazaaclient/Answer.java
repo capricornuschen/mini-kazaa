@@ -17,8 +17,8 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
  * @file Answer.java
  */
 public class Answer implements Serializable {
-    private ArrayList <OrdinarynodeFiles> files;
-    private int id;
+    private ArrayList <OrdinarynodeFiles> files;    //List of files that corresponding to a query.
+    private int id;                                 //Id of origin query
     
     public Answer(int n){this.id = n;}
     public Answer(ArrayList <OrdinarynodeFiles> owner_list,int n){
@@ -40,5 +40,22 @@ public class Answer implements Serializable {
     }
     
     public int getID(){return this.id;}
+
+    @Override
+    public boolean equals(Object obj){
+        
+        //To do yet.
+        if(obj instanceof Answer)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + (this.files != null ? this.files.hashCode() : 0);
+        hash = 11 * hash + this.id;
+        return hash;
+    }
     
 }

@@ -14,6 +14,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +23,9 @@ import javax.swing.JFrame;
 import lpr.minikazaa.GUI.SearchPanel;
 import lpr.minikazaa.GUI.SharedFilesPanel;
 import lpr.minikazaa.GUI.TransferPanel;
+import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 import lpr.minikazaa.util.FileUtil;
 import lpr.minikazaa.util.NetUtil;
 
@@ -34,11 +37,26 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
     private NodeConfig my_conf;
     private OrdinarynodeFiles my_files;
+    private Socket ordinarynode_sn_reference;
+    private OrdinarynodeQuestionsList searches_list;
+    private SupernodeList sn_list;
+    private NodeInfo my_infos;
 
     /** Creates new form MainGui */
-    public MainGui(NodeConfig conf, OrdinarynodeFiles file_list) {
+    public MainGui(
+            NodeConfig conf,
+            OrdinarynodeFiles file_list,
+            Socket sock,
+            OrdinarynodeQuestionsList src_list,
+            SupernodeList sn_list,
+            NodeInfo info) {
+        
         this.my_files = file_list;
         this.my_conf = conf;
+        this.ordinarynode_sn_reference = sock;
+        this.searches_list = src_list;
+        this.sn_list = sn_list;
+        this.my_infos = info;
         initComponents();
 
         if (!this.my_conf.getIsSN()) {
@@ -61,6 +79,22 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
     }
 
+    private void closeActions(){
+        FileUtil.saveMySharedFiles(my_files);
+
+        XMLEncoder config_xml;
+        try {
+
+            config_xml = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("config.xml")));
+            config_xml.writeObject((Object) this.my_conf);
+            config_xml.flush();
+            config_xml.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println("Error while saving configuration on config.xml.");
+        }
+        System.exit(0);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -70,7 +104,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
+        tool_bar = new javax.swing.JToolBar();
         connect_bt = new javax.swing.JButton();
         disconnect_bt = new javax.swing.JButton();
         search_bt = new javax.swing.JButton();
@@ -82,28 +116,30 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         connection_status = new javax.swing.JLabel();
         main_tab = new javax.swing.JTabbedPane();
         main_menu_bar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        file_menu = new javax.swing.JMenu();
+        close_item = new javax.swing.JMenuItem();
+        edit_menu = new javax.swing.JMenu();
+        configuration_item = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setTitle("MiNi-KaZaA");
         setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
 
-        jToolBar1.setRollover(true);
+        tool_bar.setRollover(true);
 
         connect_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/connections_icon.png"))); // NOI18N
         connect_bt.setText("Connect");
         connect_bt.setFocusable(false);
         connect_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         connect_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(connect_bt);
+        tool_bar.add(connect_bt);
 
         disconnect_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/discconnections_icon.png"))); // NOI18N
         disconnect_bt.setText("Disconnect");
         disconnect_bt.setFocusable(false);
         disconnect_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         disconnect_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(disconnect_bt);
+        tool_bar.add(disconnect_bt);
 
         search_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/search_icon.png"))); // NOI18N
         search_bt.setText("Search");
@@ -115,7 +151,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
                 search_btActionPerformed(evt);
             }
         });
-        jToolBar1.add(search_bt);
+        tool_bar.add(search_bt);
 
         transfer_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/transfer_icon.png"))); // NOI18N
         transfer_bt.setText("File Transfer");
@@ -127,7 +163,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
                 transfer_btActionPerformed(evt);
             }
         });
-        jToolBar1.add(transfer_bt);
+        tool_bar.add(transfer_bt);
 
         shared_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/shared_files_icon.png"))); // NOI18N
         shared_bt.setText("Shared Files");
@@ -139,14 +175,14 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
                 shared_btActionPerformed(evt);
             }
         });
-        jToolBar1.add(shared_bt);
+        tool_bar.add(shared_bt);
 
         net_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/network_icon.png"))); // NOI18N
         net_bt.setText("Net Monitor");
         net_bt.setFocusable(false);
         net_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         net_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(net_bt);
+        tool_bar.add(net_bt);
 
         close_tab_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_tab_icon.png"))); // NOI18N
         close_tab_bt.setText("Close Tab");
@@ -158,22 +194,44 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
                 close_tab_btActionPerformed(evt);
             }
         });
-        jToolBar1.add(close_tab_bt);
+        tool_bar.add(close_tab_bt);
 
         shut_down_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/shut_down_icon.png"))); // NOI18N
         shut_down_bt.setText("Shut Down");
         shut_down_bt.setFocusable(false);
         shut_down_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         shut_down_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(shut_down_bt);
+        shut_down_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shut_down_btActionPerformed(evt);
+            }
+        });
+        tool_bar.add(shut_down_bt);
 
         connection_status.setText("jLabel2");
 
-        jMenu3.setText("File");
-        main_menu_bar1.add(jMenu3);
+        file_menu.setText("File");
 
-        jMenu4.setText("Edit");
-        main_menu_bar1.add(jMenu4);
+        close_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        close_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_icon.png"))); // NOI18N
+        close_item.setText("Shut down");
+        close_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                close_itemActionPerformed(evt);
+            }
+        });
+        file_menu.add(close_item);
+
+        main_menu_bar1.add(file_menu);
+
+        edit_menu.setText("Edit");
+
+        configuration_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        configuration_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/config_icon.png"))); // NOI18N
+        configuration_item.setText("Configuration");
+        edit_menu.add(configuration_item);
+
+        main_menu_bar1.add(edit_menu);
 
         setJMenuBar(main_menu_bar1);
 
@@ -181,7 +239,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+            .addComponent(tool_bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(724, Short.MAX_VALUE)
                 .addComponent(connection_status)
@@ -191,7 +249,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tool_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,7 +261,8 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
 private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
     ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_search_icon.png"));
-    this.main_tab.addTab("Search", icon, new SearchPanel(), "Search files in the network.");
+    SearchPanel search_panel = new SearchPanel(this.my_infos,this.my_conf,this.searches_list,this.sn_list);
+    this.main_tab.addTab("Search", icon, search_panel , "Search files in the network.");
 }//GEN-LAST:event_search_btActionPerformed
 
 private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transfer_btActionPerformed
@@ -259,20 +318,31 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
 }//GEN-LAST:event_shared_btActionPerformed
+
+private void shut_down_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shut_down_btActionPerformed
+    this.closeActions();
+}//GEN-LAST:event_shut_down_btActionPerformed
+
+private void close_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_close_itemActionPerformed
+    this.closeActions();
+}//GEN-LAST:event_close_itemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem close_item;
     private javax.swing.JButton close_tab_bt;
+    private javax.swing.JMenuItem configuration_item;
     private javax.swing.JButton connect_bt;
     private javax.swing.JLabel connection_status;
     private javax.swing.JButton disconnect_bt;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenu edit_menu;
+    private javax.swing.JMenu file_menu;
     private javax.swing.JMenuBar main_menu_bar1;
     private javax.swing.JTabbedPane main_tab;
     private javax.swing.JButton net_bt;
     private javax.swing.JButton search_bt;
     private javax.swing.JButton shared_bt;
     private javax.swing.JButton shut_down_bt;
+    private javax.swing.JToolBar tool_bar;
     private javax.swing.JButton transfer_bt;
     // End of variables declaration//GEN-END:variables
 
@@ -306,20 +376,7 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
      * @param e event that handle windows closing operation.
      */
     public void windowClosing(WindowEvent e) {
-        System.out.println("Everything saved.");
-        FileUtil.saveMySharedFiles(my_files);
-
-        XMLEncoder config_xml;
-        try {
-
-            config_xml = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("config.xml")));
-            config_xml.writeObject((Object) this.my_conf);
-            config_xml.flush();
-            config_xml.close();
-        } catch (FileNotFoundException ex) {
-            System.err.println("Error while saving configuration on config.xml.");
-        }
-        System.exit(0);
+        this.closeActions();        
     }
 
     public void windowGainedFocus(WindowEvent arg0) {

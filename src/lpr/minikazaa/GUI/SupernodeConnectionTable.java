@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package lpr.minikazaa.minikazaaclient.supernode;
+package lpr.minikazaa.GUI;
 
 import java.util.ArrayList;
 import java.util.Observable;

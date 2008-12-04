@@ -37,7 +37,7 @@ public class MainTest {
         //main1();
         //main2();
         //main3();
-        main4();
+        //main4();
     }
 
     public static void main1() {
@@ -71,14 +71,7 @@ public class MainTest {
         }
     }
     
-    public static void main2(){
-        NodeConfig conf = new NodeConfig();
-        conf.setIsSN(false);
-        MainGui mg = new MainGui(conf, null);
-        mg.setVisible(true);
-       
-       
-    }
+    
 
     public static void main3(){
         byte [] array = FileUtil.getFilePart("/home/giovine/pp-scommessa.pps", 0, 4096);

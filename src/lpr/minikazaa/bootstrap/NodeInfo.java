@@ -61,7 +61,14 @@ public class NodeInfo implements Serializable {
     public String getUsername(){
         return this.username;
     }
-    
+
+    public int getFiles(){
+        return this.my_files;
+    }
+
+    public int getConnections(){
+        return this.my_connection;
+    }
     
     public void addFiles(int n_new_files){
         this.my_files = this.my_files + n_new_files;
