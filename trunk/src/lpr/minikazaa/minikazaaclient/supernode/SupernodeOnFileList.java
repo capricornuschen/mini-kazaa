@@ -86,7 +86,7 @@ public class SupernodeOnFileList extends Observable{
     public synchronized void removeFiles(NodeInfo n){
         int i = 0;
         for(OrdinarynodeFiles f : this.file_list){
-            if(f.getOwner().getId().equals(n))
+            if(f.getOwner().equals(n))
             {
                 this.file_list.remove(i);
                 this.setChanged();
