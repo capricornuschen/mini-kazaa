@@ -1,0 +1,36 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[utf8]{inputenc}  
+\usepackage[italian]{babel}
+\usepackage{indentfirst}
+\usepackage{tocloft}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+\raggedbottom
+\usepackage{epigraph}
+\usepackage[T1]{fontenc}        % include i font in maniera vettoriale azichè 
+\usepackage{lmodern}            % latin modern fonts
+\usepackage{graphicx,color}     % per le immagini
+\usepackage{latexsym}           
+\usepackage{setspace}          
+\usepackage{amsmath}            % package per la matematica
+\usepackage{amsfonts}           % idem
+\usepackage{amssymb}            % idem
+\usepackage{amsthm}             % idem
+\usepackage{fancyvrb}           % package per il comando VerbatimInput
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{lettrine}
+
+\lstset{language = Java, numbers = left, basicstyle=\footnotesize, numberstyle=\footnotesize}
+
+\title{\textbf{Progetto \newline Laboratorio Programmazione di rete \newline Mini-KaZaA}}
+\author{Andrea Di Grazia, Massimiliano Giovine
+                }
+\date{Anno Accademico 2008 - 2009}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{introduzione.tex}
+\input{bootstrap_server.tex}
+\end{document}

@@ -1,0 +1,4 @@
+latex mini-kazaa.tex
+latex mini-kazaa.tex
+dvipdf mini-kazaa.dvi
+evince mini-kazaa.pdf
