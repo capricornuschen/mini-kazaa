@@ -48,20 +48,7 @@ public class FilesSearchTable extends JTable implements Observer {
 
     public void update(Observable o, Object arg) {
         if(o instanceof OrdinarynodeFoundList){
-            OrdinarynodeFoundList found_list = (OrdinarynodeFoundList) o;
             
-            this.removeAll();
-            ArrayList <Answer> answer_list = found_list.getFoundList();
-            
-            for(Answer a : answer_list){
-                ArrayList <OrdinarynodeFiles> file_list = a.getFilesList();
-                
-                for(OrdinarynodeFiles f : file_list){
-                    NodeInfo owner = f.getOwner();
-                    
-                    
-                }
-            }
             
         }
     }

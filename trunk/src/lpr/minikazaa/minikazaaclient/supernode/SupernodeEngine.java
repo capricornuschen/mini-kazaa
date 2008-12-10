@@ -5,6 +5,7 @@ import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.NodePong;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 import lpr.minikazaa.util.FileUtil;
@@ -31,9 +32,10 @@ public class SupernodeEngine implements Runnable {
         SupernodeOnFileList on_files = new SupernodeOnFileList();
         OrdinarynodeFiles my_file_list = FileUtil.loadMySharedFiles(my_infos);
         OrdinarynodeQuestionsList found_list = new OrdinarynodeQuestionsList();
+        OrdinarynodeDownloadMonitor dl_monitor = new OrdinarynodeDownloadMonitor();
         
         //Init main GUI of supernode
-        MainGui main_gui = new MainGui(this.my_conf, my_file_list,null,found_list, sn_list,my_infos);
+        MainGui main_gui = new MainGui(this.my_conf, my_file_list,null,found_list, sn_list,my_infos,dl_monitor);
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
         

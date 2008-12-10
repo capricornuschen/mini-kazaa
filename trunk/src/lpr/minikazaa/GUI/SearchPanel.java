@@ -9,6 +9,7 @@ package lpr.minikazaa.GUI;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 
 /**
@@ -21,17 +22,28 @@ public class SearchPanel extends javax.swing.JPanel {
     NodeConfig my_conf;
     OrdinarynodeQuestionsList searches_list;
     SupernodeList sn_list;
+    OrdinarynodeDownloadMonitor my_monitor;
 
     /** Creates new form SearchPanel */
-    public SearchPanel(NodeInfo info, NodeConfig conf, OrdinarynodeQuestionsList src_list, SupernodeList sn_list) {
+    public SearchPanel(
+            NodeInfo info,
+            NodeConfig conf,
+            OrdinarynodeQuestionsList src_list,
+            SupernodeList sn_list,
+            OrdinarynodeDownloadMonitor monitor) {
 
         this.my_infos = info;
         this.my_conf = conf;
         this.searches_list = src_list;
         this.sn_list = sn_list;
+        this.my_monitor = monitor;
         initComponents();
             
-}
+    }
+
+    private void searchOperations(){
+
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -42,16 +54,17 @@ public class SearchPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        search_table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         search_tf = new javax.swing.JTextField();
         search_bt = new javax.swing.JButton();
         clean_bt = new javax.swing.JButton();
+        download_bt = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Search Panel"));
         setNextFocusableComponent(search_tf);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        search_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -67,7 +80,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(search_table);
 
         jLabel1.setText("Search:");
 
@@ -97,6 +110,14 @@ public class SearchPanel extends javax.swing.JPanel {
             }
         });
 
+        download_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/download_icon.png"))); // NOI18N
+        download_bt.setText("Download");
+        download_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                download_btActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,8 +130,11 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addComponent(search_bt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clean_bt)
-                .addContainerGap(75, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                .addContainerGap(84, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(download_bt))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,17 +149,20 @@ public class SearchPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(clean_bt)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(download_bt)
+                .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void search_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_tfActionPerformed
-        // TODO add your handling code here:
+        this.searchOperations();
     }//GEN-LAST:event_search_tfActionPerformed
 
     private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
-        // TODO add your handling code here:
+        this.searchOperations();
 }//GEN-LAST:event_search_btActionPerformed
 
     private void clean_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clean_btActionPerformed
@@ -146,13 +173,18 @@ public class SearchPanel extends javax.swing.JPanel {
         this.search_tf.selectAll();
     }//GEN-LAST:event_search_tfFocusGained
 
+    private void download_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_download_btActionPerformed
+        
+}//GEN-LAST:event_download_btActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clean_bt;
+    private javax.swing.JButton download_bt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton search_bt;
+    private javax.swing.JTable search_table;
     private javax.swing.JTextField search_tf;
     // End of variables declaration//GEN-END:variables
 

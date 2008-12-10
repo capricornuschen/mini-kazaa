@@ -38,6 +38,7 @@ public class MainTest {
         //main2();
         //main3();
         //main4();
+        main5();
     }
 
     public static void main1() {
@@ -78,8 +79,13 @@ public class MainTest {
         System.out.println("Bytes estratti: "+array);
     }
 
-    public static void main4(){
+    /*public static void main4(){
         GuiTest t = new GuiTest(new SharedDataStructure());
+        t.setVisible(true);
+    }*/
+
+    public static void main5(){
+        GuiTest t = new GuiTest();
         t.setVisible(true);
     }
 }

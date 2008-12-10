@@ -18,16 +18,39 @@ public class Download {
     private MKFileDescriptor file_to_download;
     private long downloaded_bytes;
     private String downloader_path;
+    private int sources;
 
-    public Download(MKFileDescriptor file){
+    public Download(MKFileDescriptor file, int sources){
         this.file_to_download = file;
         this.downloaded_bytes = 0;
         this.downloader_path = "./downloads/";
+        this.sources = sources;
     }
 
     public MKFileDescriptor getFile(){return this.file_to_download;}
     public long getDownloadedBytes(){return this.downloaded_bytes;}
     public String getDownloaderPath(){return this.downloader_path;}
+    public int getSources(){return this.sources;}
 
     public void updateDownloadBytes(long bytes){this.downloaded_bytes = bytes;}
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Download){
+            Download other = (Download) obj;
+
+            if(this.downloader_path.equals(other.downloader_path))
+                return true;
+
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + (this.downloader_path != null ? this.downloader_path.hashCode() : 0);
+        return hash;
+    }
 }
