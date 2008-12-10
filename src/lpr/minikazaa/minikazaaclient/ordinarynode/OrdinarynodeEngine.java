@@ -32,6 +32,7 @@ public class OrdinarynodeEngine implements Runnable {
         SupernodeList sn_list = new SupernodeList();
         OrdinarynodeQuestionsList found_list = new OrdinarynodeQuestionsList();
         OrdinarynodeFiles my_file_list = FileUtil.loadMySharedFiles(my_infos);
+        OrdinarynodeDownloadMonitor dl_monitor = new OrdinarynodeDownloadMonitor();
         
         //Init the socket connection to the our only one socket.
         Socket my_supernode = null;
@@ -42,7 +43,7 @@ public class OrdinarynodeEngine implements Runnable {
         tcp_thread.start();
 
         //Init main GUI of supernode
-        MainGui main_gui = new MainGui(this.my_conf, my_file_list,my_supernode,found_list, sn_list,my_infos);
+        MainGui main_gui = new MainGui(this.my_conf, my_file_list,my_supernode,found_list, sn_list,my_infos,dl_monitor);
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
 

@@ -36,4 +36,23 @@ public class MKFileDescriptor implements Serializable{
     public String getMd5(){return this.md5;}
     public long getSize(){return this.size;}
     public String getPath(){return this.absolute_owner_path;}
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof MKFileDescriptor){
+            MKFileDescriptor other = (MKFileDescriptor) obj;
+
+            if(this.getMd5().equals(other.getMd5()))
+                return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + (this.md5 != null ? this.md5.hashCode() : 0);
+        return hash;
+    }
 }

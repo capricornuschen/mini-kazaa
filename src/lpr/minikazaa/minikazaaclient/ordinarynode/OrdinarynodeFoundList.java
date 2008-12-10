@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.Answer;
+import lpr.minikazaa.minikazaaclient.SearchField;
+import lpr.minikazaa.util.MKFileDescriptor;
 
 /**
  * Class that lists the answers from super nodes with the shearched files.
@@ -17,7 +19,7 @@ import lpr.minikazaa.minikazaaclient.Answer;
  */
 public class OrdinarynodeFoundList extends Observable {
     private int id;
-    private ArrayList<Answer> found;
+    private ArrayList<SearchField> found;
     
     public OrdinarynodeFoundList(int n) {
         this.id = n;
@@ -25,46 +27,53 @@ public class OrdinarynodeFoundList extends Observable {
     }
 
     public void add(Answer k) {
-        found.add(k);
-        this.setChanged();
-        this.notifyObservers();
-    }
+        ArrayList <OrdinarynodeFiles> list = k.getFilesList();
 
-    public void remove(Answer k) {
-        found.remove(k);
-        this.setChanged();
-        this.notifyObservers();
-    }
-
-    public boolean isIn(Answer k) {
-        if (found.isEmpty()) {
-            return false;
-        } else {
-            for (int i = 0; i < found.size(); i++) {
-                if (k.getFilesList() == found.get(i).getFilesList()) {
-                    return true;
+        for(OrdinarynodeFiles of : list){
+            ArrayList <MKFileDescriptor> answer_files = of.getFileList();
+            for(MKFileDescriptor files : answer_files){
+                int index = 0;
+                   
+                for(SearchField field : this.found){
+                    if(field.sameFile(files)){
+                        this.found.get(index).addOwner(of.getOwner());
+                        break;
+                    }
+                    else{
+                        index ++;
+                    }
                 }
             }
         }
-        return false;
+
+
+
+        this.setChanged();
+        this.notifyObservers();
     }
+
+   
+
+    /*public boolean isIn(Answer k) {
+
+    }*/
     
-    public ArrayList <Answer> getFoundList(){
+    public ArrayList <SearchField> getFoundList(){
         return this.found;
     }
     
     public int getId(){return this.id;}
     
-    public ArrayList <NodeInfo> getOwners(String md5){
-        ArrayList <NodeInfo> owner_list = new ArrayList();
-        
-        for(Answer a : found){
-            ArrayList <OrdinarynodeFiles> files = a.getFilesList();
-            for(OrdinarynodeFiles f : files){
-                
-            }
-        }
-        
-        return owner_list;
+    /*public ArrayList <NodeInfo> getOwners(String md5){
+    ArrayList <NodeInfo> owner_list = new ArrayList();
+
+    for(Answer a : found){
+    ArrayList <OrdinarynodeFiles> files = a.getFilesList();
+    for(OrdinarynodeFiles f : files){
+
     }
+    }
+
+    return owner_list;
+    }*/
 }

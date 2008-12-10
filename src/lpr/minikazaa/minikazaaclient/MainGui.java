@@ -24,6 +24,7 @@ import lpr.minikazaa.GUI.SearchPanel;
 import lpr.minikazaa.GUI.SharedFilesPanel;
 import lpr.minikazaa.GUI.TransferPanel;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 import lpr.minikazaa.util.FileUtil;
@@ -41,6 +42,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
     private OrdinarynodeQuestionsList searches_list;
     private SupernodeList sn_list;
     private NodeInfo my_infos;
+    private OrdinarynodeDownloadMonitor my_monitor;
 
     /** Creates new form MainGui */
     public MainGui(
@@ -49,7 +51,8 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             Socket sock,
             OrdinarynodeQuestionsList src_list,
             SupernodeList sn_list,
-            NodeInfo info) {
+            NodeInfo info,
+            OrdinarynodeDownloadMonitor monitor) {
         
         this.my_files = file_list;
         this.my_conf = conf;
@@ -57,6 +60,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         this.searches_list = src_list;
         this.sn_list = sn_list;
         this.my_infos = info;
+        this.my_monitor = monitor;
         initComponents();
 
         if (!this.my_conf.getIsSN()) {
@@ -261,7 +265,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
 private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
     ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_search_icon.png"));
-    SearchPanel search_panel = new SearchPanel(this.my_infos,this.my_conf,this.searches_list,this.sn_list);
+    SearchPanel search_panel = new SearchPanel(this.my_infos,this.my_conf,this.searches_list,this.sn_list,this.my_monitor);
     this.main_tab.addTab("Search", icon, search_panel , "Search files in the network.");
 }//GEN-LAST:event_search_btActionPerformed
 
