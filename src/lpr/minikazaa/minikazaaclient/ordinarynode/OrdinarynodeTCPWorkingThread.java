@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.DownloadPartRequest;
+import lpr.minikazaa.minikazaaclient.DownloadPartResponse;
 import lpr.minikazaa.minikazaaclient.Query;
 
 /**
@@ -23,10 +24,12 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
 
     Socket in_sock;
     OrdinarynodeQuestionsList my_found_list;
+    OrdinarynodeDownloadMonitor  my_dl_monitor;
     
-    public OrdinarynodeTCPWorkingThread(Socket incoming, OrdinarynodeQuestionsList list) {
+    public OrdinarynodeTCPWorkingThread(Socket incoming, OrdinarynodeQuestionsList list, OrdinarynodeDownloadMonitor dl_monitor) {
         this.my_found_list = list;
         this.in_sock = incoming;
+        this.my_dl_monitor = dl_monitor;
     }
 
     public void run() {
@@ -36,6 +39,7 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
         ObjectInputStream input_object = null;
         Query peer_query = null;
         DownloadPartRequest peer_request = null;
+        DownloadPartResponse peer_response = null;
         Object incoming_obj;
 
         try {
@@ -57,6 +61,14 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
                 peer_request = (DownloadPartRequest) incoming_obj;
                 NodeInfo source = peer_request.getSource();
                 Socket response_socket = new Socket();
+
+                //Build response
+                //peer_response = new DownloadPartResponse();
+
+            } else if (incoming_obj instanceof DownloadPartResponse){
+                //Look what file is and add the bytes.
+                peer_response = (DownloadPartResponse) incoming_obj;
+                this.my_dl_monitor.addBytes(peer_response);
 
             }
 
