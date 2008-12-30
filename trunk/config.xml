@@ -2,7 +2,7 @@
 <java version="1.6.0_10" class="java.beans.XMLDecoder"> 
  <object class="lpr.minikazaa.minikazaaclient.NodeConfig"> 
   <void property="bootStrapAddress"> 
-   <string>dd</string> 
+   <string>ddd</string> 
   </void> 
   <void property="isSN"> 
    <boolean>true</boolean> 
@@ -11,7 +11,7 @@
    <int>10</int> 
   </void> 
   <void property="myAddress"> 
-   <string>192.168.1.165</string> 
+   <string>192.168.1.226</string> 
   </void> 
   <void property="port"> 
    <int>5555</int> 

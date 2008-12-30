@@ -13,6 +13,7 @@ import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.Query;
+import lpr.minikazaa.test.GUI.GuiTableTest;
 import lpr.minikazaa.test.GUI.GuiTest;
 import lpr.minikazaa.test.GUI.SharedDataStructure;
 import lpr.minikazaa.util.FileUtil;
@@ -35,10 +36,10 @@ public class MainTest {
         //TableTest.main_function();
         //Prova_grafica.main_function();
         //main1();
-        //main2();
+        main2();
         //main3();
         //main4();
-        main5();
+        //main5();
     }
 
     public static void main1() {
@@ -72,7 +73,10 @@ public class MainTest {
         }
     }
     
-    
+    public static void main2(){
+        GuiTableTest table = new GuiTableTest(new SharedDataStructure());
+        table.setVisible(true);
+    }
 
     public static void main3(){
         byte [] array = FileUtil.getFilePart("/home/giovine/pp-scommessa.pps", 0, 4096);

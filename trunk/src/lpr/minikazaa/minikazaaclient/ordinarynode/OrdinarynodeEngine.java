@@ -38,7 +38,7 @@ public class OrdinarynodeEngine implements Runnable {
         Socket my_supernode = null;
         
         //Init TCP listener
-        OrdinarynodeTCPListener on_tcp = new OrdinarynodeTCPListener(this.my_conf,found_list);
+        OrdinarynodeTCPListener on_tcp = new OrdinarynodeTCPListener(this.my_conf,found_list,dl_monitor);
         Thread tcp_thread = new Thread(on_tcp);
         tcp_thread.start();
 

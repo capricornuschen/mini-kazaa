@@ -9,6 +9,7 @@ package lpr.minikazaa.test.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JProgressBar;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +25,7 @@ public class GuiTableTest extends javax.swing.JFrame {
        
         initComponents();
         this.dtm = (DefaultTableModel)this.main_table.getModel();
-        this.main_table.getColumn("Strings").setCellRenderer(new FileCellRenderer());
+        this.main_table.getColumn("Strings").setCellRenderer(new CellComponentRenderer());
         this.main_table.getColumn("Delete").setCellRenderer(new DoSomethingCell());
         this.main_table.setRowHeight(24);
         
@@ -108,8 +109,9 @@ public class GuiTableTest extends javax.swing.JFrame {
 private void add_tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_tfActionPerformed
     
     Object [] row = new Object[2];
-    
-    row[0] = this.add_tf.getText();
+    JProgressBar bar = new JProgressBar();
+    bar.setValue(Integer.parseInt(this.add_tf.getText()));
+    row[0] = bar;
     
     
     
