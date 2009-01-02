@@ -7,17 +7,18 @@ package lpr.minikazaa.bootstrap;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import lpr.minikazaa.minikazaaclient.SupernodeList;
 
 /**
  *
  * @author  giovine
  */
 public class BootStrapGui extends javax.swing.JFrame {
-
+    SupernodeList sn_list;
     /** Creates new form BootStrapGui */
-    public BootStrapGui() {
+    public BootStrapGui(SupernodeList list) {
                
-        
+        this.sn_list = list;
         
         initComponents();
         

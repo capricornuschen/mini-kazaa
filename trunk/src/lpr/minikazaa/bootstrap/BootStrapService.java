@@ -22,7 +22,7 @@ import lpr.minikazaa.minikazaaclient.supernode.SupernodeCallbacksInterface;
 public class BootStrapService {
 
     public static void main(String[] args) {
-
+        SupernodeList sn_list = new SupernodeList();
         try {
 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -35,7 +35,7 @@ public class BootStrapService {
             System.out.println("Registry init.");
             System.out.println(registry.toString());
 
-            BootStrapGui g = new BootStrapGui();
+            BootStrapGui g = new BootStrapGui(sn_list);
             
             //Frame appears in the center of the screen
             g.setLocationRelativeTo(null);
