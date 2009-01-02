@@ -20,6 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import lpr.minikazaa.GUI.AboutFrame;
+import lpr.minikazaa.GUI.AboutFrameIta;
+import lpr.minikazaa.GUI.NetMonitorPanel;
 import lpr.minikazaa.GUI.SearchPanel;
 import lpr.minikazaa.GUI.SharedFilesPanel;
 import lpr.minikazaa.GUI.TransferPanel;
@@ -81,6 +84,11 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             Logger.getLogger(MainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        //Bottom left status bar.
+        if(this.my_conf.getIsSN())
+            this.kind_label.setText("Super node mode.");
+        else
+            this.kind_label.setText("Ordinary node mode.");
     }
 
     private void closeActions(){
@@ -119,11 +127,15 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         shut_down_bt = new javax.swing.JButton();
         connection_status = new javax.swing.JLabel();
         main_tab = new javax.swing.JTabbedPane();
+        kind_label = new javax.swing.JLabel();
         main_menu_bar1 = new javax.swing.JMenuBar();
         file_menu = new javax.swing.JMenu();
         close_item = new javax.swing.JMenuItem();
         edit_menu = new javax.swing.JMenu();
         configuration_item = new javax.swing.JMenuItem();
+        help_menu = new javax.swing.JMenu();
+        about_item = new javax.swing.JMenuItem();
+        ita_about_item = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setTitle("MiNi-KaZaA");
@@ -186,6 +198,11 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         net_bt.setFocusable(false);
         net_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         net_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        net_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                net_btActionPerformed(evt);
+            }
+        });
         tool_bar.add(net_bt);
 
         close_tab_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_tab_icon.png"))); // NOI18N
@@ -214,6 +231,8 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
         connection_status.setText("jLabel2");
 
+        kind_label.setText("jLabel1");
+
         file_menu.setText("File");
 
         close_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -237,6 +256,29 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
         main_menu_bar1.add(edit_menu);
 
+        help_menu.setText("Help");
+
+        about_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        about_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/about_icon.png"))); // NOI18N
+        about_item.setText("About");
+        about_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                about_itemActionPerformed(evt);
+            }
+        });
+        help_menu.add(about_item);
+
+        ita_about_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/italian_about_icon.png"))); // NOI18N
+        ita_about_item.setText("Crediti (ita)");
+        ita_about_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ita_about_itemActionPerformed(evt);
+            }
+        });
+        help_menu.add(ita_about_item);
+
+        main_menu_bar1.add(help_menu);
+
         setJMenuBar(main_menu_bar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,7 +287,8 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tool_bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(724, Short.MAX_VALUE)
+                .addComponent(kind_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 680, Short.MAX_VALUE)
                 .addComponent(connection_status)
                 .addContainerGap())
             .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
@@ -255,9 +298,11 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             .addGroup(layout.createSequentialGroup()
                 .addComponent(tool_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                .addComponent(main_tab, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(connection_status))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(connection_status)
+                    .addComponent(kind_label)))
         );
 
         pack();
@@ -331,7 +376,47 @@ private void close_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     this.closeActions();
 }//GEN-LAST:event_close_itemActionPerformed
 
+private void net_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_net_btActionPerformed
+     //Call a new panel to view and modify overlay network of mini-kazaa
+
+    int index = 0;
+
+    try {
+        String s = null;
+        while (true) {
+            s = this.main_tab.getTitleAt(index);
+
+            if (s.equals("Net Monitor")) {
+                return;
+            }
+            index++;
+        }
+    } catch (IndexOutOfBoundsException ex) {
+
+        NetMonitorPanel shared_files_panel = new NetMonitorPanel(this.sn_list);
+        ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_network_icon.png"));
+        this.main_tab.addTab("Net Monitor", icon, shared_files_panel, "Manage your sharings.");
+
+        return;
+    }
+}//GEN-LAST:event_net_btActionPerformed
+
+private void about_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_about_itemActionPerformed
+    //Launch about form
+    AboutFrame about = new AboutFrame();
+    about.setLocationRelativeTo(null);
+    about.setVisible(true);
+}//GEN-LAST:event_about_itemActionPerformed
+
+private void ita_about_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ita_about_itemActionPerformed
+    //Launch italian about form
+    AboutFrameIta about = new AboutFrameIta();
+    about.setLocationRelativeTo(null);
+    about.setVisible(true);
+}//GEN-LAST:event_ita_about_itemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem about_item;
     private javax.swing.JMenuItem close_item;
     private javax.swing.JButton close_tab_bt;
     private javax.swing.JMenuItem configuration_item;
@@ -340,6 +425,9 @@ private void close_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JButton disconnect_bt;
     private javax.swing.JMenu edit_menu;
     private javax.swing.JMenu file_menu;
+    private javax.swing.JMenu help_menu;
+    private javax.swing.JMenuItem ita_about_item;
+    private javax.swing.JLabel kind_label;
     private javax.swing.JMenuBar main_menu_bar1;
     private javax.swing.JTabbedPane main_tab;
     private javax.swing.JButton net_bt;

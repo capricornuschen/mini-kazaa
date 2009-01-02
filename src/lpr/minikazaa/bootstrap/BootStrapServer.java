@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import lpr.minikazaa.minikazaaclient.SupernodeList;
 
 /**
  *
@@ -18,11 +19,11 @@ import java.util.Iterator;
 public class BootStrapServer implements BootStrapServerInterface {
 
     
-    private ArrayList<NodeInfo> node_list;
+    private SupernodeList node_list;
     private BootStrapGui g;
 
-    public BootStrapServer(BootStrapGui g) {
-        this.node_list = new ArrayList();
+    public BootStrapServer(BootStrapGui g, SupernodeList list) {
+        this.node_list = list;
         
         this.g = g;
 
@@ -33,7 +34,7 @@ public class BootStrapServer implements BootStrapServerInterface {
 
 
         try {
-            this.node_list.add(new_node);
+            this.node_list.addNewNode(new_node);
 
             g.setWhatAppensLine(new_node.getId() + " added.\n");
 
@@ -53,7 +54,7 @@ public class BootStrapServer implements BootStrapServerInterface {
         System.out.println("Adding new OrdinaryNode.");
 
 
-        this.node_list.add(new_node);
+        this.node_list.addNewNode(new_node);
 
         g.setWhatAppensLine("ON: " + new_node.getId() + " added.\n");
 
@@ -62,7 +63,7 @@ public class BootStrapServer implements BootStrapServerInterface {
 
     public synchronized boolean removeSuperNode(NodeInfo new_node) throws RemoteException {
         System.out.println("Removing new SuperNode.");
-        if (this.node_list.remove(new_node)) {
+        this.node_list.removeOldNode(new_node);
 
             try {
                 g.setWhatAppensLine(new_node.getId() + " removed.\n");
@@ -74,20 +75,15 @@ public class BootStrapServer implements BootStrapServerInterface {
                 System.out.println("removeSuperNode: " + ex);
             }
 
-            return true;
-        }
-
-        return false;
+       return true;
     }
 
     public synchronized boolean removeOrdinaryNode(NodeInfo new_node) throws RemoteException {
 
-        if(this.node_list.remove(new_node)){
+        this.node_list.removeOldNode(new_node);
             g.setWhatAppensLine("ON: "+new_node.getId() + " removed.\n");
             return true;
-        }
-        else
-            return false;
+        
         
     }
 
@@ -96,17 +92,19 @@ public class BootStrapServer implements BootStrapServerInterface {
         
        g.setWhatAppensLine("List returned\n");
 
-        return node_list;
+        return node_list.getList();
     }
 
     private synchronized void doCallbacksForAdd(NodeInfo node) throws RemoteException {
         System.out.println("Starting callbacks.");
-        System.out.println("Numer of nodes: " + node_list.size());
-        if (node_list.size() <= 1) {
+        ArrayList <NodeInfo> sn_list = this.node_list.getList();
+        System.out.println("Numer of nodes: " + sn_list.size());
+
+        if (sn_list.size() <= 1) {
             return;
         }
 
-        Iterator i = node_list.iterator();
+        Iterator i = sn_list.iterator();
 
         while (i.hasNext()) {
             NodeInfo n = (NodeInfo) i.next();
@@ -122,12 +120,12 @@ public class BootStrapServer implements BootStrapServerInterface {
 
     private synchronized void doCallbacksForRemove(NodeInfo node) throws RemoteException {
         System.out.println("Starting callbacks.");
-
-        if (node_list.size() <= 1) {
+        ArrayList <NodeInfo> sn_list = this.node_list.getList();
+        if (sn_list.size() <= 1) {
             return;
         }
 
-        Iterator i = node_list.iterator();
+        Iterator i = sn_list.iterator();
 
         while (i.hasNext()) {
             NodeInfo n = (NodeInfo) i.next();
