@@ -42,7 +42,7 @@ public class BootStrapService {
             
             g.setVisible(true);
 
-            BootStrapServer bss = new BootStrapServer(g);
+            BootStrapServer bss = new BootStrapServer(g,sn_list);
 
             BootStrapServerInterface stub = (BootStrapServerInterface) UnicastRemoteObject.exportObject(bss, 0);
             SupernodeCallbacksImpl client_impl = new SupernodeCallbacksImpl(new SupernodeList(), new NodeConfig());
