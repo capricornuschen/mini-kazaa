@@ -7,7 +7,6 @@ package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import java.util.ArrayList;
 import java.util.Observable;
-import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.Answer;
 import lpr.minikazaa.minikazaaclient.SearchField;
 import lpr.minikazaa.util.MKFileDescriptor;

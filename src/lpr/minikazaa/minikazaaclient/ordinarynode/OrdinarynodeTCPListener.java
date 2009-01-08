@@ -26,12 +26,19 @@ public class OrdinarynodeTCPListener implements Runnable {
     private NodeConfig my_conf;
     private OrdinarynodeQuestionsList my_found_list;
     private OrdinarynodeDownloadMonitor my_dl_monitor;
+    private OrdinarynodeFiles my_files;
     
     
-    public OrdinarynodeTCPListener(NodeConfig conf, OrdinarynodeQuestionsList list, OrdinarynodeDownloadMonitor dl_monitor){
+    public OrdinarynodeTCPListener(
+            NodeConfig conf,
+            OrdinarynodeQuestionsList list,
+            OrdinarynodeDownloadMonitor dl_monitor,
+            OrdinarynodeFiles files){
+
         this.my_conf = conf;
         this.my_found_list = list;
         this.my_dl_monitor = dl_monitor;
+        this.my_files = files;
     }
 
     public void run() {
@@ -50,8 +57,14 @@ public class OrdinarynodeTCPListener implements Runnable {
         while(true){
             try {
                 incoming_sock = listen_sock.accept();
+                
                 OrdinarynodeTCPWorkingThread tcp_job = 
-                        new OrdinarynodeTCPWorkingThread(incoming_sock,this.my_found_list, this.my_dl_monitor);
+                        new OrdinarynodeTCPWorkingThread(
+                        incoming_sock,
+                        this.my_found_list,
+                        this.my_dl_monitor,
+                        this.my_files);
+
                 answer_pool.execute(tcp_job);
             } catch (IOException ex) {
                 Logger.getLogger(OrdinarynodeTCPListener.class.getName()).log(Level.SEVERE, null, ex);

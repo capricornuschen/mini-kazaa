@@ -10,8 +10,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
-import lpr.minikazaa.minikazaaclient.DownloadPartRequest;
-import lpr.minikazaa.minikazaaclient.DownloadPartResponse;
+import lpr.minikazaa.minikazaaclient.DownloadRequest;
+import lpr.minikazaa.minikazaaclient.DownloadResponse;
 import lpr.minikazaa.minikazaaclient.Query;
 
 /**
@@ -25,11 +25,18 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
     Socket in_sock;
     OrdinarynodeQuestionsList my_found_list;
     OrdinarynodeDownloadMonitor  my_dl_monitor;
+    OrdinarynodeFiles my_files;
     
-    public OrdinarynodeTCPWorkingThread(Socket incoming, OrdinarynodeQuestionsList list, OrdinarynodeDownloadMonitor dl_monitor) {
+    public OrdinarynodeTCPWorkingThread(
+            Socket incoming,
+            OrdinarynodeQuestionsList list,
+            OrdinarynodeDownloadMonitor dl_monitor,
+            OrdinarynodeFiles files) {
+        
         this.my_found_list = list;
         this.in_sock = incoming;
         this.my_dl_monitor = dl_monitor;
+        this.my_files = files;
     }
 
     public void run() {
@@ -38,8 +45,8 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
         //2 - Answer from an outgone query.
         ObjectInputStream input_object = null;
         Query peer_query = null;
-        DownloadPartRequest peer_request = null;
-        DownloadPartResponse peer_response = null;
+        DownloadRequest peer_request = null;
+        DownloadResponse peer_response = null;
         Object incoming_obj;
 
         try {
@@ -56,18 +63,16 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
                     //This query is correct
                     this.my_found_list.add(peer_query.getBodyA());
                 }
-            } else if (incoming_obj instanceof DownloadPartRequest) {
+            } else if (incoming_obj instanceof DownloadRequest) {
                 //Incoming download reuest
-                peer_request = (DownloadPartRequest) incoming_obj;
+                peer_request = (DownloadRequest) incoming_obj;
                 NodeInfo source = peer_request.getSource();
-                Socket response_socket = new Socket();
+                Socket response_socket = new Socket(source.getIaNode(),source.getDoor());
 
-                //Build response
-                //peer_response = new DownloadPartResponse();
-
-            } else if (incoming_obj instanceof DownloadPartResponse){
+                
+            } else if (incoming_obj instanceof DownloadResponse){
                 //Look what file is and add the bytes.
-                peer_response = (DownloadPartResponse) incoming_obj;
+                peer_response = (DownloadResponse) incoming_obj;
                 this.my_dl_monitor.addBytes(peer_response);
 
             }

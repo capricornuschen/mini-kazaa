@@ -24,7 +24,7 @@ public class Download {
         this.file_to_download = file;
         this.downloaded_bytes = 0;
         this.downloader_path = "./downloads/";
-        this.sources = sources;
+        
     }
 
     public MKFileDescriptor getFile(){return this.file_to_download;}

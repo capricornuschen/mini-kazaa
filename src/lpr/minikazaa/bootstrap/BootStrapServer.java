@@ -62,7 +62,8 @@ public class BootStrapServer implements BootStrapServerInterface {
     }
 
     public synchronized boolean removeSuperNode(NodeInfo new_node) throws RemoteException {
-        System.out.println("Removing new SuperNode.");
+        System.out.println("Removing new SuperNode "+new_node.getId());
+
         this.node_list.removeOldNode(new_node);
 
             try {

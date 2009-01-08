@@ -43,7 +43,7 @@ public class NetMonitorPanel extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Net Monitor"));
 
-        supernode_table = new SuperNodesTable();/*
+        supernode_table = new SuperNodesTable(this.my_snlist);/*
         supernode_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

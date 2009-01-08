@@ -26,18 +26,19 @@ public class NodeInfo implements Serializable {
     private int my_connection;
     private int my_files;
     
-    public NodeInfo(InetAddress ia_node, int door, SupernodeCallbacksInterface callback, boolean sn){
-        this.ia_node = ia_node;
-        this.door = door;
-        this.id_node = ia_node.getHostAddress()+":"+door;
-        this.stub = callback;
-        this.ping = -1;
-        this.is_sn = sn;
+    public NodeInfo(){
         
+        this.ping = -1;
         this.my_connection = 0;
         this.my_files = 0;
     }
-    
+
+    public void setInetAddress(InetAddress ia_node){this.ia_node = ia_node;}
+    public void setDoor(int door){this.door = door;}
+    public void setCallbacksInterface(SupernodeCallbacksInterface callback){this.stub = callback;}
+    public void setId(String id){this.id_node = id;}
+    public void setIsSn(boolean sn){this.is_sn = sn;}
+
     public InetAddress getIaNode(){
         return this.ia_node;
     }

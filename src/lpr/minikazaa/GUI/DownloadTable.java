@@ -73,6 +73,8 @@ public class DownloadTable extends JTable implements Observer {
                 row[1] = StringManipulationUtil.getRapresentableSize(size);
                 row[2] = progress;
                 row[3] = (String) ""+dl.getSources();
+                
+                this.my_dtm.addRow(row);
             }
         }
     }

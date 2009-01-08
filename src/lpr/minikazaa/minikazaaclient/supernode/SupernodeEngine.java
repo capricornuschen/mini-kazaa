@@ -1,5 +1,7 @@
 package lpr.minikazaa.minikazaaclient.supernode;
 
+import lpr.minikazaa.bootstrap.BootStrapServerInterface;
+import lpr.minikazaa.bootstrap.BootstrapRMIWrapper;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
@@ -27,15 +29,26 @@ public class SupernodeEngine implements Runnable {
 
     public void run() {
         System.out.println("Thread Super node engine init.");
-        NodeInfo my_infos = null;
+        NodeInfo my_infos = new NodeInfo();
         SupernodeList sn_list = new SupernodeList();
         SupernodeOnFileList on_files = new SupernodeOnFileList();
         OrdinarynodeFiles my_file_list = FileUtil.loadMySharedFiles(my_infos);
         OrdinarynodeQuestionsList found_list = new OrdinarynodeQuestionsList();
         OrdinarynodeDownloadMonitor dl_monitor = new OrdinarynodeDownloadMonitor();
+
+        
+        BootstrapRMIWrapper rmi_stub = new BootstrapRMIWrapper();
         
         //Init main GUI of supernode
-        MainGui main_gui = new MainGui(this.my_conf, my_file_list,null,found_list, sn_list,my_infos,dl_monitor);
+        MainGui main_gui = new MainGui(
+                this.my_conf,
+                my_file_list,
+                null,
+                found_list,
+                sn_list,
+                my_infos,
+                dl_monitor,
+                rmi_stub);
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
         
@@ -46,7 +59,11 @@ public class SupernodeEngine implements Runnable {
         ping_service.start();
         
         //Init RMI manager Thread.
-        SupernodeRMIManager sn_rmi = new SupernodeRMIManager(my_conf,sn_list,my_infos);
+        SupernodeRMIManager sn_rmi = new SupernodeRMIManager(
+                my_conf,
+                sn_list,
+                my_infos,
+                rmi_stub);
         Thread rmi_manager = new Thread(sn_rmi);
         rmi_manager.start();
         
