@@ -62,7 +62,7 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="*/"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="supernode_table = new SuperNodesTable();/*"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="supernode_table = new SuperNodesTable(this.my_snlist);/*"/>
           </AuxValues>
         </Component>
       </SubComponents>

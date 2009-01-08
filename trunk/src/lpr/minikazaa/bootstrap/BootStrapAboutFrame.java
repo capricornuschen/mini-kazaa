@@ -8,6 +8,7 @@ package lpr.minikazaa.bootstrap;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,7 +23,7 @@ public class BootStrapAboutFrame extends javax.swing.JFrame {
         
         initComponents();
         
-        jButton1.addActionListener(
+        close_bt.addActionListener(
                 new ActionListener() {
 
                     public void actionPerformed(ActionEvent event) {
@@ -45,10 +46,11 @@ public class BootStrapAboutFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        close_bt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("About Mini-Kazaa");
+        setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
         setResizable(false);
         setUndecorated(true);
 
@@ -63,8 +65,8 @@ public class BootStrapAboutFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Massimiliano Giovine");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_icon.png"))); // NOI18N
-        jButton1.setText("Close");
+        close_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_icon.png"))); // NOI18N
+        close_bt.setText("Close");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,7 +87,7 @@ public class BootStrapAboutFrame extends javax.swing.JFrame {
                 .addContainerGap(112, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(296, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(close_bt)
                 .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
@@ -102,7 +104,7 @@ public class BootStrapAboutFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(close_bt)
                 .addGap(21, 21, 21))
         );
 
@@ -112,7 +114,7 @@ public class BootStrapAboutFrame extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton close_bt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

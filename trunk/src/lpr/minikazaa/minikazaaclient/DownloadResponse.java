@@ -9,24 +9,20 @@ package lpr.minikazaa.minikazaaclient;
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
  * @date 25-nov-2008
- * @file DownloadPartResponse.java
+ * @file DownloadResponse.java
  */
-public class DownloadPartResponse {
-    private byte [] part; 
-    private int part_n;
+public class DownloadResponse {
+    private byte [] part;
     private String file;
     
-    public DownloadPartResponse(
+    public DownloadResponse(
             byte [] part,
-            int part_n,
             String file){
     
         this.part = part;
-        this.part_n = part_n;
         this.file = file;
     }
     
     public byte [] getPart(){return this.part;}
-    public int getPartN(){return this.part_n;}
     public String getFile(){return this.file;}
 }

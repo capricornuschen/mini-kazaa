@@ -34,7 +34,7 @@ public class BootStrapService {
             Registry registry = LocateRegistry.createRegistry(2008);
             System.out.println("Registry init.");
             System.out.println(registry.toString());
-
+            
             BootStrapGui g = new BootStrapGui(sn_list);
             
             //Frame appears in the center of the screen
@@ -44,10 +44,10 @@ public class BootStrapService {
 
             BootStrapServer bss = new BootStrapServer(g,sn_list);
 
-            BootStrapServerInterface stub = (BootStrapServerInterface) UnicastRemoteObject.exportObject(bss, 0);
+            BootStrapServerInterface stub = (BootStrapServerInterface) UnicastRemoteObject.exportObject(bss, 2008);
             SupernodeCallbacksImpl client_impl = new SupernodeCallbacksImpl(new SupernodeList(), new NodeConfig());
             
-            SupernodeCallbacksInterface client_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject( client_impl,0);
+            SupernodeCallbacksInterface client_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject( client_impl,2008);
             
             System.out.println("Ready to bind.");
             registry.bind("BootStrap", stub);

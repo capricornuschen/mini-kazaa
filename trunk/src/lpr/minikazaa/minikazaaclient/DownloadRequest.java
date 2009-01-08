@@ -12,14 +12,14 @@ import lpr.minikazaa.bootstrap.NodeInfo;
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
  * @date 25-nov-2008
- * @file DownloadPartRequest.java
+ * @file DownloadRequest.java
  */
-public class DownloadPartRequest implements Serializable{
+public class DownloadRequest implements Serializable{
     private String file_request;
     private int part_n;
     private NodeInfo request_source;
 
-    public DownloadPartRequest(
+    public DownloadRequest(
             String file,
             int part_n,
             NodeInfo ni){

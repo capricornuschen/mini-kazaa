@@ -7,6 +7,7 @@ package lpr.minikazaa.bootstrap;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 
 /**
@@ -70,16 +71,17 @@ public class BootStrapGui extends javax.swing.JFrame {
         address_table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        file_menu = new javax.swing.JMenu();
+        file_item = new javax.swing.JMenuItem();
         close_item = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        edit_menu = new javax.swing.JMenu();
+        configuration_item = new javax.swing.JMenuItem();
         faq_menu = new javax.swing.JMenu();
         about_item = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MiniKazaa - Bootstrap Server");
+        setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
         setResizable(false);
 
         wh.setColumns(20);
@@ -111,29 +113,29 @@ public class BootStrapGui extends javax.swing.JFrame {
 
         jLabel2.setText("Indirizzi supernode");
 
-        jMenu1.setText("File");
+        file_menu.setText("File");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/file_icon.png"))); // NOI18N
-        jMenuItem2.setText("File");
-        jMenu1.add(jMenuItem2);
+        file_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        file_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/file_icon.png"))); // NOI18N
+        file_item.setText("File");
+        file_menu.add(file_item);
 
         close_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         close_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/close_icon.png"))); // NOI18N
         close_item.setLabel("Close");
-        jMenu1.add(close_item);
+        file_menu.add(close_item);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(file_menu);
 
-        jMenu2.setText("Edit");
+        edit_menu.setText("Edit");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/config_icon.png"))); // NOI18N
-        jMenuItem3.setText("Configuration");
-        jMenuItem3.setName("Configuration"); // NOI18N
-        jMenu2.add(jMenuItem3);
+        configuration_item.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        configuration_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/config_icon.png"))); // NOI18N
+        configuration_item.setText("Configuration");
+        configuration_item.setName("Configuration"); // NOI18N
+        edit_menu.add(configuration_item);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(edit_menu);
 
         faq_menu.setText("?");
 
@@ -181,14 +183,14 @@ public class BootStrapGui extends javax.swing.JFrame {
     private javax.swing.JMenuItem about_item;
     private javax.swing.JTable address_table;
     private javax.swing.JMenuItem close_item;
+    private javax.swing.JMenuItem configuration_item;
+    private javax.swing.JMenu edit_menu;
     private javax.swing.JMenu faq_menu;
+    private javax.swing.JMenuItem file_item;
+    private javax.swing.JMenu file_menu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea wh;

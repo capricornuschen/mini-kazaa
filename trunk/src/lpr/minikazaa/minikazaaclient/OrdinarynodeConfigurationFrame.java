@@ -11,6 +11,8 @@
 
 package lpr.minikazaa.minikazaaclient;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author giovine
@@ -32,6 +34,7 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

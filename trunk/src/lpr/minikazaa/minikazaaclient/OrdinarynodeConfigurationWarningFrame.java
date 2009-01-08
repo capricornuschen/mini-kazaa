@@ -8,6 +8,7 @@ package lpr.minikazaa.minikazaaclient;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -45,10 +46,11 @@ public class OrdinarynodeConfigurationWarningFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
         setResizable(false);
         setUndecorated(true);
 
-        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 1, 18));
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Ordinary Node Configuration Warning");
 

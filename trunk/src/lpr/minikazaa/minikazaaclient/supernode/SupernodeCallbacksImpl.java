@@ -29,6 +29,7 @@ public class SupernodeCallbacksImpl implements SupernodeCallbacksInterface{
     public void notifyMeAdd(NodeInfo new_node) throws RemoteException{
         System.out.println("NotifyMeAdd received.");
         this.my_sn_list.addNewNode(new_node);
+        this.my_sn_list.print();
     }
     
     public void notifyMeRemove(NodeInfo old_node) throws RemoteException{

@@ -6,11 +6,15 @@
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import java.net.Socket;
+import lpr.minikazaa.bootstrap.BootStrapServerInterface;
+import lpr.minikazaa.bootstrap.BootstrapRMIWrapper;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.MainGui;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.NodePong;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.supernode.SupernodeCallbacksImpl;
+import lpr.minikazaa.minikazaaclient.supernode.SupernodeCallbacksInterface;
 import lpr.minikazaa.util.FileUtil;
 
 /**
@@ -33,22 +37,39 @@ public class OrdinarynodeEngine implements Runnable {
         OrdinarynodeQuestionsList found_list = new OrdinarynodeQuestionsList();
         OrdinarynodeFiles my_file_list = FileUtil.loadMySharedFiles(my_infos);
         OrdinarynodeDownloadMonitor dl_monitor = new OrdinarynodeDownloadMonitor();
+
+        
+        BootstrapRMIWrapper rmi_stub = null;
         
         //Init the socket connection to the our only one socket.
         Socket my_supernode = null;
         
         //Init TCP listener
-        OrdinarynodeTCPListener on_tcp = new OrdinarynodeTCPListener(this.my_conf,found_list,dl_monitor);
+        OrdinarynodeTCPListener on_tcp = new OrdinarynodeTCPListener(this.my_conf,found_list,dl_monitor,my_file_list);
         Thread tcp_thread = new Thread(on_tcp);
         tcp_thread.start();
 
         //Init main GUI of supernode
-        MainGui main_gui = new MainGui(this.my_conf, my_file_list,my_supernode,found_list, sn_list,my_infos,dl_monitor);
+        MainGui main_gui = new MainGui(
+                this.my_conf,
+                my_file_list,
+                my_supernode,
+                found_list,
+                sn_list,
+                my_infos,
+                dl_monitor,
+                rmi_stub);
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
 
         //Init RMI manager
-        OrdinarynodeRMIManager on_rmi = new OrdinarynodeRMIManager(this.my_conf,my_infos,sn_list,my_supernode,ref_sn);
+        OrdinarynodeRMIManager on_rmi = new OrdinarynodeRMIManager(
+                this.my_conf,
+                my_infos,
+                sn_list,
+                my_supernode,
+                ref_sn,
+                rmi_stub);
         Thread rmi_thread = new Thread(on_rmi);
         rmi_thread.start();
 

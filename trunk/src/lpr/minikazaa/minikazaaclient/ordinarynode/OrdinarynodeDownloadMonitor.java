@@ -3,7 +3,7 @@ package lpr.minikazaa.minikazaaclient.ordinarynode;
 import java.util.ArrayList;
 import java.util.Observable;
 import lpr.minikazaa.minikazaaclient.Download;
-import lpr.minikazaa.minikazaaclient.DownloadPartResponse;
+import lpr.minikazaa.minikazaaclient.DownloadResponse;
 
 /**
  *
@@ -39,7 +39,7 @@ public class OrdinarynodeDownloadMonitor extends Observable {
         return this.downloads;
     }
 
-    public synchronized boolean addBytes(DownloadPartResponse part){
+    public synchronized boolean addBytes(DownloadResponse part){
         //To be written
         for(Download d : downloads){
             if(d.getFile().getMd5().equals(part.getFile())){
@@ -53,7 +53,7 @@ public class OrdinarynodeDownloadMonitor extends Observable {
     }
 
     //Static methods
-    public static void addToLocation(DownloadPartResponse part, String location){
+    public static void addToLocation(DownloadResponse part, String location){
 
     }
 
