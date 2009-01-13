@@ -17,23 +17,16 @@ import lpr.minikazaa.util.MKFileDescriptor;
  * @file SearchField.java
  */
 public class SearchField {
-    private List <NodeInfo> owners;
-    private MKFileDescriptor file; //We take the first cause they're all the same
+    private NodeInfo owner;
+    private MKFileDescriptor file;
     public SearchField(MKFileDescriptor first_file, NodeInfo first_owner){
-        owners = new ArrayList();
-
-        this.owners.add(first_owner);
+        this.owner = first_owner;
         this.file = first_file;
-
     }
 
-    public List <NodeInfo> getOwners(){return this.owners;}
+    public NodeInfo getOwners(){return this.owner;}
     public MKFileDescriptor getFile(){return this.file;}
 
-    public void addOwner(NodeInfo new_owner){
-        if(!owners.contains(new_owner))
-            owners.add(new_owner);
-    }
 
     public boolean sameFile(MKFileDescriptor file){
         if(file.equals(this.file))

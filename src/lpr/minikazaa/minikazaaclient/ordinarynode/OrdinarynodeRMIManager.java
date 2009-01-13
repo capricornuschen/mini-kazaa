@@ -33,7 +33,7 @@ public class OrdinarynodeRMIManager implements Runnable {
     private NodeInfo my_infos;
     private SupernodeList sn_list;
     private Socket sn_connection;
-    private NodeInfo best_sn;
+
     private BootstrapRMIWrapper rmi_stub;
     
 
@@ -41,15 +41,11 @@ public class OrdinarynodeRMIManager implements Runnable {
             NodeConfig conf,
             NodeInfo info,
             SupernodeList list,
-            Socket sock,
-            NodeInfo best,
             BootstrapRMIWrapper rmi
             ) {
         this.my_conf = conf;
         this.my_infos = info;
         this.sn_list = list;
-        this.sn_connection = sock;
-        this.best_sn = best;
         this.rmi_stub = rmi;
         
     }
@@ -83,16 +79,7 @@ public class OrdinarynodeRMIManager implements Runnable {
             sn_list.refreshList(ni_list);
             //Refreshing pings.
             sn_list.refreshPing();
-
-            //Istantiate socket to the best supernode.
-            best_sn = sn_list.getBest();
-            try {
-                this.sn_connection = new Socket(best_sn.getIaNode().toString().substring(1), best_sn.getDoor());
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           
 
             //Managing callbacks.
             SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl(this.sn_list, this.my_conf);
@@ -100,11 +87,16 @@ public class OrdinarynodeRMIManager implements Runnable {
 
 
             try {
-                my_infos = new NodeInfo(InetAddress.getByName(my_conf.getMyAddress()), my_conf.getPort(), callbacks_stub, my_conf.getIsSN());
+                my_infos.setInetAddress(InetAddress.getByName(my_conf.getMyAddress()));
+                my_infos.setDoor(my_conf.getPort());
+                my_infos.setCallbacksInterface(callbacks_stub);
+                my_infos.setIsSn(my_conf.getIsSN());
+                my_infos.setId(this.my_conf.getMyAddress()+":"+this.my_conf.getPort());
             } catch (UnknownHostException ex) {
                 Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            
             callbacks_remote.addOrdinaryNode(my_infos);
 
         } catch (RemoteException ex) {

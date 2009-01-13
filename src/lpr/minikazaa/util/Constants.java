@@ -13,5 +13,5 @@ package lpr.minikazaa.util;
  */
 public class Constants {
     public final static int SAVE_EVERYTHING = -45983;
-    public final static int MAX_BYTE = 1024;
+    public final static int MAX_BYTE = 4096;
 }

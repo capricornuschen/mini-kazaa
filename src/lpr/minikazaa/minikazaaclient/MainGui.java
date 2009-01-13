@@ -14,7 +14,6 @@ import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -44,18 +43,17 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
     private NodeConfig my_conf;
     private OrdinarynodeFiles my_files;
-    private Socket ordinarynode_sn_reference;
     private OrdinarynodeQuestionsList searches_list;
     private SupernodeList sn_list;
     private NodeInfo my_infos;
     private OrdinarynodeDownloadMonitor my_monitor;
     private BootstrapRMIWrapper rmi_stub;
+    private static int search_numer = 0;
 
     /** Creates new form MainGui */
     public MainGui(
             NodeConfig conf,
             OrdinarynodeFiles file_list,
-            Socket sock,
             OrdinarynodeQuestionsList src_list,
             SupernodeList sn_list,
             NodeInfo info,
@@ -64,7 +62,6 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
         this.my_files = file_list;
         this.my_conf = conf;
-        this.ordinarynode_sn_reference = sock;
         this.searches_list = src_list;
         this.sn_list = sn_list;
         this.my_infos = info;
@@ -340,8 +337,15 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
 
 private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btActionPerformed
     ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_search_icon.png"));
-    SearchPanel search_panel = new SearchPanel(this.my_infos, this.my_conf, this.searches_list, this.sn_list, this.my_monitor);
+    SearchPanel search_panel = new SearchPanel(
+            this.my_infos,
+            this.my_conf,
+            this.searches_list,
+            this.sn_list,
+            this.my_monitor,
+            MainGui.search_numer);
     this.main_tab.addTab("Search", icon, search_panel, "Search files in the network.");
+    MainGui.search_numer++;
 }//GEN-LAST:event_search_btActionPerformed
 
 private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transfer_btActionPerformed
@@ -389,7 +393,9 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
     } catch (IndexOutOfBoundsException ex) {
 
-        SharedFilesPanel shared_files_panel = new SharedFilesPanel(this.my_files);
+        SharedFilesPanel shared_files_panel = new SharedFilesPanel(
+                this.my_files,
+                this.my_conf);
         ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_shared_files_icon.png"));
         this.main_tab.addTab("Shared Files", icon, shared_files_panel, "Manage your sharings.");
 
