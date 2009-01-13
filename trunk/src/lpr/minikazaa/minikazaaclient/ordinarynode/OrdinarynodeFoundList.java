@@ -31,17 +31,9 @@ public class OrdinarynodeFoundList extends Observable {
         for(OrdinarynodeFiles of : list){
             ArrayList <MKFileDescriptor> answer_files = of.getFileList();
             for(MKFileDescriptor files : answer_files){
-                int index = 0;
-                   
-                for(SearchField field : this.found){
-                    if(field.sameFile(files)){
-                        this.found.get(index).addOwner(of.getOwner());
-                        break;
-                    }
-                    else{
-                        index ++;
-                    }
-                }
+                SearchField field = new SearchField(files,of.getOwner());
+
+                found.add(field);
             }
         }
 

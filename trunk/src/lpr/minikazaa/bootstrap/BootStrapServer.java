@@ -122,7 +122,8 @@ public class BootStrapServer implements BootStrapServerInterface {
     private synchronized void doCallbacksForRemove(NodeInfo node) throws RemoteException {
         System.out.println("Starting callbacks.");
         ArrayList <NodeInfo> sn_list = this.node_list.getList();
-        if (sn_list.size() <= 1) {
+        
+        if (sn_list.size() == 0) {
             return;
         }
 

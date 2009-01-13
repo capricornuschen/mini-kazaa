@@ -43,7 +43,6 @@ public class SupernodeEngine implements Runnable {
         MainGui main_gui = new MainGui(
                 this.my_conf,
                 my_file_list,
-                null,
                 found_list,
                 sn_list,
                 my_infos,

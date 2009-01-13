@@ -1,13 +1,8 @@
-/*
- * SharedFilesPanel.java
- *
- * Created on 24 novembre 2008, 13.05
- */
-
 package lpr.minikazaa.GUI;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.util.FileUtil;
 import lpr.minikazaa.util.MKFileDescriptor;
@@ -17,10 +12,13 @@ import lpr.minikazaa.util.MKFileDescriptor;
  * @author  giovine
  */
 public class SharedFilesPanel extends javax.swing.JPanel {
+
+    private NodeConfig my_config;
     private OrdinarynodeFiles my_files;
     /** Creates new form SharedFilesPanel */
-    public SharedFilesPanel(OrdinarynodeFiles files) {
+    public SharedFilesPanel(OrdinarynodeFiles files,NodeConfig conf) {
         this.my_files = files;
+        this.my_config = conf;
         initComponents();
         this.my_files.addObserver((SharedFilesTable)this.files_table);
     }
@@ -116,8 +114,11 @@ public class SharedFilesPanel extends javax.swing.JPanel {
 
         if(value == JFileChooser.APPROVE_OPTION){
             File [] selected_file = choose_shared_dir.getSelectedFiles();
+            MKFileDescriptor[] files = FileUtil.transformFileToMKFile(selected_file);
+            this.my_files.addFiles(files);
 
-            this.my_files.addFiles(FileUtil.transformFileToMKFile(selected_file));
+            //if i'm an ordinary node i have to send my files to my ordinary node
+            
         }
 
          

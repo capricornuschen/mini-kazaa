@@ -33,6 +33,10 @@ public class OrdinarynodeQuestionsList {
             }
         }
     }
+
+    public synchronized void addFoundList(OrdinarynodeFoundList list){
+        this.my_res_list.add(list);
+    }
     
     public void remove (int index){
         

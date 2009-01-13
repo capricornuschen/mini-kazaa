@@ -174,7 +174,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Indirizzi supernode"/>
+        <Property name="text" type="java.lang.String" value="Indirizzi:"/>
       </Properties>
     </Component>
   </SubComponents>

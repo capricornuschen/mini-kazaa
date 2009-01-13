@@ -111,7 +111,7 @@ public class BootStrapGui extends javax.swing.JFrame {
         */
         jScrollPane2.setViewportView(address_table);
 
-        jLabel2.setText("Indirizzi supernode");
+        jLabel2.setText("Indirizzi:");
 
         file_menu.setText("File");
 

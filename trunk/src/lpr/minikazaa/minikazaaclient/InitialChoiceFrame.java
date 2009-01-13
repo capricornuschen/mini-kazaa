@@ -35,7 +35,10 @@ public class InitialChoiceFrame extends javax.swing.JFrame {
                 new ActionListener() {
 
                     public void actionPerformed(ActionEvent event) {
-                        System.exit(0);
+                        OrdinarynodeConfigurationFrame sn_config = new OrdinarynodeConfigurationFrame();
+                        sn_config.setLocationRelativeTo(null);
+                        sn_config.setVisible(true);
+                        dispose();
                     }
                 });
     }

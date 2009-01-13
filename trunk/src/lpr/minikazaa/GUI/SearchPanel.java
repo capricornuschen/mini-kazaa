@@ -6,10 +6,18 @@
 
 package lpr.minikazaa.GUI;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
+import lpr.minikazaa.minikazaaclient.Query;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFoundList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 
 /**
@@ -18,11 +26,13 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
  */
 public class SearchPanel extends javax.swing.JPanel {
 
-    NodeInfo my_infos;
-    NodeConfig my_conf;
-    OrdinarynodeQuestionsList searches_list;
-    SupernodeList sn_list;
-    OrdinarynodeDownloadMonitor my_monitor;
+    private NodeInfo my_infos;
+    private NodeConfig my_conf;
+    private OrdinarynodeQuestionsList searches_list;
+    private SupernodeList sn_list;
+    private OrdinarynodeDownloadMonitor my_monitor;
+
+    private int my_num;
 
     /** Creates new form SearchPanel */
     public SearchPanel(
@@ -30,19 +40,68 @@ public class SearchPanel extends javax.swing.JPanel {
             NodeConfig conf,
             OrdinarynodeQuestionsList src_list,
             SupernodeList sn_list,
-            OrdinarynodeDownloadMonitor monitor) {
+            OrdinarynodeDownloadMonitor monitor,
+            int num) {
 
         this.my_infos = info;
         this.my_conf = conf;
         this.searches_list = src_list;
         this.sn_list = sn_list;
         this.my_monitor = monitor;
+        this.my_num = num;
         initComponents();
-            
+
+        OrdinarynodeFoundList found_list = new OrdinarynodeFoundList(this.my_num);
+        this.searches_list.addFoundList(found_list);
+        found_list.addObserver((SearchFileTable)this.search_table);
     }
 
     private void searchOperations(){
+        
+        if(this.my_conf.getIsSN()){
+            ArrayList <NodeInfo> sub_set = this.sn_list.getSubSet();
+            Query q = new Query();
+            q.setSender(this.my_infos);
+            q.setOrigin(this.my_infos);
+            q.setAskingQuery(this.search_tf.getText());
 
+            for(NodeInfo peer : sub_set){
+                try {
+                    q.setReceiver(peer);
+                    Socket cli_sock = new Socket(peer.getIaNode(), peer.getDoor());
+                    ObjectOutputStream output_stream = new ObjectOutputStream(cli_sock.getOutputStream());
+                    output_stream.writeObject(q);
+                    cli_sock.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        else{
+            NodeInfo best = this.sn_list.getBest();
+
+            Query q = new Query();
+            q.setReceiver(best);
+            q.setSender(this.my_infos);
+            q.setOrigin(this.my_infos);
+            q.setAskingQuery(this.search_tf.getText());
+
+
+            try {
+                Socket cli_sock = new Socket(best.getIaNode(), best.getDoor());
+
+                ObjectOutputStream output_stream = new ObjectOutputStream(cli_sock.getOutputStream());
+
+                output_stream.writeObject(q);
+
+                cli_sock.close();
+            } catch (IOException ex) {
+                Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+        }
+        
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -64,12 +123,14 @@ public class SearchPanel extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createTitledBorder("Search Panel"));
         setNextFocusableComponent(search_tf);
 
+        search_table = new SearchFileTable(this.my_num);
+        /*
         search_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nome File", "Dimensione", "N° Fonti", "MD5"
+                "File name", "Size", "Owner", "MD5"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -80,6 +141,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        */
         jScrollPane1.setViewportView(search_table);
 
         jLabel1.setText("Search:");
