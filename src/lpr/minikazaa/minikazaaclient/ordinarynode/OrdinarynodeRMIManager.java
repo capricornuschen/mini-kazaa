@@ -1,6 +1,7 @@
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -35,18 +36,20 @@ public class OrdinarynodeRMIManager implements Runnable {
     private Socket sn_connection;
 
     private BootstrapRMIWrapper rmi_stub;
+    private OrdinarynodeRefSn my_sn_ref;
     
 
     public OrdinarynodeRMIManager(
             NodeConfig conf,
             NodeInfo info,
             SupernodeList list,
-            BootstrapRMIWrapper rmi
-            ) {
+            BootstrapRMIWrapper rmi,
+            OrdinarynodeRefSn ref) {
         this.my_conf = conf;
         this.my_infos = info;
         this.sn_list = list;
         this.rmi_stub = rmi;
+        this.my_sn_ref = ref;
         
     }
 
@@ -98,6 +101,21 @@ public class OrdinarynodeRMIManager implements Runnable {
 
             
             callbacks_remote.addOrdinaryNode(my_infos);
+
+            NodeInfo best = this.sn_list.getBest();
+            this.my_sn_ref.setSocket(best.getIaNode(), best.getDoor());
+            if(this.my_sn_ref.getSocket() != null){
+                this.my_sn_ref.setNodeInfo(best);
+                try {
+                    ObjectOutputStream output_object = new ObjectOutputStream(this.my_sn_ref.getSocket().getOutputStream());
+                    OrdinarynodeFriendRequest friend_request  = new OrdinarynodeFriendRequest();
+                    output_object.writeObject(friend_request);
+                } catch (IOException ex) {
+                    Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            this.my_sn_ref.print();
 
         } catch (RemoteException ex) {
             OrdinarynodeWarning snw = new OrdinarynodeWarning("Can't find bootstrap server.", "bs_address", my_conf);

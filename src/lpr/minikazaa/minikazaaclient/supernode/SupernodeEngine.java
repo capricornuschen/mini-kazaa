@@ -47,7 +47,8 @@ public class SupernodeEngine implements Runnable {
                 sn_list,
                 my_infos,
                 dl_monitor,
-                rmi_stub);
+                rmi_stub,
+                null);
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
         

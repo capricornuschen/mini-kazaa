@@ -38,7 +38,13 @@ public class SupernodeTCPListener implements Runnable {
         ServerSocket listen_sock = null;
         Socket client_socket = null;
         SupernodeQueryList query_list = new SupernodeQueryList();
-        ThreadPoolExecutor answer_pool = new ThreadPoolExecutor(10, 15, 50000L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        ThreadPoolExecutor answer_pool = 
+                new ThreadPoolExecutor(
+                10,
+                this.my_conf.getMaxConnection(),
+                50000L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>());
         try {
             listen_sock = new ServerSocket(this.my_conf.getPort());
         } catch (IOException ex) {

@@ -19,6 +19,7 @@ import lpr.minikazaa.minikazaaclient.SupernodeList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFoundList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeRefSn;
 
 /**
  *
@@ -31,6 +32,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private OrdinarynodeQuestionsList searches_list;
     private SupernodeList sn_list;
     private OrdinarynodeDownloadMonitor my_monitor;
+    private OrdinarynodeRefSn my_ref_sn;
 
     private int my_num;
 
@@ -41,7 +43,8 @@ public class SearchPanel extends javax.swing.JPanel {
             OrdinarynodeQuestionsList src_list,
             SupernodeList sn_list,
             OrdinarynodeDownloadMonitor monitor,
-            int num) {
+            int num,
+            OrdinarynodeRefSn ref) {
 
         this.my_infos = info;
         this.my_conf = conf;
@@ -49,6 +52,7 @@ public class SearchPanel extends javax.swing.JPanel {
         this.sn_list = sn_list;
         this.my_monitor = monitor;
         this.my_num = num;
+        this.my_ref_sn = ref;
         initComponents();
 
         OrdinarynodeFoundList found_list = new OrdinarynodeFoundList(this.my_num);
@@ -78,23 +82,21 @@ public class SearchPanel extends javax.swing.JPanel {
             }
         }
         else{
-            NodeInfo best = this.sn_list.getBest();
-
+            
             Query q = new Query();
-            q.setReceiver(best);
+            q.setReceiver(this.my_ref_sn.getBestSn());
             q.setSender(this.my_infos);
             q.setOrigin(this.my_infos);
             q.setAskingQuery(this.search_tf.getText());
 
 
             try {
-                Socket cli_sock = new Socket(best.getIaNode(), best.getDoor());
 
-                ObjectOutputStream output_stream = new ObjectOutputStream(cli_sock.getOutputStream());
+                ObjectOutputStream output_stream = new ObjectOutputStream(this.my_ref_sn.getSocket().getOutputStream());
 
                 output_stream.writeObject(q);
 
-                cli_sock.close();
+               
             } catch (IOException ex) {
                 Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
             }

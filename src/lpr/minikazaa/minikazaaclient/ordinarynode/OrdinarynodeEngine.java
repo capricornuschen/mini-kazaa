@@ -36,6 +36,8 @@ public class OrdinarynodeEngine implements Runnable {
 
 
         BootstrapRMIWrapper rmi_stub = new BootstrapRMIWrapper();
+        OrdinarynodeRefSn my_ref_sn = new OrdinarynodeRefSn();
+        sn_list.addObserver((OrdinarynodeRefSn) my_ref_sn);
 
         //Init TCP listener
         OrdinarynodeTCPListener on_tcp = new OrdinarynodeTCPListener(this.my_conf, found_list, dl_monitor, my_file_list);
@@ -50,7 +52,8 @@ public class OrdinarynodeEngine implements Runnable {
                 sn_list,
                 my_infos,
                 dl_monitor,
-                rmi_stub);
+                rmi_stub,
+                my_ref_sn);
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
 
@@ -59,7 +62,8 @@ public class OrdinarynodeEngine implements Runnable {
                 this.my_conf,
                 my_infos,
                 sn_list,
-                rmi_stub);
+                rmi_stub,
+                my_ref_sn);
         Thread rmi_thread = new Thread(on_rmi);
         rmi_thread.start();
 
