@@ -32,6 +32,7 @@ import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeRefSn;
 import lpr.minikazaa.util.FileUtil;
 import lpr.minikazaa.util.NetUtil;
 
@@ -49,6 +50,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
     private OrdinarynodeDownloadMonitor my_monitor;
     private BootstrapRMIWrapper rmi_stub;
     private static int search_numer = 0;
+    private OrdinarynodeRefSn my_sn_ref;
 
     /** Creates new form MainGui */
     public MainGui(
@@ -58,7 +60,8 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             SupernodeList sn_list,
             NodeInfo info,
             OrdinarynodeDownloadMonitor monitor,
-            BootstrapRMIWrapper rmi) {
+            BootstrapRMIWrapper rmi,
+            OrdinarynodeRefSn ref) {
 
         this.my_files = file_list;
         this.my_conf = conf;
@@ -67,6 +70,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         this.my_infos = info;
         this.my_monitor = monitor;
         this.rmi_stub = rmi;
+        this.my_sn_ref = ref;
         initComponents();
 
         if (!this.my_conf.getIsSN()) {
@@ -343,7 +347,8 @@ private void search_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             this.searches_list,
             this.sn_list,
             this.my_monitor,
-            MainGui.search_numer);
+            MainGui.search_numer,
+            this.my_sn_ref);
     this.main_tab.addTab("Search", icon, search_panel, "Search files in the network.");
     MainGui.search_numer++;
 }//GEN-LAST:event_search_btActionPerformed

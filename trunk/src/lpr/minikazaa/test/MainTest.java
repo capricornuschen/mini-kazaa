@@ -36,10 +36,11 @@ public class MainTest {
         //TableTest.main_function();
         //Prova_grafica.main_function();
         //main1();
-        main2();
+        //main2();
         //main3();
         //main4();
         //main5();
+        TestFunctions.objectProva();
     }
 
     public static void main1() {
