@@ -1,0 +1,36 @@
+\chapter{Bootstrap Server}
+
+Il bootstrap server si avvia dal main situato all'interno del file \verb|BootstrapService.java|. Questo file esegue subito un blocco di tipo \verb|try{}catch| nel quale si trovano le seguenti istruzioni.
+
+\begin{lstlisting}
+try {
+Registry registry = LocateRegistry.createRegistry(2008);
+BootStrapGui g = new BootStrapGui();
+
+g.setLocationRelativeTo(null);
+            
+g.setVisible(true);
+
+BootStrapServer bss = new BootStrapServer(g);
+
+BootStrapServerInterface stub = 
+	(BootStrapServerInterface) 
+	UnicastRemoteObject.exportObject(bss, 0);
+
+SupernodeCallbacksImpl client_impl = new SupernodeCallbacksImpl
+	(new SupernodeList(), new NodeConfig());
+            
+SupernodeCallbacksInterface client_stub = 
+	(SupernodeCallbacksInterface) 
+	UnicastRemoteObject.exportObject( client_impl,0);
+            
+System.out.println("Ready to bind.");
+registry.bind("BootStrap", stub);
+registry.bind("Callback", client_stub);
+            
+
+} 
+catch (Exception e) {
+System.err.println("BootStrapService: " + e);
+}
+\end{lstlisting}
