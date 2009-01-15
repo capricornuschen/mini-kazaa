@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.10.31)  6 DEC 2008 12:13
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.10.31)  15 JAN 2009 01:05
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
@@ -694,9 +694,19 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 (./introduzione.tex [1]
 Capitolo 1.
-) (./bootstrap_server.tex [2
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 5.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 5.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 9.
+(/usr/share/texmf/tex/latex/lm/omslmr.fd
+File: omslmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 9.
+ [2
 
-]
+]) (./bootstrap_server.tex [3]
 Capitolo 2.
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 3.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
@@ -707,21 +717,16 @@ Overfull \hbox (69.17596pt too wide) in paragraph at lines 3--4
 ter-no del fi-le []\T1/lmtt/m/n/10.95 BootstrapService.java\T1/lmr/m/n/10.95 .
  []
 
-
-Overfull \hbox (122.84894pt too wide) in paragraph at lines 24--26
-[][][][][][][][][][][][][][][][][][] 
- []
-
-) [3
+) [4
 
 ] (./mini-kazaa.aux) ) 
 Here is how much of TeX's memory you used:
- 7024 strings out of 95067
- 94303 string characters out of 1182579
- 162811 words of memory out of 1500000
- 10046 multiletter control sequences out of 10000+50000
- 55394 words of font info for 53 fonts, out of 1200000 for 2000
+ 7046 strings out of 95067
+ 94456 string characters out of 1182579
+ 153811 words of memory out of 1500000
+ 10052 multiletter control sequences out of 10000+50000
+ 72817 words of font info for 68 fonts, out of 1200000 for 2000
  28 hyphenation exceptions out of 8191
- 27i,6n,40p,332b,1125s stack positions out of 5000i,500n,6000p,200000b,5000s
+ 27i,8n,40p,482b,1113s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (4 pages, 13416 bytes).
+Output written on mini-kazaa.dvi (5 pages, 11840 bytes).
