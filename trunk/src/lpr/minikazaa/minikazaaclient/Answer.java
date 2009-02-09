@@ -25,11 +25,7 @@ public class Answer implements Serializable {
         this.files = owner_list;
         this.id = n;
     }
-   
-    public Answer(ArrayList <OrdinarynodeFiles> owner_list, NodeInfo ow_info){
-        this.files = owner_list;
-        
-    }
+ 
     
     public void setFilesList(ArrayList <OrdinarynodeFiles> l){
         this.files = l;

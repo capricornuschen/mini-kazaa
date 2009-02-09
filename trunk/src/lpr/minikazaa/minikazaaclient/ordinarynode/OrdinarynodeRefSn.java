@@ -9,6 +9,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.Query;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 
 /**
@@ -22,12 +23,26 @@ public class OrdinarynodeRefSn implements Observer {
     private Socket my_sn;
     private NodeInfo best_sn;
     private int num_query;
+    private ObjectOutputStream output_object;
 
     public OrdinarynodeRefSn() {
         this.num_query = 0;
+        this.my_sn = null;
+        this.best_sn = null;
+
     }
 
-    public void setSocket(InetAddress ia_node, int port) {
+    public void send(Object obj){
+        try {
+            this.output_object.writeObject(obj);
+        } catch (IOException ex) {
+            System.out.println("Error while sending "+obj.toString());
+            Logger.getLogger(OrdinarynodeRefSn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public synchronized void setSocket(InetAddress ia_node, int port) {
+        System.out.println("DEBUG: setSocket called.");
         try {
             this.my_sn = new Socket(ia_node, port);
         } catch (IOException ex) {
@@ -36,23 +51,23 @@ public class OrdinarynodeRefSn implements Observer {
         }
     }
 
-    public void setNodeInfo(NodeInfo best) {
+    public synchronized void setNodeInfo(NodeInfo best) {
         this.best_sn = best;
     }
 
-    public Socket getSocket() {
+    public synchronized Socket getSocket() {
         return this.my_sn;
     }
 
-    public int getNumQuery() {
+    public synchronized int getNumQuery() {
         return this.num_query;
     }
 
-    public NodeInfo getBestSn() {
+    public synchronized NodeInfo getBestSn() {
         return this.best_sn;
     }
 
-    public void increaseNumQuery() {
+    public synchronized void increaseNumQuery() {
         this.num_query++;
     }
 
@@ -61,25 +76,35 @@ public class OrdinarynodeRefSn implements Observer {
         System.out.println("My queries to my supernode: " + this.num_query);
     }
 
-    public void update(Observable o, Object arg) {
+    public synchronized void update(Observable o, Object arg) {
         if (o instanceof SupernodeList) {
             SupernodeList list = (SupernodeList) o;
-            if (this.my_sn == null) {
+            System.out.println("Lista dentro update:");
+            list.print();
+            if ((this.my_sn == null) && (list.getList().size() > 0)) {
+                System.out.println("Dimensione lista: " + list.getList().size());
+
                 NodeInfo best = list.getBest();
+
+
+                System.out.println("Best: " + best.getId());
+
+                this.setSocket(best.getIaNode(), best.getDoor());
+                this.best_sn = best;
                 try {
-                    this.my_sn = new Socket(best.getIaNode(), best.getDoor());
-                    this.best_sn = best;
-                    try {
-                        ObjectOutputStream output_object = new ObjectOutputStream(this.my_sn.getOutputStream());
-                        OrdinarynodeFriendRequest friend_request = new OrdinarynodeFriendRequest();
-                        output_object.writeObject(friend_request);
-                    } catch (IOException ex) {
-                        Logger.getLogger(OrdinarynodeRefSn.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+                    this.output_object = new ObjectOutputStream(this.my_sn.getOutputStream());
+
+                    OrdinarynodeFriendRequest friend_request = new OrdinarynodeFriendRequest();
+                    friend_request.setRelationship(true);
+                    output_object.writeObject(friend_request);
+
                 } catch (IOException ex) {
-                    this.my_sn = null;
-                    System.out.println("Unable to set socket connection to " + best.getIaNode().toString() + ":" + best.getDoor());
+                    Logger.getLogger(OrdinarynodeRefSn.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                this.print();
+
             }
         }
     }

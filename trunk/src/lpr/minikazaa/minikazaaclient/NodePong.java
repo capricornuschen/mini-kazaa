@@ -52,11 +52,12 @@ public class NodePong implements Runnable {
 
                 send_sock = new DatagramSocket();
             } catch (SocketException ex) {
-                Logger.getLogger(NodePong.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
 
             byte [] send_byte = packet;
             DatagramPacket send_pack = new DatagramPacket(send_byte,send_byte.length,pack.getAddress(),pack.getPort());
+            System.out.println(send_pack.toString());
             try {
 
                 send_sock.send(send_pack);

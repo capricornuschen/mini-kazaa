@@ -124,7 +124,12 @@ public class SupernodeTCPWorkingThread implements Runnable {
                 }
             } else if (read_object instanceof OrdinarynodeFriendRequest) {
 
+                System.out.println("DEBUG: Friendship request received.");
+
                 OrdinarynodeFriendRequest friendship = (OrdinarynodeFriendRequest) read_object;
+
+                System.out.println("DEBUG: friendship "+friendship.toString());
+
                 boolean friend;
 
                 if(friendship.getRelationship())
@@ -133,16 +138,33 @@ public class SupernodeTCPWorkingThread implements Runnable {
                     friend = false;
 
                 while (friend) {
-
+                    System.out.println("DEBUG: "+Thread.currentThread()+" Ciclo di friendship.");
+                    
                     Object friend_request = input_object.readObject();
-
+                    
+                    System.out.println("DEBUG: richiesta ricevuta "+friend_request.toString());
                     if (friend_request instanceof Query) {
                         //Ricezione di una query da un ON friend.
                         Query friend_query = (Query) friend_request;
+                        //Stampa di debug
+                        System.out.println("Testo della query ricevuta: "+friend_query.getBodyQ());
                         //Mia risposta al nodo richiedente.
                         ArrayList<OrdinarynodeFiles> query_answer = null;
                         query_answer = this.my_f_list.searchFiles(friend_query.getBodyQ());
 
+                        Answer answer = new Answer(query_answer, friend_query.getId());
+
+                        friend_query.setAnswerQuery(answer);
+
+                        Socket cli_sock =
+                                new Socket(
+                                friend_query.getSender().getIaNode(),
+                                friend_query.getSender().getDoor());
+
+                        ObjectOutputStream out_stream = new ObjectOutputStream(cli_sock.getOutputStream());
+
+                        out_stream.writeObject(friend_query);
+  
                     } else if (friend_request instanceof OrdinarynodeFiles) {
                         //Ricezione di una lista di file da un ON friend.
                     } else if (friend_request instanceof OrdinarynodeFriendRequest){

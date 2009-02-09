@@ -56,10 +56,13 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
             if (incoming_obj instanceof Query) {
                 //incoming query contains files relativ our regex research.
                 peer_query = (Query) incoming_obj;
+
+                System.out.println("DEBUG: risposta alla query: "+peer_query.getBodyQ());
                 //Check if incoming query is not corrupt.
                 if ((peer_query.getBodyA() != null) &&
-                        (peer_query.getBodyF() == null) &&
-                        (peer_query.getBodyQ() == null)) {
+                        (peer_query.getBodyF() == null) ) {
+
+                    System.out.println("DEBUG: la query "+peer_query.getBodyQ()+" è corretta.");
                     //This query is correct
                     this.my_found_list.add(peer_query.getBodyA());
                 }

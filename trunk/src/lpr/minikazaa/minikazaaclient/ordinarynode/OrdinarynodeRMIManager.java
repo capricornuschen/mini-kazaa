@@ -37,7 +37,7 @@ public class OrdinarynodeRMIManager implements Runnable {
 
     private BootstrapRMIWrapper rmi_stub;
     private OrdinarynodeRefSn my_sn_ref;
-    
+
 
     public OrdinarynodeRMIManager(
             NodeConfig conf,
@@ -50,7 +50,7 @@ public class OrdinarynodeRMIManager implements Runnable {
         this.sn_list = list;
         this.rmi_stub = rmi;
         this.my_sn_ref = ref;
-        
+
     }
 
     public void run() {
@@ -80,9 +80,8 @@ public class OrdinarynodeRMIManager implements Runnable {
             }
 
             sn_list.refreshList(ni_list);
-            //Refreshing pings.
-            sn_list.refreshPing();
-           
+      
+
 
             //Managing callbacks.
             SupernodeCallbacksImpl callback_obj = new SupernodeCallbacksImpl(this.sn_list, this.my_conf);
@@ -99,23 +98,27 @@ public class OrdinarynodeRMIManager implements Runnable {
                 Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            
+
             callbacks_remote.addOrdinaryNode(my_infos);
 
-            NodeInfo best = this.sn_list.getBest();
+             sn_list.refreshList(ni_list);
+             sn_list.refreshPing();
+
+            /*NodeInfo best = this.sn_list.getBest();
             this.my_sn_ref.setSocket(best.getIaNode(), best.getDoor());
             if(this.my_sn_ref.getSocket() != null){
-                this.my_sn_ref.setNodeInfo(best);
-                try {
-                    ObjectOutputStream output_object = new ObjectOutputStream(this.my_sn_ref.getSocket().getOutputStream());
-                    OrdinarynodeFriendRequest friend_request  = new OrdinarynodeFriendRequest();
-                    output_object.writeObject(friend_request);
-                } catch (IOException ex) {
-                    Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            this.my_sn_ref.setNodeInfo(best);
+            try {
+            ObjectOutputStream output_object = new ObjectOutputStream(this.my_sn_ref.getSocket().getOutputStream());
+            OrdinarynodeFriendRequest friend_request  = new OrdinarynodeFriendRequest();
+            output_object.writeObject(friend_request);
+            } catch (IOException ex) {
+            System.out.println("DEBUG: exception mentre chiedo friendship.");
+            Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
 
-            this.my_sn_ref.print();
+            this.my_sn_ref.print();*/
 
         } catch (RemoteException ex) {
             OrdinarynodeWarning snw = new OrdinarynodeWarning("Can't find bootstrap server.", "bs_address", my_conf);
@@ -128,3 +131,4 @@ public class OrdinarynodeRMIManager implements Runnable {
         }
     }
 }
+
