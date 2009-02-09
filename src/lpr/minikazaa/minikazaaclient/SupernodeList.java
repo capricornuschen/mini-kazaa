@@ -21,29 +21,28 @@ import lpr.minikazaa.bootstrap.NodeInfo;
 public class SupernodeList extends Observable {
 
     private ArrayList<NodeInfo> sn_list;
-    private boolean is_updated;
     private ArrayList<NodeInfo> sub_set_list;
 
     public SupernodeList() {
         this.sn_list = new ArrayList();
-        this.is_updated = false;
         this.sub_set_list = null;
     }
 
     public void print() {
         for (NodeInfo info : this.sn_list) {
-            System.out.println("Nodo: "+info.getId());
+            System.out.println("Nodo: " + info.getId());
         }
     }
 
     public synchronized void refreshList(ArrayList<NodeInfo> list) {
         this.sn_list = list;
-        this.is_updated = true;
+
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public synchronized void addNewNode(NodeInfo node) {
         this.sn_list.add(node);
-        this.is_updated = true;
 
         this.setChanged();
         this.notifyObservers();
@@ -51,7 +50,6 @@ public class SupernodeList extends Observable {
 
     public synchronized void removeOldNode(NodeInfo node) {
         this.sn_list.remove(node);
-        this.is_updated = true;
 
         this.setChanged();
         this.notifyObservers();
@@ -70,7 +68,6 @@ public class SupernodeList extends Observable {
                 }
             }
         }
-        this.is_updated = true;
     }
 
     public synchronized void refreshPing() {
@@ -78,15 +75,15 @@ public class SupernodeList extends Observable {
         ThreadPoolExecutor my_thread_pool =
                 new ThreadPoolExecutor(10, 15, 50000L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>());
+        if (this.sn_list.size() >= 1) {
+            for (NodeInfo n : sn_list) {
+                NodePing pinging = new NodePing(n.getIaNode(), n.getDoor(), this);
 
-        for (NodeInfo n : sn_list) {
-            NodePing pinging = new NodePing(n.getIaNode(), n.getDoor(), this);
-
-            my_thread_pool.execute(pinging);
+                my_thread_pool.execute(pinging);
+            }
         }
-
         my_thread_pool.shutdown();
-        this.is_updated = true;
+
         this.setChanged();
         this.notifyObservers();
     }
@@ -98,8 +95,7 @@ public class SupernodeList extends Observable {
 
         for (NodeInfo n : this.sn_list) {
             if (n.getPing() != -1) {
-                //Unactive node.
-                this.is_updated = true;
+
                 if (n.getPing() <= threshold) {
                     neighbors.add(n);
                     if (neighbors.size() == set_size) {
@@ -122,22 +118,30 @@ public class SupernodeList extends Observable {
     }
 
     public synchronized NodeInfo getBest() {
-        NodeInfo best = null;
-        if (this.sub_set_list.size() == 0) {
-            //If no subset exists we create a new small subset.
-            this.subSet(10, 100);
-        }
+        NodeInfo best = new NodeInfo();
 
-        for (NodeInfo candidate : this.sub_set_list) {
-            if (best == null) {
-                best = candidate;
+        System.out.println("DEBUG: getbest() snlist.size = "+this.sn_list.size());
+
+        for (NodeInfo candidate : this.sn_list) {
+            if (best.getIaNode() == null) {
+                best.setInetAddress(candidate.getIaNode());
+                best.setCallbacksInterface(candidate.getCallbackInterface());
+                best.setDoor(candidate.getDoor());
+                best.setId(candidate.getId());
+                best.setUsername(candidate.getUsername());
+                best.setPing(candidate.getPing());
             } else {
-                if (candidate.getConnections() < best.getConnections()) {
-                    best = candidate;
+                if (candidate.getPing() < best.getPing()) {
+                    best.setInetAddress(candidate.getIaNode());
+                    best.setCallbacksInterface(candidate.getCallbackInterface());
+                    best.setDoor(candidate.getDoor());
+                    best.setId(candidate.getId());
+                    best.setUsername(candidate.getUsername());
+                    best.setPing(candidate.getPing());
                 }
             }
         }
-
+        System.out.println("DEBUG: best found "+best.getId());
         return best;
     }
 }

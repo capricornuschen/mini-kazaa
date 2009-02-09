@@ -3,7 +3,6 @@
  *
  * Created on 14 novembre 2008, 13.00
  */
-
 package lpr.minikazaa.GUI;
 
 import java.io.IOException;
@@ -33,7 +32,6 @@ public class SearchPanel extends javax.swing.JPanel {
     private SupernodeList sn_list;
     private OrdinarynodeDownloadMonitor my_monitor;
     private OrdinarynodeRefSn my_ref_sn;
-
     private int my_num;
 
     /** Creates new form SearchPanel */
@@ -57,19 +55,20 @@ public class SearchPanel extends javax.swing.JPanel {
 
         OrdinarynodeFoundList found_list = new OrdinarynodeFoundList(this.my_num);
         this.searches_list.addFoundList(found_list);
-        found_list.addObserver((SearchFileTable)this.search_table);
+        found_list.addObserver((SearchFileTable) this.search_table);
     }
 
-    private void searchOperations(){
-        
-        if(this.my_conf.getIsSN()){
-            ArrayList <NodeInfo> sub_set = this.sn_list.getSubSet();
+    private void searchOperations() {
+        System.out.println("DEBUG: searchOperations called.");
+
+        if (this.my_conf.getIsSN()) {
+            ArrayList<NodeInfo> sub_set = this.sn_list.getSubSet();
             Query q = new Query();
             q.setSender(this.my_infos);
             q.setOrigin(this.my_infos);
             q.setAskingQuery(this.search_tf.getText());
 
-            for(NodeInfo peer : sub_set){
+            for (NodeInfo peer : sub_set) {
                 try {
                     q.setReceiver(peer);
                     Socket cli_sock = new Socket(peer.getIaNode(), peer.getDoor());
@@ -80,9 +79,8 @@ public class SearchPanel extends javax.swing.JPanel {
                     Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
-        else{
-            
+        } else {
+
             Query q = new Query();
             q.setReceiver(this.my_ref_sn.getBestSn());
             q.setSender(this.my_infos);
@@ -90,21 +88,19 @@ public class SearchPanel extends javax.swing.JPanel {
             q.setAskingQuery(this.search_tf.getText());
 
 
-            try {
 
-                ObjectOutputStream output_stream = new ObjectOutputStream(this.my_ref_sn.getSocket().getOutputStream());
+            this.my_ref_sn.increaseNumQuery();
+            this.my_ref_sn.send(q);
 
-                output_stream.writeObject(q);
+            System.out.println("DEBUG: Query " + q.getBodyQ() + " sent.");
 
-               
-            } catch (IOException ex) {
-                Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
 
 
         }
-        
+
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -238,10 +234,7 @@ public class SearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_search_tfFocusGained
 
     private void download_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_download_btActionPerformed
-        
 }//GEN-LAST:event_download_btActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clean_bt;
     private javax.swing.JButton download_bt;
@@ -251,7 +244,6 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JTable search_table;
     private javax.swing.JTextField search_tf;
     // End of variables declaration//GEN-END:variables
-
 }
 
 

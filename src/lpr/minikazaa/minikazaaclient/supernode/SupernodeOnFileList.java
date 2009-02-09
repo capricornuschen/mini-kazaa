@@ -21,7 +21,7 @@ public class SupernodeOnFileList extends Observable{
    
     
     public SupernodeOnFileList(){
-        this.file_list = null;
+        this.file_list = new ArrayList();
     }
     
     public boolean alreadyHave(OrdinarynodeFiles f){
@@ -64,7 +64,7 @@ public class SupernodeOnFileList extends Observable{
             MKFileDescriptor [] new_array = null;
             
             for(MKFileDescriptor file : node_files){
-                
+                System.out.println("DEBUG: file analizzato "+file.getFileName());
                 ArrayList <MKFileDescriptor> found_list = new ArrayList();
                 
                 
@@ -72,6 +72,7 @@ public class SupernodeOnFileList extends Observable{
                     
                     while(matcher.find()){
                         found_list.add(file);
+                        System.out.println("DEBUG: file trovato "+file.getFileName());
                     }
                 
                 

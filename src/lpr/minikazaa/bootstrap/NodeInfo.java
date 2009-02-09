@@ -28,7 +28,7 @@ public class NodeInfo implements Serializable {
     
     public NodeInfo(){
         
-        this.ping = -1;
+        this.ping = 999;
         this.my_connection = 0;
         this.my_files = 0;
     }
