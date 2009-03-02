@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 
 /**
  *
@@ -19,18 +21,23 @@ import lpr.minikazaa.minikazaaclient.SupernodeList;
  */
 public class SupernodeTCPListener implements Runnable {
 
-    NodeConfig my_conf;
-    SupernodeList my_list;
-    SupernodeOnFileList on_files;
+    private NodeConfig my_conf;
+    private SupernodeList my_list;
+    private SupernodeOnFileList on_files;
+    private OrdinarynodeFiles my_files;
+    private OrdinarynodeDownloadMonitor my_dl_monitor;
 
     public SupernodeTCPListener(
             NodeConfig conf,
             SupernodeList list,
-            SupernodeOnFileList file_list) {
+            SupernodeOnFileList file_list,
+            OrdinarynodeFiles sn_files,
+            OrdinarynodeDownloadMonitor dl_monitor) {
         this.on_files = file_list;
         this.my_conf = conf;
         this.my_list = list;
-
+        this.my_files = sn_files;
+        this.my_dl_monitor = dl_monitor;
     }
 
     public void run() {
@@ -53,8 +60,15 @@ public class SupernodeTCPListener implements Runnable {
         while (true) {
             try {
                 client_socket = listen_sock.accept();
-                SupernodeTCPWorkingThread answer = new SupernodeTCPWorkingThread(client_socket, this.my_conf, this.my_list,
-                        query_list, this.on_files);
+                SupernodeTCPWorkingThread answer = 
+                        new SupernodeTCPWorkingThread(
+                        client_socket,
+                        this.my_conf,
+                        this.my_list,
+                        query_list, 
+                        this.on_files,
+                        this.my_files,
+                        this.my_dl_monitor);
                 answer_pool.execute(answer);
             } catch (IOException ex) {
                 Logger.getLogger(SupernodeTCPListener.class.getName()).log(Level.SEVERE, null, ex);

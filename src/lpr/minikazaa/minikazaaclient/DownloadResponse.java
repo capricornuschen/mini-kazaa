@@ -5,13 +5,15 @@
 
 package lpr.minikazaa.minikazaaclient;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Andrea Di Grazia, Massimiliano Giovine
  * @date 25-nov-2008
  * @file DownloadResponse.java
  */
-public class DownloadResponse {
+public class DownloadResponse implements Serializable {
     private byte [] part;
     private String file;
     
@@ -23,6 +25,6 @@ public class DownloadResponse {
         this.file = file;
     }
     
-    public byte [] getPart(){return this.part;}
     public String getFile(){return this.file;}
+    public byte [] getPart(){return this.part;}
 }
