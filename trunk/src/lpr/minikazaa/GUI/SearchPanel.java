@@ -1,8 +1,3 @@
-/*
- * SearchPanel.java
- *
- * Created on 14 novembre 2008, 13.00
- */
 package lpr.minikazaa.GUI;
 
 import java.io.IOException;
@@ -12,8 +7,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.DownloadRequest;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.Query;
+import lpr.minikazaa.minikazaaclient.SearchField;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFoundList;
@@ -22,7 +19,7 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeRefSn;
 
 /**
  *
- * @author  giovine
+ * @author Andrea Di Grazia, Massimiliano Giovine
  */
 public class SearchPanel extends javax.swing.JPanel {
 
@@ -64,6 +61,7 @@ public class SearchPanel extends javax.swing.JPanel {
         if (this.my_conf.getIsSN()) {
             ArrayList<NodeInfo> sub_set = this.sn_list.getSubSet();
             Query q = new Query();
+            q.setId(this.my_num);
             q.setSender(this.my_infos);
             q.setOrigin(this.my_infos);
             q.setAskingQuery(this.search_tf.getText());
@@ -82,6 +80,7 @@ public class SearchPanel extends javax.swing.JPanel {
         } else {
 
             Query q = new Query();
+            q.setId(this.my_num);
             q.setReceiver(this.my_ref_sn.getBestSn());
             q.setSender(this.my_infos);
             q.setOrigin(this.my_infos);
@@ -93,9 +92,6 @@ public class SearchPanel extends javax.swing.JPanel {
             this.my_ref_sn.send(q);
 
             System.out.println("DEBUG: Query " + q.getBodyQ() + " sent.");
-
-
-
 
         }
 
@@ -234,6 +230,28 @@ public class SearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_search_tfFocusGained
 
     private void download_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_download_btActionPerformed
+        int selection = this.search_table.getSelectedRow();
+
+        //Recupero la stringa md5 del file dalla tabella
+        String md5_file = (String)this.search_table.getValueAt(selection, 3);
+
+        //Ottengo il file da scaricare
+        SearchField file_to_download = this.searches_list.getFile(md5_file);
+
+        //Creo la download request
+        DownloadRequest request = new DownloadRequest(md5_file,this.my_infos);
+        try {
+            //Invio la richiesta al possessore del file
+            Socket file_owner_socket = new Socket(
+                    file_to_download.getOwners().getIaNode(),
+                    file_to_download.getOwners().getDoor());
+
+            ObjectOutputStream output_stream = new ObjectOutputStream(file_owner_socket.getOutputStream());
+
+            output_stream.writeObject(request);
+        } catch (IOException ex) {
+            Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 }//GEN-LAST:event_download_btActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clean_bt;

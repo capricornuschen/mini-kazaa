@@ -24,6 +24,20 @@ public class OrdinarynodeDownloadMonitor extends Observable {
             this.downloads.add(d);
     }
 
+    public Download getDownload(String file) {
+
+        for(Download download : this.downloads){
+            if(file.equals(download.getFile().getMd5())){
+                return download;
+            }
+        }
+
+        //Se i download vengono inseriti correttamente nella lista
+        //non si dovrebbe mai arrivare a questo punto.
+        return null;
+    }
+
+
     public synchronized void remove(Download d){
         this.downloads.remove(d);
     }
@@ -44,7 +58,7 @@ public class OrdinarynodeDownloadMonitor extends Observable {
         for(Download d : downloads){
             if(d.getFile().getMd5().equals(part.getFile())){
                 d.updateDownloadBytes(part.getPart().length);
-                addToLocation(part, d.getDownloaderPath()+d.getFile().getFileName());
+                
             }
         }
 
@@ -52,9 +66,4 @@ public class OrdinarynodeDownloadMonitor extends Observable {
         return true;
     }
 
-    //Static methods
-    public static void addToLocation(DownloadResponse part, String location){
-
-    }
-
-}
+   }

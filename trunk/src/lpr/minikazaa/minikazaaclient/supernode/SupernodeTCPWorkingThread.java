@@ -1,5 +1,7 @@
 package lpr.minikazaa.minikazaaclient.supernode;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,11 +11,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.Answer;
+import lpr.minikazaa.minikazaaclient.Download;
+import lpr.minikazaa.minikazaaclient.DownloadRequest;
+import lpr.minikazaa.minikazaaclient.DownloadResponse;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.Query;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFriendRequest;
+import lpr.minikazaa.util.MKFileDescriptor;
 import lpr.minikazaa.util.NetUtil;
 
 /**
@@ -28,20 +35,25 @@ public class SupernodeTCPWorkingThread implements Runnable {
     private NodeConfig my_conf;
     private SupernodeList my_list;
     private SupernodeQueryList my_q_list;
-    private SupernodeOnFileList my_f_list;
+    private SupernodeOnFileList my_on_f_list;
+    private OrdinarynodeFiles my_files;
+    private OrdinarynodeDownloadMonitor my_dl_monitor;
 
     public SupernodeTCPWorkingThread(
             Socket sock,
             NodeConfig conf,
             SupernodeList list,
             SupernodeQueryList q_list,
-            SupernodeOnFileList f_list) {
+            SupernodeOnFileList f_list,
+            OrdinarynodeFiles sn_files,
+            OrdinarynodeDownloadMonitor dl_monitor) {
         this.client_socket = sock;
         this.my_conf = conf;
         this.my_list = list;
         this.my_q_list = q_list;
-        this.my_f_list = f_list;
-
+        this.my_on_f_list = f_list;
+        this.my_files = sn_files;
+        this.my_dl_monitor = dl_monitor;
     }
 
     public void run() {
@@ -62,7 +74,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
 
                     //Mia risposta al nodo richiedente.
                     ArrayList<OrdinarynodeFiles> query_answer = null;
-                    query_answer = this.my_f_list.searchFiles(peer_query.getBodyQ());
+                    query_answer = this.my_on_f_list.searchFiles(peer_query.getBodyQ());
 
                     Socket cli_sock = new Socket(
                             peer_query.getSender().getIaNode(),
@@ -118,7 +130,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                         peer_query.getBodyQ() == null) {
                     //Bisogna aggiornare la lista di file relativi a un ordinary
                     //node sottostante.
-                    this.my_f_list.addNewOnFileList(peer_query.getBodyF());
+                    this.my_on_f_list.addNewOnFileList(peer_query.getBodyF());
 
 
                 }
@@ -128,29 +140,33 @@ public class SupernodeTCPWorkingThread implements Runnable {
 
                 OrdinarynodeFriendRequest friendship = (OrdinarynodeFriendRequest) read_object;
 
-                System.out.println("DEBUG: friendship "+friendship.toString());
+                System.out.println("DEBUG: friendship " + friendship.toString());
 
                 boolean friend;
 
-                if(friendship.getRelationship())
+                if (friendship.getRelationship()) {
                     friend = true;
-                else
+                } else {
                     friend = false;
+                }
 
                 while (friend) {
-                    System.out.println("DEBUG: "+Thread.currentThread()+" Ciclo di friendship.");
-                    
+                    System.out.println("DEBUG: " + Thread.currentThread() + " Ciclo di friendship.");
+
                     Object friend_request = input_object.readObject();
-                    
-                    System.out.println("DEBUG: richiesta ricevuta "+friend_request.toString());
+
+                    System.out.println("DEBUG: richiesta ricevuta " + friend_request.toString());
                     if (friend_request instanceof Query) {
                         //Ricezione di una query da un ON friend.
                         Query friend_query = (Query) friend_request;
                         //Stampa di debug
-                        System.out.println("Testo della query ricevuta: "+friend_query.getBodyQ());
+                        System.out.println("Testo della query ricevuta: " +
+                                friend_query.getBodyQ() + "con id " + friend_query.getId());
                         //Mia risposta al nodo richiedente.
                         ArrayList<OrdinarynodeFiles> query_answer = null;
-                        query_answer = this.my_f_list.searchFiles(friend_query.getBodyQ());
+                        query_answer = this.my_files.searchFiles(friend_query.getBodyQ());
+
+                        System.out.println("DEBUG: lista query_answer di lunghezza " + query_answer.size());
 
                         Answer answer = new Answer(query_answer, friend_query.getId());
 
@@ -164,21 +180,88 @@ public class SupernodeTCPWorkingThread implements Runnable {
                         ObjectOutputStream out_stream = new ObjectOutputStream(cli_sock.getOutputStream());
 
                         out_stream.writeObject(friend_query);
-  
+
+                        //Rimbalzo la query ai supernodi vicini.
+                        if (friend_query.getTTL() >= 1) {
+                            ArrayList<Query> out_query_queue =
+                                    this.my_q_list.generateQueryList(peer_query,
+                                    this.my_list.getSubSet());
+                            for (Query q : out_query_queue) {
+                                NetUtil.sendQuery(q);
+                            }
+                        }
+
+
+
                     } else if (friend_request instanceof OrdinarynodeFiles) {
                         //Ricezione di una lista di file da un ON friend.
-                    } else if (friend_request instanceof OrdinarynodeFriendRequest){
+                    } else if (friend_request instanceof OrdinarynodeFriendRequest) {
                         //Probabile disconnessione o terminazione della relazione.
                         OrdinarynodeFriendRequest update_friend = (OrdinarynodeFriendRequest) friend_request;
-                        if(!update_friend.getRelationship())
-                            friend  = false; //Con conseguente uscita dal ciclo
+                        if (!update_friend.getRelationship()) {
+                            friend = false; //Con conseguente uscita dal ciclo
+                        }
                     }
 
 
 
                 }
 
+            } else if (read_object instanceof DownloadRequest) {
+                //Devo spedire il file richiesto
+                DownloadRequest request = (DownloadRequest) read_object;
+
+                MKFileDescriptor file_to_send = this.my_files.getFileList(request.getFile());
+
+                Socket send_sock = new Socket(
+                        request.getSource().getIaNode(),
+                        request.getSource().getDoor());
+
+                ObjectOutputStream output = new ObjectOutputStream(send_sock.getOutputStream());
+
+                DownloadResponse init_response = new DownloadResponse(null, file_to_send.getMd5());
+
+                output.writeObject(init_response);
+
+                File file_pointer = new File(file_to_send.getPath());
+
+                FileInputStream in_file = new FileInputStream(file_pointer);
+
+                byte[] buffer = new byte[4096];
+
+                while (true) {
+                    try {
+                        int letti = in_file.read(buffer);
+                        if (letti > 0) {
+                            DownloadResponse filepart = new DownloadResponse(buffer,null);
+                            output.writeObject(filepart);
+                        } else {
+                            break;
+                        }
+                    } catch (IOException e) {
+                        break;
+                    }
+                }
+
+                DownloadResponse stop_sending = new DownloadResponse(null, file_to_send.getMd5());
+
+                in_file.close();
+                output.flush();
+                output.close();
+
+                send_sock.close();
             }
+            else if(read_object instanceof DownloadResponse){
+                DownloadResponse response = (DownloadResponse) read_object;
+
+                //Inizio dell'invio di un file.
+                if(response.getPart() == null){
+                    Download file_dl = this.my_dl_monitor.getDownload(response.getFile());
+
+                    File file = new File(file_dl.getDownloaderPath()+file_dl.getFile().getFileName());
+                }
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(SupernodeTCPWorkingThread.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException c_ex) {

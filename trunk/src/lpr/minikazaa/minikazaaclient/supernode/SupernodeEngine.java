@@ -1,6 +1,5 @@
 package lpr.minikazaa.minikazaaclient.supernode;
 
-import lpr.minikazaa.bootstrap.BootStrapServerInterface;
 import lpr.minikazaa.bootstrap.BootstrapRMIWrapper;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.MainGui;
@@ -68,7 +67,12 @@ public class SupernodeEngine implements Runnable {
         rmi_manager.start();
         
         //Init TCP requests manager
-        SupernodeTCPListener listener_tcp = new SupernodeTCPListener(this.my_conf,sn_list,on_files);
+        SupernodeTCPListener listener_tcp = new SupernodeTCPListener(
+                this.my_conf,
+                sn_list,
+                on_files,
+                my_file_list,
+                dl_monitor);
         Thread tcp_listen = new Thread(listener_tcp);
         tcp_listen.start();
         

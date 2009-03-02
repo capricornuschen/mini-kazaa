@@ -9,6 +9,7 @@ package lpr.minikazaa.minikazaaclient.ordinarynode;
 import java.util.ArrayList;
 import java.util.List;
 import lpr.minikazaa.minikazaaclient.Answer;
+import lpr.minikazaa.minikazaaclient.SearchField;
 
 /**
  *
@@ -56,6 +57,21 @@ public class OrdinarynodeQuestionsList {
                 return l;
             }
         }
+        return null;
+    }
+
+    public SearchField getFile(String md5){
+
+        for(OrdinarynodeFoundList list : this.my_res_list){
+            ArrayList <SearchField> file_list = list.getFoundList();
+
+            for(SearchField file : file_list){
+                if((file.getFile().getMd5()).equals(md5)){
+                    return file;
+                }
+            }
+        }
+
         return null;
     }
 }

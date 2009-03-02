@@ -18,6 +18,8 @@ public class AddFrame extends javax.swing.JFrame {
         this.shared = s;
         this.gui = g;
         initComponents();
+
+        
     }
 
     /** This method is called from within the constructor to

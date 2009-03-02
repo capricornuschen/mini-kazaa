@@ -7,6 +7,8 @@ package lpr.minikazaa.minikazaaclient.ordinarynode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.util.MKFileDescriptor;
 
@@ -35,6 +37,18 @@ public class OrdinarynodeFiles extends Observable implements Serializable {
         }
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public MKFileDescriptor getFileList(String md5) {
+        //Scorro la lista e individuo il file richiesto
+        for(MKFileDescriptor file : this.file_list){
+            if(file.getMd5().equals(md5))
+                return file;
+        }
+
+        //Se le query arrivano correttamente non si dovrebbe
+        //mai arrivare a questo punto.
+        return null;
     }
 
     public synchronized void removeFiles(MKFileDescriptor[] old_files) {
@@ -90,5 +104,40 @@ public class OrdinarynodeFiles extends Observable implements Serializable {
 
     public void resetList(ArrayList<MKFileDescriptor> list) {
         this.file_list = list;
+    }
+
+    public synchronized ArrayList <OrdinarynodeFiles> searchFiles(String regex){
+        ArrayList <OrdinarynodeFiles> l = new ArrayList();
+
+        Pattern pattern = Pattern.compile(regex);
+
+
+
+            OrdinarynodeFiles files_found = new OrdinarynodeFiles(this.my_info);
+            MKFileDescriptor [] new_array = null;
+
+            for(MKFileDescriptor file : file_list){
+                System.out.println("DEBUG: file analizzato "+file.getFileName());
+                ArrayList <MKFileDescriptor> found_list = new ArrayList();
+
+
+                    Matcher matcher = pattern.matcher(file.getFileName());
+
+                    while(matcher.find()){
+                        found_list.add(file);
+                        System.out.println("DEBUG: file trovato "+file.getFileName());
+                        new_array = new MKFileDescriptor[found_list.size()];
+                        int index = 0;
+                        for(MKFileDescriptor file_just_found : found_list){
+                            new_array[index] = file_just_found;
+                            index ++;
+                        }
+                        files_found.addFiles(new_array);
+                        l.add(files_found);
+                    }
+
+            }
+           
+        return l;
     }
 }

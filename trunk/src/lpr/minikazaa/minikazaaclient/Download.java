@@ -18,9 +18,8 @@ public class Download {
     private MKFileDescriptor file_to_download;
     private long downloaded_bytes;
     private String downloader_path;
-    private int sources;
 
-    public Download(MKFileDescriptor file, int sources){
+    public Download(MKFileDescriptor file){
         this.file_to_download = file;
         this.downloaded_bytes = 0;
         this.downloader_path = "./downloads/";
@@ -30,8 +29,7 @@ public class Download {
     public MKFileDescriptor getFile(){return this.file_to_download;}
     public long getDownloadedBytes(){return this.downloaded_bytes;}
     public String getDownloaderPath(){return this.downloader_path;}
-    public int getSources(){return this.sources;}
-
+    
     public void updateDownloadBytes(long bytes){this.downloaded_bytes = bytes;}
 
     @Override
