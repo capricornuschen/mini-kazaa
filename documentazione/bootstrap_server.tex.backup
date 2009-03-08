@@ -1,36 +1,89 @@
 \chapter{Bootstrap Server}
 
-Il bootstrap server si avvia dal main situato all'interno del file \verb|BootstrapService.java|. Questo file esegue subito un blocco di tipo \verb|try{}catch| nel quale si trovano le seguenti istruzioni.
+\section{Il Bootstrap server in generale}
+Il Bootstrap server ha il compito di tenere un indice di tutti i SN presenti nella rete che abbiano
+una certa affidabilità. 
+Per poter fare questo fornisce un servizio di RMI\footnote{Remote Method Invocation, tramite questo servizio è possibile invocare metodi che si trovano su una macchina diversa da quella in cui si trova la chiamata a procedura.} tramite il quale i SN si possono iscrivere alla rete Mini-KaZaA e richiedere liste aggiornate.
 
+Gli aggiornamenti vengono spediti a ogni SN presente nella lista del Bootstrap server tramite un sistema di \emph{callbacks}\footnote{Ogni nodo mette a disposizione del Bootstrap server alcune chiamate di procedura che, richiamate, consentono di inviare aggiornamenti.}
+
+Il Bootstrap server deve fornire questo servizio anche agli ON che vogliono entrare nella rete per poter individuare il ``miglior''\footnote{Spiegeremo nella sezione \ref{sec:scelta_sn} i parametri secondo i quali ogni ON sceglie un SN al quale connettersi.} SN al quale potersi connettere.
+Per questa ragione si è reso necessario indicizzare anche gli ordinary node all'interno del bootstrap server.
+
+\section{Entriamo nel dettaglio}
+Il bootstrap server si avvia dal main situato all'interno del file \verb|BootstrapService.java| e subito crea il servizio RMI sulla porta 2008 da mettere a disposizione per i vari nodi della rete con le seguenti istruzioni:
+\newline
 \begin{lstlisting}
-try {
 Registry registry = LocateRegistry.createRegistry(2008);
-BootStrapGui g = new BootStrapGui();
-
-g.setLocationRelativeTo(null);
-            
-g.setVisible(true);
-
-BootStrapServer bss = new BootStrapServer(g);
+BootStrapServer bss = new BootStrapServer(g,sn_list);
 
 BootStrapServerInterface stub = 
 	(BootStrapServerInterface) 
-	UnicastRemoteObject.exportObject(bss, 0);
+	UnicastRemoteObject.exportObject(bss, 2008);
 
-SupernodeCallbacksImpl client_impl = new SupernodeCallbacksImpl
-	(new SupernodeList(), new NodeConfig());
+
+SupernodeCallbacksImpl client_impl = 
+	new SupernodeCallbacksImpl(
+	new SupernodeList(), 
+	new NodeConfig());
             
 SupernodeCallbacksInterface client_stub = 
 	(SupernodeCallbacksInterface) 
-	UnicastRemoteObject.exportObject( client_impl,0);
-            
-System.out.println("Ready to bind.");
-registry.bind("BootStrap", stub);
-registry.bind("Callback", client_stub);
-            
-
-} 
-catch (Exception e) {
-System.err.println("BootStrapService: " + e);
-}
+	UnicastRemoteObject.exportObject( client_impl,2008);
 \end{lstlisting}
+
+Con le prime istruzioni il Bootstrap server mette a disposizione tutti i metodi della classe \verb|BootStrapServerInterface| che sono i seguenti:
+\newline
+\begin{lstlisting}
+public boolean addSuperNode(NodeInfo new_node) throws RemoteException;
+public boolean removeSuperNode(NodeInfo new_node) throws RemoteException;
+public boolean addOrdinaryNode(NodeInfo new_node) throws RemoteException;
+public boolean removeOrdinaryNode(NodeInfo new_node) throws RemoteException;
+public ArrayList<NodeInfo> getSuperNodeList() throws RemoteException;
+\end{lstlisting}
+
+Con le istruzioni alla riga 9 e 14 registra l'interfaccia di callback \verb|SupernodeCallbacksInterface| che ha i seguenti metodi:
+\newline
+\begin{lstlisting}
+public void notifyMeAdd(NodeInfo new_node) throws RemoteException;
+public void notifyMeRemove(NodeInfo new_node) throws RemoteException;
+\end{lstlisting}
+
+Per poter trasmettere e ricevere le informazioni riguardanti i vari nodi della rete, il client Mini-KaZaA e il Bootstrap server usano una classe serializzabile che si chiama \verb|NodeInfo| che analizzamo nella sezione \ref{sec:nodeinfo}
+
+\section{La classe NodeInfo}\label{sec:nodeinfo}
+La classe \verb|NodeInfo| si trova nel package \verb|lpr.minikazaa.bootstrap| ma viene utilizzata da tutto il pacchetto Mini-KaZaA per poter inviare nella rete le informazioni relative ai nodi.
+
+Questa classe rappresenta le informazioni utili di un nodo con le sue variabili private.
+
+\begin{lstlisting}
+private InetAddress ia_node;
+private int door;
+private String id_node;
+private String username;
+private SupernodeCallbacksInterface stub;
+private long ping;
+private boolean is_sn;
+\end{lstlisting} 
+
+Le prime tre variabili private riguardano tutte le informazioni di rete dei nodi, ovvero l'indirizzo IP,
+la porta di connessione e un id univoco ottenuto facendo la concatenazione della rappresentazione decimale
+dell'indirizzo IP.
+
+La variabile privata \verb|private SupernodeCallbacksInterface stub| rappresenta l'interfaccia per le callbacks che viene messa a disposizione dal nodo. In questo modo il bootstrap server può richiamare direttamente l'interfaccia delle callback di ogni nodo interessato all'aggionrnamento.
+
+L'ultima variabile, \verb|private boolean is_sn| indica se il nodo al quale si riferiscono le informazioni, all'interno della rete ricopre il ruolo di SN o di ON.
+
+La classe contiene tutti i metodi \verb|set| e \verb|get| per poter assegnare valori alle variabili private e per poterne ricavare il contenuto in qualsiasi momento.
+
+\section{L'interfaccia grafica.}
+L'interfaccia grafica fornisce le informazioni riguardo a ciò che avviene all'interno della rete.
+
+\begin{figure}
+ \centering
+ \includegraphics[bb=14 14 564 329]{images/bss_grafica.eps}
+ % bss_grafica.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 564 329
+ \label{fig:bss_grafica}
+\end{figure}
+
+

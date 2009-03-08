@@ -2,3 +2,11 @@
 \BOOKMARK [1][-]{section.1.1}{Una panoramica generale.}{chapter.1}
 \BOOKMARK [1][-]{section.1.2}{La rete Mini-KaZaA.}{chapter.1}
 \BOOKMARK [0][-]{chapter.2}{Bootstrap Server}{}
+\BOOKMARK [1][-]{section.2.1}{Il Bootstrap server in generale}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Entriamo nel dettaglio}{chapter.2}
+\BOOKMARK [1][-]{section.2.3}{La classe NodeInfo}{chapter.2}
+\BOOKMARK [1][-]{section.2.4}{L'interfaccia grafica.}{chapter.2}
+\BOOKMARK [0][-]{chapter.3}{Mini-KaZaA Client}{}
+\BOOKMARK [1][-]{section.3.1}{Mini-KaZaA Client in generale}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{Ordinary Node}{}
+\BOOKMARK [1][-]{section.4.1}{Scelta del SN al quale connettersi}{chapter.4}

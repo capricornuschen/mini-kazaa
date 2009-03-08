@@ -27,4 +27,8 @@ public class DownloadResponse implements Serializable {
     
     public String getFile(){return this.file;}
     public byte [] getPart(){return this.part;}
+
+    public void setFile(String md5) {
+        this.file = md5;
+    }
 }

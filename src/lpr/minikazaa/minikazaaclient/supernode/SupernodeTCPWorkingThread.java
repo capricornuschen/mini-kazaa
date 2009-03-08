@@ -2,6 +2,7 @@ package lpr.minikazaa.minikazaaclient.supernode;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -233,7 +234,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                     try {
                         int letti = in_file.read(buffer);
                         if (letti > 0) {
-                            DownloadResponse filepart = new DownloadResponse(buffer,null);
+                            DownloadResponse filepart = new DownloadResponse(buffer, null);
                             output.writeObject(filepart);
                         } else {
                             break;
@@ -244,21 +245,51 @@ public class SupernodeTCPWorkingThread implements Runnable {
                 }
 
                 DownloadResponse stop_sending = new DownloadResponse(null, file_to_send.getMd5());
+                output.writeObject(stop_sending);
 
                 in_file.close();
                 output.flush();
                 output.close();
 
                 send_sock.close();
-            }
-            else if(read_object instanceof DownloadResponse){
+            } else if (read_object instanceof DownloadResponse) {
                 DownloadResponse response = (DownloadResponse) read_object;
 
-                //Inizio dell'invio di un file.
-                if(response.getPart() == null){
-                    Download file_dl = this.my_dl_monitor.getDownload(response.getFile());
+                System.out.println("Downloading file.");
 
-                    File file = new File(file_dl.getDownloaderPath()+file_dl.getFile().getFileName());
+                //Inizio dell'invio di un file.
+                if (response.getPart() == null) {
+                    Download file_dl = this.my_dl_monitor.getDownload(response.getFile());
+                    System.out.println("DEBUG: path download: "+file_dl.getDownloaderPath() + file_dl.getFile().getFileName());
+                    File file = new File(file_dl.getDownloaderPath() + file_dl.getFile().getFileName());
+                    FileOutputStream file_downloading = new FileOutputStream(file);
+                    while (true) {
+                        Object read_part = input_object.readObject();
+
+                        if (read_part instanceof DownloadResponse) {
+                            DownloadResponse part = (DownloadResponse) read_part;
+                            if (part.getFile() == null) {
+                                //Posso inserire la parte sia nel monitor che nel file effettivo.
+                                byte[] buffer = part.getPart();
+
+                                if (buffer.length > 0) {
+                                    file_downloading.write(buffer, 0, buffer.length);
+                                    part.setFile(file_dl.getFile().getMd5());
+                                    this.my_dl_monitor.addBytes(part);
+                                }
+
+
+                            }
+                            else{
+                                break;
+                            }
+                        }
+                    }
+
+                    file_downloading.flush();
+                    file_downloading.close();
+                    System.out.println("Downloading completed.");
+
                 }
             }
 
