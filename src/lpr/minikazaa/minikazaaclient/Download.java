@@ -30,7 +30,7 @@ public class Download {
     public long getDownloadedBytes(){return this.downloaded_bytes;}
     public String getDownloaderPath(){return this.downloader_path;}
     
-    public void updateDownloadBytes(long bytes){this.downloaded_bytes = bytes;}
+    public void updateDownloadBytes(long bytes){this.downloaded_bytes += bytes;}
 
     @Override
     public boolean equals(Object obj){

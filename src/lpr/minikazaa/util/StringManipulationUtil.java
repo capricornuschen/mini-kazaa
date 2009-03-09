@@ -48,16 +48,16 @@ public class StringManipulationUtil {
                 size = file_size+" byte";
         }
         else if(file_size < 1024*1024){
-            size = (file_size / 1024) + " Kb";
+            size = ((float)file_size / 1024) + " Kb";
         }
         else if(file_size < 1024*1024*1024){
-            size = (file_size /(1024*1024)) + " Mb";
+            size = ((float)file_size /(1024*1024)) + " Mb";
         }
         else if(file_size < 1024*1024*1024*1024){
-            size = (file_size / (1024*1024*1024)) + " Gb";
+            size = ((float)file_size / (1024*1024*1024)) + " Gb";
         }
         else
-            size = (file_size / (1024*1024*1024*1024)) + " Tb";
+            size = ((float)file_size / (1024*1024*1024*1024)) + " Tb";
 
         return size;
     }

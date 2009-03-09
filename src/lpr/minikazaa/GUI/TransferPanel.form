@@ -61,6 +61,10 @@
               </Table>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="*/"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="download_tab = new DownloadTable(this.my_monitor);&#xa;/*"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

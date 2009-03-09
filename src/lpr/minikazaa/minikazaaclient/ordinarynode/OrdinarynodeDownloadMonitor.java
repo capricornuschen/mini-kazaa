@@ -22,6 +22,9 @@ public class OrdinarynodeDownloadMonitor extends Observable {
     public synchronized void add(Download d){
         if(!this.downloads.contains(d))
             this.downloads.add(d);
+
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public Download getDownload(String file) {
@@ -40,6 +43,8 @@ public class OrdinarynodeDownloadMonitor extends Observable {
 
     public synchronized void remove(Download d){
         this.downloads.remove(d);
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public boolean isEmpty() {
@@ -62,6 +67,8 @@ public class OrdinarynodeDownloadMonitor extends Observable {
             }
         }
 
+        this.setChanged();
+        this.notifyObservers();
 
         return true;
     }
