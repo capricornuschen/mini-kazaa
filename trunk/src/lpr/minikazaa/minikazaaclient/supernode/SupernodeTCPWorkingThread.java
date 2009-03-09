@@ -233,8 +233,18 @@ public class SupernodeTCPWorkingThread implements Runnable {
                 while (true) {
                     try {
                         int letti = in_file.read(buffer);
+
                         if (letti > 0) {
-                            DownloadResponse filepart = new DownloadResponse(buffer, null);
+
+                            byte[] part = new byte[letti];
+                            for (int i = 0; i < letti; i++) {
+                                part[i] = buffer[i];
+                            }
+                            DownloadResponse filepart = new DownloadResponse(part, null);
+
+                            System.out.println("DEBUG: byte letti " + letti);
+
+                            System.out.println("DEBUG: byte.length " + filepart.getPart().length);
                             output.writeObject(filepart);
                         } else {
                             break;
@@ -260,7 +270,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                 //Inizio dell'invio di un file.
                 if (response.getPart() == null) {
                     Download file_dl = this.my_dl_monitor.getDownload(response.getFile());
-                    System.out.println("DEBUG: path download: "+file_dl.getDownloaderPath() + file_dl.getFile().getFileName());
+                    System.out.println("DEBUG: path download: " + file_dl.getDownloaderPath() + file_dl.getFile().getFileName());
                     File file = new File(file_dl.getDownloaderPath() + file_dl.getFile().getFileName());
                     FileOutputStream file_downloading = new FileOutputStream(file);
                     while (true) {
@@ -279,8 +289,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                                 }
 
 
-                            }
-                            else{
+                            } else {
                                 break;
                             }
                         }

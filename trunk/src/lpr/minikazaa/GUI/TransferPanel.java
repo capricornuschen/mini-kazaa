@@ -6,15 +6,21 @@
 
 package lpr.minikazaa.GUI;
 
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
+
 /**
  *
  * @author  giovine
  */
 public class TransferPanel extends javax.swing.JPanel {
 
+    private OrdinarynodeDownloadMonitor my_monitor;
     /** Creates new form TransferPanel */
-    public TransferPanel() {
+    public TransferPanel(OrdinarynodeDownloadMonitor monitor) {
+        this.my_monitor = monitor;
         initComponents();
+
+        this.my_monitor.addObserver((DownloadTable)this.download_tab);
     }
 
     /** This method is called from within the constructor to
@@ -32,6 +38,8 @@ public class TransferPanel extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Transfer Panel"));
 
+        download_tab = new DownloadTable(this.my_monitor);
+        /*
         download_tab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -48,6 +56,7 @@ public class TransferPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        */
         jScrollPane1.setViewportView(download_tab);
 
         jLabel1.setText("Download:");

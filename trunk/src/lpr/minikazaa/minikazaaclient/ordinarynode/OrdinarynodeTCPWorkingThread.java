@@ -4,15 +4,21 @@
  */
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.Download;
 import lpr.minikazaa.minikazaaclient.DownloadRequest;
 import lpr.minikazaa.minikazaaclient.DownloadResponse;
 import lpr.minikazaa.minikazaaclient.Query;
+import lpr.minikazaa.util.MKFileDescriptor;
 
 /**
  *
@@ -69,16 +75,91 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
                     this.my_found_list.add(peer_query.getBodyA());
                 }
             } else if (incoming_obj instanceof DownloadRequest) {
-                //Incoming download reuest
-                peer_request = (DownloadRequest) incoming_obj;
-                NodeInfo source = peer_request.getSource();
-                Socket response_socket = new Socket(source.getIaNode(),source.getDoor());
+                //Devo spedire il file richiesto
+                DownloadRequest request = (DownloadRequest) incoming_obj;
+
+                MKFileDescriptor file_to_send = this.my_files.getFileList(request.getFile());
+
+                Socket send_sock = new Socket(
+                        request.getSource().getIaNode(),
+                        request.getSource().getDoor());
+
+                ObjectOutputStream output = new ObjectOutputStream(send_sock.getOutputStream());
+
+                DownloadResponse init_response = new DownloadResponse(null, file_to_send.getMd5());
+
+                output.writeObject(init_response);
+
+                File file_pointer = new File(file_to_send.getPath());
+
+                FileInputStream in_file = new FileInputStream(file_pointer);
+
+                byte[] buffer = new byte[4096];
+
+                while (true) {
+                    try {
+                        int letti = in_file.read(buffer);
+                        if (letti > 0) {
+                            DownloadResponse filepart = new DownloadResponse(buffer, null);
+                            output.writeObject(filepart);
+                        } else {
+                            break;
+                        }
+                    } catch (IOException e) {
+                        break;
+                    }
+                }
+
+                DownloadResponse stop_sending = new DownloadResponse(null, file_to_send.getMd5());
+                output.writeObject(stop_sending);
+
+                in_file.close();
+                output.flush();
+                output.close();
+
+                send_sock.close();
 
                 
             } else if (incoming_obj instanceof DownloadResponse){
-                //Look what file is and add the bytes.
-                peer_response = (DownloadResponse) incoming_obj;
-                this.my_dl_monitor.addBytes(peer_response);
+                DownloadResponse response = (DownloadResponse) incoming_obj;
+
+                System.out.println("Downloading file.");
+
+                //Inizio dell'invio di un file.
+                if (response.getPart() == null) {
+                    Download file_dl = this.my_dl_monitor.getDownload(response.getFile());
+                    System.out.println("DEBUG: path download: "+file_dl.getDownloaderPath() + file_dl.getFile().getFileName());
+                    File file = new File(file_dl.getDownloaderPath() + file_dl.getFile().getFileName());
+                    FileOutputStream file_downloading = new FileOutputStream(file);
+                    while (true) {
+                        Object read_part = input_object.readObject();
+
+                        if (read_part instanceof DownloadResponse) {
+                            DownloadResponse part = (DownloadResponse) read_part;
+                            if (part.getFile() == null) {
+                                //Posso inserire la parte sia nel monitor che nel file effettivo.
+                                byte[] buffer = part.getPart();
+
+                                if (buffer.length > 0) {
+                                    System.out.println("DEBUG: Byte ricevuti "+buffer.length);
+                                    file_downloading.write(buffer, 0, buffer.length);
+                                    part.setFile(file_dl.getFile().getMd5());
+                                    this.my_dl_monitor.addBytes(part);
+                                }
+
+
+                            }
+                            else{
+                                break;
+                            }
+                        }
+                    }
+
+                    file_downloading.flush();
+                    file_downloading.close();
+                    System.out.println("Downloading completed.");
+
+                }
 
             }
 

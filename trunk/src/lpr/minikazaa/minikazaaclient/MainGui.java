@@ -369,7 +369,7 @@ private void transfer_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     } catch (IndexOutOfBoundsException ex) {
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_transfer_icon.png"));
-        this.main_tab.addTab("Transfer", icon, new TransferPanel(), "Monitor your transfert.");
+        this.main_tab.addTab("Transfer", icon, new TransferPanel(this.my_monitor), "Monitor your transfert.");
 
         return;
     }

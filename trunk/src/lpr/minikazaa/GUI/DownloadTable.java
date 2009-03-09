@@ -31,11 +31,11 @@ public class DownloadTable extends JTable implements Observer {
         this.my_dtm = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Nome File", "Dimensione", "Avanzamento", "Numero Fonti"
+                    "Nome File", "Dimensione", "Avanzamento"
                 }) {
 
             boolean[] canEdit = new boolean[]{
-                false, false, false, false
+                false, false, false
             };
 
             @Override
@@ -59,20 +59,20 @@ public class DownloadTable extends JTable implements Observer {
             ArrayList <Download> dl_list = monitor.getDownloadList();
 
             for(Download dl : dl_list){
-                Object [] row = new Object[4];
+                Object [] row = new Object[3];
 
                 long size = dl.getFile().getSize();
                 
                 JProgressBar progress = new JProgressBar();
                 progress.setMaximum(100);
-
+                System.out.println("DEBUG: downloaded "+dl.getDownloadedBytes()+" di"+size);
                 long value = (dl.getDownloadedBytes() * 100 / size);
                 progress.setValue((int) value);
 
                 row[0] = dl.getFile().getFileName();
                 row[1] = StringManipulationUtil.getRapresentableSize(size);
                 row[2] = progress;
-                row[3] = 1;
+                
                 
                 this.my_dtm.addRow(row);
             }

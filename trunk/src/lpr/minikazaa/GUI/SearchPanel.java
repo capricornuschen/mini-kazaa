@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lpr.minikazaa.bootstrap.NodeInfo;
+import lpr.minikazaa.minikazaaclient.Download;
 import lpr.minikazaa.minikazaaclient.DownloadRequest;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.Query;
@@ -230,16 +231,22 @@ public class SearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_search_tfFocusGained
 
     private void download_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_download_btActionPerformed
+        System.out.println("DEBUG: Download button clicked.");
         int selection = this.search_table.getSelectedRow();
-
+        System.out.println("DEBUG: Selected row: "+selection);
         //Recupero la stringa md5 del file dalla tabella
         String md5_file = (String)this.search_table.getValueAt(selection, 3);
-
+        System.out.println("DEBUG: md5 file selezionato: "+md5_file);
         //Ottengo il file da scaricare
         SearchField file_to_download = this.searches_list.getFile(md5_file);
-
+        System.out.println("DEBUG: file_to_download: "+file_to_download.getFile().getFileName());
         //Creo la download request
         DownloadRequest request = new DownloadRequest(md5_file,this.my_infos);
+
+        //Inserisco nel donwload monitor il download
+        Download download = new Download(file_to_download.getFile());
+        this.my_monitor.add(download);
+        
         try {
             //Invio la richiesta al possessore del file
             Socket file_owner_socket = new Socket(
