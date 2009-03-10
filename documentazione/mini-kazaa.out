@@ -8,5 +8,9 @@
 \BOOKMARK [1][-]{section.2.4}{L'interfaccia grafica.}{chapter.2}
 \BOOKMARK [0][-]{chapter.3}{Mini-KaZaA Client}{}
 \BOOKMARK [1][-]{section.3.1}{Mini-KaZaA Client in generale}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{Il codice di Mini-KaZaA client}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{Le strutture dati comuni.}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{NodeConfig.java}{section.3.3}
 \BOOKMARK [0][-]{chapter.4}{Ordinary Node}{}
 \BOOKMARK [1][-]{section.4.1}{Scelta del SN al quale connettersi}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Il package di grafica}{}

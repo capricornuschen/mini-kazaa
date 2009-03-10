@@ -31,34 +31,8 @@ Passiamo ora a una presentazione più particolareggiata del codice comune a Supe
 \section{Le strutture dati comuni.}
 All'interno del package \verb|lpr.minikazaa.minikazaaclient| troviamo le seguenti classi che rappresentano strutture dati comuni a SN e ON:
 \begin{itemize}
- \item \verb|NodeConfig.java|
- \item \verb|Query.java|
- \item \verb|Answer.java|
- \item \verb|SearchField.java|
- \item \verb|Download.java|
- \item \verb|DownloadRequest.java|
- \item \verb|DownloadResponse.java|
+ \item 
 \end{itemize}
 
-Guardiamo cosa si nasconde all'interno di ognuna di queste classi.
-
-\subsection{NodeConfig.java}
-La classe \verb|NodeConfig.java| contiene i seguenti attributi:
-\newline
-\begin{lstlisting}
-private String user_name;
-private int port;
-private String bootstrap_address;
-private int max_conn;
-private int ttl;
-private boolean is_sn;
-private int max_sim_down;
-private int max_sim_up;
-
-//Calcolato all'avvio
-private String my_address;
-\end{lstlisting}
-
-Questi attributi sono i campi che l'utente inserisce nel form al primo avvio del programma e contengono le informazioni di configurazione del nodo.
 
 
