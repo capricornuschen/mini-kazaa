@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.10.31)  8 MAR 2009 22:29
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.10.31)  10 MAR 2009 22:36
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
@@ -785,20 +785,35 @@ rnodeCallbacksInterface stub \T1/lmr/m/n/10.95 rap-
 File: images/bss_grafica.eps Graphic file (type eps)
  <images/bss_grafica.eps>) (./mini-kazaa_client.tex [6]
 Capitolo 3.
-) (./ordinarynode.tex [7
+
+Overfull \hbox (4.12384pt too wide) in paragraph at lines 13--14
+[]\T1/lmr/bx/n/10.95 lpr.minikazaa.minikazaaclient.ordinarynode\T1/lmr/m/n/10.9
+5 : que-sta li-bre-ria con-
+ []
+
+[7
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 46--48
+
+ []
+
+[8]) (./ordinarynode.tex [9]
 Capitolo 4.
-) [8
+) (./Gui_Package.tex [10
+
+]
+Capitolo 5.
+) [11
 
 ] (./mini-kazaa.aux) ) 
 Here is how much of TeX's memory you used:
- 7109 strings out of 95067
- 95415 string characters out of 1182579
- 164811 words of memory out of 1500000
- 10104 multiletter control sequences out of 10000+50000
- 80124 words of font info for 70 fonts, out of 1200000 for 2000
+ 7127 strings out of 95067
+ 95661 string characters out of 1182579
+ 163811 words of memory out of 1500000
+ 10118 multiletter control sequences out of 10000+50000
+ 87435 words of font info for 72 fonts, out of 1200000 for 2000
  28 hyphenation exceptions out of 8191
  28i,8n,40p,482b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (9 pages, 35076 bytes).
+Output written on mini-kazaa.dvi (12 pages, 46592 bytes).

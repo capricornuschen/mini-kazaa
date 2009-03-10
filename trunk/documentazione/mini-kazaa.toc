@@ -9,5 +9,9 @@
 \contentsline {section}{\numberline {2.4}L'interfaccia grafica.}{6}{section.2.4}
 \contentsline {chapter}{\numberline {3}Mini-KaZaA Client}{7}{chapter.3}
 \contentsline {section}{\numberline {3.1}Mini-KaZaA Client in generale}{7}{section.3.1}
-\contentsline {chapter}{\numberline {4}Ordinary Node}{8}{chapter.4}
-\contentsline {section}{\numberline {4.1}Scelta del SN al quale connettersi}{8}{section.4.1}
+\contentsline {section}{\numberline {3.2}Il codice di Mini-KaZaA client}{7}{section.3.2}
+\contentsline {section}{\numberline {3.3}Le strutture dati comuni.}{8}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}NodeConfig.java}{8}{subsection.3.3.1}
+\contentsline {chapter}{\numberline {4}Ordinary Node}{10}{chapter.4}
+\contentsline {section}{\numberline {4.1}Scelta del SN al quale connettersi}{10}{section.4.1}
+\contentsline {chapter}{\numberline {5}Il package di grafica}{11}{chapter.5}
