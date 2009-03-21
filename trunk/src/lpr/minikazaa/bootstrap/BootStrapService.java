@@ -23,6 +23,7 @@ public class BootStrapService {
 
     public static void main(String[] args) {
         SupernodeList sn_list = new SupernodeList();
+        SupernodeList on_list = new SupernodeList();
         try {
 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -42,7 +43,7 @@ public class BootStrapService {
             
             g.setVisible(true);
 
-            BootStrapServer bss = new BootStrapServer(g,sn_list);
+            BootStrapServer bss = new BootStrapServer(g,sn_list,on_list);
 
             BootStrapServerInterface stub = (BootStrapServerInterface) UnicastRemoteObject.exportObject(bss, 2008);
             SupernodeCallbacksImpl client_impl = new SupernodeCallbacksImpl(new SupernodeList(), new NodeConfig());

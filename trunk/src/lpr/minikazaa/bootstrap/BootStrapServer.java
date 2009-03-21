@@ -19,11 +19,12 @@ import lpr.minikazaa.minikazaaclient.SupernodeList;
 public class BootStrapServer implements BootStrapServerInterface {
 
     
-    private SupernodeList node_list;
+    private SupernodeList supernode_list;
+    private SupernodeList ordinarynode_list;
     private BootStrapGui g;
 
-    public BootStrapServer(BootStrapGui g, SupernodeList list) {
-        this.node_list = list;
+    public BootStrapServer(BootStrapGui g, SupernodeList sn_list, SupernodeList on_list) {
+        this.supernode_list = sn_list;
         
         this.g = g;
 
@@ -34,7 +35,7 @@ public class BootStrapServer implements BootStrapServerInterface {
 
 
         try {
-            this.node_list.addNewNode(new_node);
+            this.supernode_list.addNewNode(new_node);
 
             g.setWhatAppensLine(new_node.getId() + " added.\n");
 
@@ -54,7 +55,7 @@ public class BootStrapServer implements BootStrapServerInterface {
         System.out.println("Adding new OrdinaryNode.");
 
 
-        this.node_list.addNewNode(new_node);
+        this.ordinarynode_list.addNewNode(new_node);
 
         g.setWhatAppensLine("ON: " + new_node.getId() + " added.\n");
 
@@ -64,7 +65,7 @@ public class BootStrapServer implements BootStrapServerInterface {
     public synchronized boolean removeSuperNode(NodeInfo new_node) throws RemoteException {
         System.out.println("Removing new SuperNode "+new_node.getId());
 
-        this.node_list.removeOldNode(new_node);
+        this.supernode_list.removeOldNode(new_node);
 
             try {
                 g.setWhatAppensLine(new_node.getId() + " removed.\n");
@@ -81,7 +82,7 @@ public class BootStrapServer implements BootStrapServerInterface {
 
     public synchronized boolean removeOrdinaryNode(NodeInfo new_node) throws RemoteException {
 
-        this.node_list.removeOldNode(new_node);
+        this.ordinarynode_list.removeOldNode(new_node);
             g.setWhatAppensLine("ON: "+new_node.getId() + " removed.\n");
             return true;
         
@@ -93,12 +94,12 @@ public class BootStrapServer implements BootStrapServerInterface {
         
        g.setWhatAppensLine("List returned\n");
 
-        return node_list.getList();
+        return supernode_list.getList();
     }
 
     private synchronized void doCallbacksForAdd(NodeInfo node) throws RemoteException {
         System.out.println("Starting callbacks.");
-        ArrayList <NodeInfo> sn_list = this.node_list.getList();
+        ArrayList <NodeInfo> sn_list = this.supernode_list.getList();
         System.out.println("Numer of nodes: " + sn_list.size());
 
         if (sn_list.size() <= 1) {
@@ -117,11 +118,25 @@ public class BootStrapServer implements BootStrapServerInterface {
         //}
         }
 
+        ArrayList <NodeInfo> on_list = this.ordinarynode_list.getList();
+        System.out.println("Number of nodes: "+ on_list.size());
+
+        if(on_list.size() <= 1)
+            return;
+
+        Iterator j = on_list.iterator();
+        while(j.hasNext()){
+            NodeInfo n = (NodeInfo) j.next();
+            System.out.println("Node tryed to notified: " + n.getId());
+            System.out.println("Node notified.");
+            n.getCallbackInterface().notifyMeAdd(node);
+        }
+
     }
 
     private synchronized void doCallbacksForRemove(NodeInfo node) throws RemoteException {
         System.out.println("Starting callbacks.");
-        ArrayList <NodeInfo> sn_list = this.node_list.getList();
+        ArrayList <NodeInfo> sn_list = this.supernode_list.getList();
         
         if (sn_list.size() == 0) {
             return;
@@ -137,6 +152,20 @@ public class BootStrapServer implements BootStrapServerInterface {
                 System.out.println("Node notified: " + n.getId());
                 n.getCallbackInterface().notifyMeRemove(node);
             }
+        }
+
+        ArrayList <NodeInfo> on_list = this.ordinarynode_list.getList();
+        System.out.println("Number of nodes: "+ on_list.size());
+
+        if(on_list.size() <= 1)
+            return;
+
+        Iterator j = on_list.iterator();
+        while(j.hasNext()){
+            NodeInfo n = (NodeInfo) j.next();
+            System.out.println("Node tryed to notified: " + n.getId());
+            System.out.println("Node notified.");
+            n.getCallbackInterface().notifyMeRemove(node);
         }
     }
 }
