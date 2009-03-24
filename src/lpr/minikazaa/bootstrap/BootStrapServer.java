@@ -25,7 +25,7 @@ public class BootStrapServer implements BootStrapServerInterface {
 
     public BootStrapServer(BootStrapGui g, SupernodeList sn_list, SupernodeList on_list) {
         this.supernode_list = sn_list;
-        
+        this.ordinarynode_list = on_list;
         this.g = g;
 
     }
@@ -112,10 +112,10 @@ public class BootStrapServer implements BootStrapServerInterface {
             NodeInfo n = (NodeInfo) i.next();
             System.out.println("Node tryed to notified: " + n.getId());
             //Scroll all the list and check if it is not the new added node.
-            //if(!n.getId().equals(node.getId())){ //To add again in final version.
-            System.out.println("Node notified.");
-            n.getCallbackInterface().notifyMeAdd(node);
-        //}
+            if(!n.getId().equals(node.getId())){ //To add again in final version.
+                System.out.println("Node notified.");
+                n.getCallbackInterface().notifyMeAdd(node);
+            }
         }
 
         ArrayList <NodeInfo> on_list = this.ordinarynode_list.getList();

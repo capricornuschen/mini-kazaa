@@ -111,7 +111,7 @@ public class OrdinarynodeFiles extends Observable implements Serializable {
 
         Pattern pattern = Pattern.compile(regex);
 
-
+            System.out.println("DEBUG: Dentro alla funzione search file.");
 
             OrdinarynodeFiles files_found = new OrdinarynodeFiles(this.my_info);
             MKFileDescriptor [] new_array = null;

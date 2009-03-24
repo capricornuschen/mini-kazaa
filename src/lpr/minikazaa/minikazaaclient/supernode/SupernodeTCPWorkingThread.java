@@ -72,10 +72,12 @@ public class SupernodeTCPWorkingThread implements Runnable {
                         peer_query.getBodyF() == null) {
                     //Richiesta di un file, all'interno di body_q abbiamo una
                     //espressione regolare che identifica la richiesta di un file
-
+                    System.out.println("DEBUG: Ricevuta query con bodyQ != null : "+peer_query.getBodyQ());
+                    System.out.println("DEBUG: Genero la mia risposta in base ai miei ON.");
                     //Mia risposta al nodo richiedente.
                     ArrayList<OrdinarynodeFiles> query_answer = null;
                     query_answer = this.my_on_f_list.searchFiles(peer_query.getBodyQ());
+                    System.out.println("DEBUG: Dimensione della mia risposta: "+query_answer.size());
 
                     Socket cli_sock = new Socket(
                             peer_query.getSender().getIaNode(),
@@ -91,7 +93,8 @@ public class SupernodeTCPWorkingThread implements Runnable {
                     answer_query.setOrigin(peer_query.getOrigin());
                     answer_query.setAskingQuery(peer_query.getBodyQ());
 
-                    Answer answer = new Answer(query_answer, peer_query.getBodyA().getID());
+
+                    Answer answer = new Answer(query_answer, peer_query.getId());
                     answer_query.setAnswerQuery(answer);
 
                     output_stream.writeObject(answer_query);
@@ -113,9 +116,15 @@ public class SupernodeTCPWorkingThread implements Runnable {
 
                 } else if (peer_query.getBodyA() != null &&
                         peer_query.getBodyF() == null) {
+
+                    //ATTENZIONE:   inserire qui un meccanismo per riconoscere
+                    //              le nostre query da quelle degli on affiliati
+
+                    
                     //E' arrivata al nodo una risposta di un altro peer,
                     //bisogna dunque inoltrarla al peer richiedente.
                     Query other_answer = this.my_q_list.getRelativeQuery(peer_query);
+
                     other_answer.setAnswerQuery(peer_query.getBodyA());
 
                     //Scambio mittete e destinatario.
