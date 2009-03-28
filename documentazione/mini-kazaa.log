@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.10.31)  10 MAR 2009 22:36
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.10.31)  28 MAR 2009 16:07
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
@@ -687,12 +687,12 @@ File: umsb.fd 2002/01/19 v2.2g AMS font definitions
 ] (./mini-kazaa.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 2.
-)
+
+[1])
 \tf@toc=\write5
 \openout5 = `mini-kazaa.toc'.
 
-
-(./introduzione.tex [1]
+ (./introduzione.tex [2]
 Capitolo 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 5.
@@ -704,9 +704,9 @@ File: omslmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 9.
- [2
+ [3
 
-]) (./bootstrap_server.tex [3]
+]) (./bootstrap_server.tex [4]
 Capitolo 2.
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 14.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
@@ -722,7 +722,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--16
 
  []
 
-[4
+[5
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 35--37
@@ -781,9 +781,9 @@ Overfull \hbox (2.77621pt too wide) in paragraph at lines 73--74
 rnodeCallbacksInterface stub \T1/lmr/m/n/10.95 rap-
  []
 
-[5]
+[6]
 File: images/bss_grafica.eps Graphic file (type eps)
- <images/bss_grafica.eps>) (./mini-kazaa_client.tex [6]
+ <images/bss_grafica.eps>) (./mini-kazaa_client.tex [7]
 Capitolo 3.
 
 Overfull \hbox (4.12384pt too wide) in paragraph at lines 13--14
@@ -791,29 +791,67 @@ Overfull \hbox (4.12384pt too wide) in paragraph at lines 13--14
 5 : que-sta li-bre-ria con-
  []
 
-[7
+[8
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 46--48
+Underfull \hbox (badness 10000) in paragraph at lines 49--51
 
  []
 
-[8]) (./ordinarynode.tex [9]
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 68--73
+
+ []
+
+
+Overfull \hbox (11.84918pt too wide) in paragraph at lines 77--78
+[][][][][][][][][][][][][][][][][][] 
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 129--131
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 153--155
+
+ []
+
+File: images/mini_kazaa_client.eps Graphic file (type eps)
+<images/mini_kazaa_client.eps>) (./ordinarynode.tex [12] [13]
 Capitolo 4.
-) (./Gui_Package.tex [10
+
+Overfull \hbox (54.34785pt too wide) in paragraph at lines 2--2
+[]\T1/lmr/bx/n/14.4 Le clas-si del pac-ka-ge lpr.minikazaaclient.ordinarynode 
+ []
+
+) (./supernode.tex [14
 
 ]
 Capitolo 5.
-) [11
+) (./util.tex [15
+
+]
+Capitolo 6.
+) (./Gui_Package.tex [16
+
+]
+Capitolo 7.
+) (./manuale_uso.tex [17
+
+]
+Appendice A.
+) [18
 
 ] (./mini-kazaa.aux) ) 
 Here is how much of TeX's memory you used:
- 7127 strings out of 95067
- 95661 string characters out of 1182579
- 163811 words of memory out of 1500000
- 10118 multiletter control sequences out of 10000+50000
+ 7167 strings out of 95067
+ 96212 string characters out of 1182579
+ 164811 words of memory out of 1500000
+ 10148 multiletter control sequences out of 10000+50000
  87435 words of font info for 72 fonts, out of 1200000 for 2000
  28 hyphenation exceptions out of 8191
  28i,8n,40p,482b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (12 pages, 46592 bytes).
+Output written on mini-kazaa.dvi (19 pages, 73376 bytes).

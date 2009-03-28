@@ -5,8 +5,6 @@
 
 package lpr.minikazaa.minikazaaclient;
 
-import java.util.ArrayList;
-import java.util.List;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.util.MKFileDescriptor;
 
@@ -19,6 +17,7 @@ import lpr.minikazaa.util.MKFileDescriptor;
 public class SearchField {
     private NodeInfo owner;
     private MKFileDescriptor file;
+    
     public SearchField(MKFileDescriptor first_file, NodeInfo first_owner){
         this.owner = first_owner;
         this.file = first_file;

@@ -28,11 +28,133 @@ si è preferito separare in due classi distinte.
 
 Passiamo ora a una presentazione più particolareggiata del codice comune a Super Node e Ordinary Node.
 
-\section{Le strutture dati comuni.}
+\section{Le strutture dati comuni}
+Per lo sviluppo di Mini-KaZaA è stato necessario predisporre una serie di strutture dati che tutto il software
+utilizzi per condividere informazioni.
+
 All'interno del package \verb|lpr.minikazaa.minikazaaclient| troviamo le seguenti classi che rappresentano strutture dati comuni a SN e ON:
 \begin{itemize}
- \item 
+ \item \verb|NodeConfig.java|
+ \item \verb|Query.java|
+ \item \verb|Answer.java|
+ \item \verb|SearchField.java|
+ \item \verb|Download.java|
+ \item \verb|DownloadRequest.java|
+ \item \verb|DownloadResponse.java|
 \end{itemize}
 
+Guardiamo cosa si nasconde all'interno di ognuna di queste classi.
 
+\subsection{NodeConfig.java}
+La classe \verb|NodeConfig.java| contiene i seguenti attributi:
+\newline
+\begin{lstlisting}
+private String user_name;
+private int port;
+private String bootstrap_address;
+private int max_conn;
+private int ttl;
+private boolean is_sn;
+
+//Calcolato all'avvio
+private String my_address;
+\end{lstlisting}
+
+Questi attributi sono i campi che l'utente inserisce nel form al primo avvio del programma e contengono le informazioni di configurazione del nodo. 
+
+\subsection{Query.java}
+La classe \verb|Query.java| viene utilizzata dal client Mini-KaZaA per l'invio di richieste di file nella rete.
+
+Contiene diversi attributi per i quali ci sono i metodi \verb|set| e \verb|get|. Questa classe inoltre implementa
+le interfacce \verb|Serializable| e \verb|Cloneable|.
+La prima serve per poter inviare su rete come flusso di byte l'oggetto \verb|Query|. La seconda invece serve per poter
+copiare un'istanza dell'oggetto \verb|Query| in una seconda istanza.
+\newline
+\begin{lstlisting}
+private String body_q;              //Regex of a sended query
+private Answer body_a;              //Answer query
+private OrdinarynodeFiles body_f;   //Notify a supernode to 
+                                 	//have many files to share.
+private NodeInfo id_origin;         //Source of a query
+private NodeInfo sender;            //NodeInfo of sender node.
+private NodeInfo receiver;          //NodeInfo of receiver node
+
+private int ttl;                    //Time to live of a query
+private int id;                     //Id of origin query
+\end{lstlisting}
+
+La classe \verb|Query| ha tre gruppi di attributi.Un primo gruppo descrive il contenuto della query e di conseguenza
+il tipo di query. Un secondo gruppo serve per identificare i soggetti coinvolti nello scambio della query stessa.
+Il terzo gruppo contiene invece parametri per l'identificazione della query. 
+
+Analizziamo uno ad uno questi parametri per capire meglio come funzionano le query in Mini-KaZaA.
+\begin{itemize}
+ \item \verb|body_q|:
+il vero corpo della query di richiesta di un file. \`{E} una stringa che contiene un
+espressione regolare che il client Mini-KaZaA riesce a interpretare;
+
+ \item \verb|body_a|:
+la parte dell'oggetto \verb|Query| che contiene la risposta a una determinata richiesta. Analizzaremo la classe
+\verb|Answer| successivamente;
+
+ \item \verb|body_f|:
+questo campo viene riempito da un ON che vuole inviare al proprio SN la sua lista di file per metterli a disposizione
+di tutti;
+
+ \item \verb|id_origin|:
+per ogni query deve essere nota l'origine dalla quale proviene la query stessa per poi poterla correttamente fermare
+al punto giusto e farla ritornare al mittente. Questo è il compito del campo \verb|id_origin|;
+
+ \item \verb|sender|: 
+questo campo indica uno dei due soggetti che sono impegnati in un singolo scambio di query, il nodo da cui parte;
+
+ \item \verb|receiver|:
+questo campo indica il nodo a cui deve arrivare la query in uno scambio;
+
+ \item \verb|ttl|:
+questo campo sta per \emph{Time To Live} e indica il numero di scambi per il quale la query deve continuare a esistere.
+Serve principalmente per evitare che si creino dei cicli infiniti di scambio della query ottenendo quindi una valanga
+di dati ridondanti con conseguente intasamento della rete;
+
+ \item \verb|id|:
+ogni nodo può inviare più query alla volta nella rete e il compito di questo campo è di identificare univocamente la
+query presso il suo nodo origine.
+\end{itemize}
+
+\subsection{Answer.java}
+La classe \verb|Answer.java| contiene i file che possono corrispondere ai criteri di una ricerca. 
+
+\`{E} una classe molto semplice ma molto utile per indicizzare rapidamente i file.
+
+Ecco il codice nel quale vengono dichiarati gli attributi della classe.
+\newline
+\begin{lstlisting}
+//List of files that corresponding to a query.
+private ArrayList <OrdinarynodeFiles> files;
+
+//Id of origin query
+private int id;
+\end{lstlisting}
+
+L'attributo \verb|files| è una lista di OrdinarynodeFiles, Sezione \ref{sec:on_files}.
+
+La classe \verb|Answer.java| viene utilizzata 
+
+L'attributo \verb|id| richiama semplicemente l'id univoco della query di cui fa parte l'oggetto \verb|Answer|.
+
+\subsection{SearchField.java}
+La classe \verb|SearchField.java| viene utilizzata dal client Mini-KaZaA 
+\subsection{Download.java}
+\subsection{DownloadRequest.java}
+\subsection{DownloadResponse.java}
+
+\section{Il percorso di una query}
+\section{La grafica del client Mini-KaZaA}
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=250px,height=225px,bb=14 14 841 737]{images/mini_kazaa_client.eps}
+ % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
+ \caption{L'interfaccia grafica principale del client.}
+ \label{fig:mini_kazaa_client}
+\end{figure}
 
