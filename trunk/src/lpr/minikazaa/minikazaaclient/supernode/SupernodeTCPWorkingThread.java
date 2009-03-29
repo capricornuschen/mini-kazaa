@@ -72,12 +72,12 @@ public class SupernodeTCPWorkingThread implements Runnable {
                         peer_query.getBodyF() == null) {
                     //Richiesta di un file, all'interno di body_q abbiamo una
                     //espressione regolare che identifica la richiesta di un file
-                    System.out.println("DEBUG: Ricevuta query con bodyQ != null : "+peer_query.getBodyQ());
+                    System.out.println("DEBUG: Ricevuta query con bodyQ != null : " + peer_query.getBodyQ());
                     System.out.println("DEBUG: Genero la mia risposta in base ai miei ON.");
                     //Mia risposta al nodo richiedente.
                     ArrayList<OrdinarynodeFiles> query_answer = null;
                     query_answer = this.my_on_f_list.searchFiles(peer_query.getBodyQ());
-                    System.out.println("DEBUG: Dimensione della mia risposta: "+query_answer.size());
+                    System.out.println("DEBUG: Dimensione della mia risposta: " + query_answer.size());
 
                     Socket cli_sock = new Socket(
                             peer_query.getSender().getIaNode(),
@@ -119,21 +119,29 @@ public class SupernodeTCPWorkingThread implements Runnable {
 
                     //ATTENZIONE:   inserire qui un meccanismo per riconoscere
                     //              le nostre query da quelle degli on affiliati
+                    NodeInfo origin = peer_query.getOrigin();
+                    String origin_id = origin.getId();
 
-                    
-                    //E' arrivata al nodo una risposta di un altro peer,
-                    //bisogna dunque inoltrarla al peer richiedente.
-                    Query other_answer = this.my_q_list.getRelativeQuery(peer_query);
+                    String my_id = this.my_conf.getMyAddress() + ":" + this.my_conf.getPort();
 
-                    other_answer.setAnswerQuery(peer_query.getBodyA());
+                    if (origin_id.equals(my_id)) {
+                        //La risposta  è a una mia query, quindi interrompo il cammino.
 
-                    //Scambio mittete e destinatario.
-                    NodeInfo temp_sender = other_answer.getSender();
-                    other_answer.setSender(other_answer.getReceiver());
-                    other_answer.setReceiver(temp_sender);
+                    } else {
+                        //E' arrivata al nodo una risposta di un altro peer,
+                        //bisogna dunque inoltrarla al peer richiedente.
+                        Query other_answer = this.my_q_list.getRelativeQuery(peer_query);
 
-                    //Send query.
-                    NetUtil.sendQuery(other_answer);
+                        other_answer.setAnswerQuery(peer_query.getBodyA());
+
+                        //Scambio mittete e destinatario.
+                        NodeInfo temp_sender = other_answer.getSender();
+                        other_answer.setSender(other_answer.getReceiver());
+                        other_answer.setReceiver(temp_sender);
+
+                        //Send query.
+                        NetUtil.sendQuery(other_answer);
+                    }
 
                 } else if (peer_query.getBodyF() != null &&
                         peer_query.getBodyA() == null &&
