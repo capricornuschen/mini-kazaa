@@ -12,6 +12,7 @@ import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 
 /**
  *
@@ -26,18 +27,21 @@ public class SupernodeTCPListener implements Runnable {
     private SupernodeOnFileList on_files;
     private OrdinarynodeFiles my_files;
     private OrdinarynodeDownloadMonitor my_dl_monitor;
+    private OrdinarynodeQuestionsList my_found_list;
 
     public SupernodeTCPListener(
             NodeConfig conf,
             SupernodeList list,
             SupernodeOnFileList file_list,
             OrdinarynodeFiles sn_files,
-            OrdinarynodeDownloadMonitor dl_monitor) {
+            OrdinarynodeDownloadMonitor dl_monitor,
+            OrdinarynodeQuestionsList found_list) {
         this.on_files = file_list;
         this.my_conf = conf;
         this.my_list = list;
         this.my_files = sn_files;
         this.my_dl_monitor = dl_monitor;
+        this.my_found_list = found_list;
     }
 
     public void run() {
@@ -68,7 +72,8 @@ public class SupernodeTCPListener implements Runnable {
                         query_list, 
                         this.on_files,
                         this.my_files,
-                        this.my_dl_monitor);
+                        this.my_dl_monitor,
+                        this.my_found_list);
                 answer_pool.execute(answer);
             } catch (IOException ex) {
                 Logger.getLogger(SupernodeTCPListener.class.getName()).log(Level.SEVERE, null, ex);
