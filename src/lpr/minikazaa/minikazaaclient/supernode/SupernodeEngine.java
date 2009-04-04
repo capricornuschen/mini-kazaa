@@ -72,7 +72,8 @@ public class SupernodeEngine implements Runnable {
                 sn_list,
                 on_files,
                 my_file_list,
-                dl_monitor);
+                dl_monitor,
+                found_list);
         Thread tcp_listen = new Thread(listener_tcp);
         tcp_listen.start();
         

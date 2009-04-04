@@ -21,6 +21,7 @@ import lpr.minikazaa.minikazaaclient.SupernodeList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFriendRequest;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 import lpr.minikazaa.util.MKFileDescriptor;
 import lpr.minikazaa.util.NetUtil;
 
@@ -39,6 +40,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
     private SupernodeOnFileList my_on_f_list;
     private OrdinarynodeFiles my_files;
     private OrdinarynodeDownloadMonitor my_dl_monitor;
+    private OrdinarynodeQuestionsList my_found_list;
 
     public SupernodeTCPWorkingThread(
             Socket sock,
@@ -47,7 +49,8 @@ public class SupernodeTCPWorkingThread implements Runnable {
             SupernodeQueryList q_list,
             SupernodeOnFileList f_list,
             OrdinarynodeFiles sn_files,
-            OrdinarynodeDownloadMonitor dl_monitor) {
+            OrdinarynodeDownloadMonitor dl_monitor,
+            OrdinarynodeQuestionsList found_file_list) {
         this.client_socket = sock;
         this.my_conf = conf;
         this.my_list = list;
@@ -55,6 +58,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
         this.my_on_f_list = f_list;
         this.my_files = sn_files;
         this.my_dl_monitor = dl_monitor;
+        this.my_found_list = found_file_list;
     }
 
     public void run() {
@@ -67,9 +71,18 @@ public class SupernodeTCPWorkingThread implements Runnable {
             if (read_object instanceof Query) {
                 peer_query = (Query) read_object;
 
+                System.out.println("DEBUG: Query ricevuta: "+ peer_query.getBodyQ());
+
                 if (peer_query.getBodyQ() != null &&
                         peer_query.getBodyA() == null &&
                         peer_query.getBodyF() == null) {
+
+                    //Generare la risposta in base ai propri file
+                    ArrayList<OrdinarynodeFiles> my_answer = null;
+                    my_answer = this.my_files.searchFiles(peer_query.getBodyQ());
+
+                    Answer personal_answer = new Answer(my_answer, peer_query.getId());
+                    
                     //Richiesta di un file, all'interno di body_q abbiamo una
                     //espressione regolare che identifica la richiesta di un file
                     System.out.println("DEBUG: Ricevuta query con bodyQ != null : " + peer_query.getBodyQ());
@@ -77,7 +90,24 @@ public class SupernodeTCPWorkingThread implements Runnable {
                     //Mia risposta al nodo richiedente.
                     ArrayList<OrdinarynodeFiles> query_answer = null;
                     query_answer = this.my_on_f_list.searchFiles(peer_query.getBodyQ());
+
+                    Query personal_answer_query = new Query();
+                    personal_answer_query.setReceiver(peer_query.getSender());
+                    personal_answer_query.setSender(peer_query.getReceiver());
+                    personal_answer_query.setOrigin(peer_query.getOrigin());
+                    personal_answer_query.setAskingQuery(peer_query.getBodyQ());
+                    personal_answer_query.setAnswerQuery(personal_answer);
                     System.out.println("DEBUG: Dimensione della mia risposta: " + query_answer.size());
+                    Socket my_answer_socket = new Socket(
+                            peer_query.getSender().getIaNode(),
+                            peer_query.getSender().getDoor());
+
+                    ObjectOutputStream stream = new ObjectOutputStream(
+                            my_answer_socket.getOutputStream());
+
+                    stream.writeObject(personal_answer_query);
+
+                    my_answer_socket.close();
 
                     Socket cli_sock = new Socket(
                             peer_query.getSender().getIaNode(),
@@ -98,6 +128,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                     answer_query.setAnswerQuery(answer);
 
                     output_stream.writeObject(answer_query);
+
 
                     cli_sock.close();
                     //Propagazione query
@@ -126,6 +157,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
 
                     if (origin_id.equals(my_id)) {
                         //La risposta  è a una mia query, quindi interrompo il cammino.
+                        this.my_found_list.add(peer_query.getBodyA());
 
                     } else {
                         //E' arrivata al nodo una risposta di un altro peer,

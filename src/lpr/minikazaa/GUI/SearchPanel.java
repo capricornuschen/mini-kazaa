@@ -68,6 +68,7 @@ public class SearchPanel extends javax.swing.JPanel {
             q.setAskingQuery(this.search_tf.getText());
 
             for (NodeInfo peer : sub_set) {
+                System.out.println("DEBUG:peer contattato:" + peer.getId());
                 try {
                     q.setReceiver(peer);
                     Socket cli_sock = new Socket(peer.getIaNode(), peer.getDoor());
@@ -75,6 +76,7 @@ public class SearchPanel extends javax.swing.JPanel {
                     output_stream.writeObject(q);
                     cli_sock.close();
                 } catch (IOException ex) {
+                    System.out.println("Exception while sending query:" + ex);
                     Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
