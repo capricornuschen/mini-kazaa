@@ -79,11 +79,19 @@ La classe contiene tutti i metodi \verb|set| e \verb|get| per poter assegnare va
 \section{L'interfaccia grafica.}
 L'interfaccia grafica fornisce le informazioni riguardo a ciò che avviene all'interno della rete.
 
-\begin{figure}
+\begin{figure}[t]
  \centering
- \includegraphics[bb=14 14 564 329]{images/bss_grafica.eps}
+ \includegraphics[width=300px,height=160px]{images/bss_grafica.eps}
  % bss_grafica.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 564 329
+ \caption{Interfaccia grafica del Bootstrap server}
  \label{fig:bss_grafica}
 \end{figure}
+
+Uno screenshot dell'interfaccia grafica principale del Bootstrap server si può vedere in Figura \ref{fig:bss_grafica}.
+
+Nella parte a sinistra dell'interfaccia vengono inseriti gli \emph{id} di tutti i nodi che si connettono alla rete.
+
+Nella parte destra, invece, vengono visualizzati dei messaggi che spiegano cosa avviene all'iterno della rete.
+
 
 

@@ -66,6 +66,7 @@ public class SearchPanel extends javax.swing.JPanel {
             q.setSender(this.my_infos);
             q.setOrigin(this.my_infos);
             q.setAskingQuery(this.search_tf.getText());
+            q.setTTL(this.my_conf.getTimeToLeave());
 
             for (NodeInfo peer : sub_set) {
                 System.out.println("DEBUG:peer contattato:" + peer.getId());
@@ -88,7 +89,7 @@ public class SearchPanel extends javax.swing.JPanel {
             q.setSender(this.my_infos);
             q.setOrigin(this.my_infos);
             q.setAskingQuery(this.search_tf.getText());
-
+            q.setTTL(this.my_conf.getTimeToLeave());
 
 
             this.my_ref_sn.increaseNumQuery();

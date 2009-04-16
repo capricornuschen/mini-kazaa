@@ -62,7 +62,7 @@ private String my_address;
 
 Questi attributi sono i campi che l'utente inserisce nel form al primo avvio del programma e contengono le informazioni di configurazione del nodo. 
 
-\subsection{Query.java}
+\subsection{Query.java}\label{sec:query}
 La classe \verb|Query.java| viene utilizzata dal client Mini-KaZaA per l'invio di richieste di file nella rete.
 
 Contiene diversi attributi per i quali ci sono i metodi \verb|set| e \verb|get|. Questa classe inoltre implementa
@@ -71,16 +71,30 @@ La prima serve per poter inviare su rete come flusso di byte l'oggetto \verb|Que
 copiare un'istanza dell'oggetto \verb|Query| in una seconda istanza.
 \newline
 \begin{lstlisting}
-private String body_q;              //Regex of a sended query
-private Answer body_a;              //Answer query
-private OrdinarynodeFiles body_f;   //Notify a supernode to 
-                                 	//have many files to share.
-private NodeInfo id_origin;         //Source of a query
-private NodeInfo sender;            //NodeInfo of sender node.
-private NodeInfo receiver;          //NodeInfo of receiver node
+//Espressione regolare della query
+private String body_q;
 
-private int ttl;                    //Time to live of a query
-private int id;                     //Id of origin query
+//Query di risposta
+private Answer body_a;
+
+//Notifica a un supernodo di avere
+//file da condividere
+private OrdinarynodeFiles body_f;
+
+//Sorgente di una query
+private NodeInfo id_origin;
+
+//NodeInfo del mittente
+private NodeInfo sender;
+
+//NodeInfo del destinatario
+private NodeInfo receiver;
+
+//Time to live della query
+private int ttl;
+
+//Id della query attribuito dall'origine
+private int id;
 \end{lstlisting}
 
 La classe \verb|Query| ha tre gruppi di attributi.Un primo gruppo descrive il contenuto della query e di conseguenza
@@ -129,10 +143,10 @@ La classe \verb|Answer.java| contiene i file che possono corrispondere ai criter
 Ecco il codice nel quale vengono dichiarati gli attributi della classe.
 \newline
 \begin{lstlisting}
-//List of files that corresponding to a query.
+//File che corrispondono a una query
 private ArrayList <OrdinarynodeFiles> files;
 
-//Id of origin query
+//Id della query assegnato dall'origine
 private int id;
 \end{lstlisting}
 
@@ -165,12 +179,201 @@ per il download, sia ottenere tutti i metadati del file da scaricare\footnote{I 
 effettuati mediante l'hash univoco md5 che tratteremo nella Sezione \ref{sec:md5}}.
 
 \subsection{Download.java}
+La classe \verb|Download.java| serve al client Mini-KaZaA per indicizzare i downloads che si effettuano. Questa classe si distingue da \verb|SearchField.java| perchè mantiene anche il numero di byte già scaricati.
+\newline
+\begin{lstlisting}
+private MKFileDescriptor file_to_download;
+private long downloaded_bytes;
+private String downloader_path;
+
+public Download(MKFileDescriptor file){
+
+	this.file_to_download = file;
+	this.downloaded_bytes = 0;
+
+	//Directory di default
+	this.downloader_path = "./downloads/";
+}
+\end{lstlisting}
+
+Gli attributi della classe \verb|Download.java| sono quelli elencati nel listato mostrato appena sopra.
+\verb|file_to_download| identifica il file che si sta scaricando tramite il codice hash \emph{md5}. Viene anche usato il nome del file, salvato all'interno di \verb|MKFileDescriptor|, per poter comporre il path assoluto con l'attributo \verb|downloader_path|. I \verb|downloaded_bytes| invece indicano, quanta parte di file è stata già scaricata dalla rete.
 
 \subsection{DownloadRequest.java}
+La classe \verb|DownloadRequest.java| viene utilizzata dal client Mini-KaZaA per richiedere file da scaricare al nodo che lo possiede.
+Si compone dei seguenti attributi:
+\newline
+\begin{lstlisting}
+//File da scaricare
+private String file_request;
+
+//Sorgente della richiesta
+private NodeInfo request_source;
+\end{lstlisting}
+
 \subsection{DownloadResponse.java}
+Il client Mini-KaZaA fa un uso particolare della classe \verb|DownloadResponse.java|. Essa viene infatti usata sia per inizializzare e terminare una comunicazione, sia come ``mezzo di trasporto'' delle varie parti di un file.
+
+Vediamo innanzitutto quali attributi include questa classe:
+\newline
+\begin{lstlisting}
+//byte che compongono una parte di 
+//un file
+private byte [] part;
+
+//File inviato
+private String file;
+\end{lstlisting}
+Mini-KaZaA ``spezzetta'' il file da inviare in piccoli pacchetti da 4Kb che vengono inseriti all'interno dell'array \verb|part|.
+\verb|file| invece contiene l'md5 del file che viene inviato. Questa classe, e la combinazione dei suoi paramtri, permettono a Mini-KaZaA di controllare l'inizio di una comunicazione, la fine della stessa, e tutti gli invii intermedi di byte.
+Vedremo meglio come funziona lo scambio di file all'interno della Sezione \ref{sec:scambio}
 
 \section{Il percorso di una query}
-\section{La grafica del client Mini-KaZaA}
+Nella sezione \ref{sec:query} abbiamo visto di cosa si compone la classe \verb|Query.java|. Ora vediamo come viene utilizzata dal client nello scambio di richieste.
+
+Ogni query di ricerca di file comincia con l'input dell'utente tramite un apposita formdi cui parleremo nella Sezione \ref{sec:grafica}.
+Viene così generato un oggetto di tipo query con il seguente frammento di codice:
+\begin{lstlisting}
+Query q = new Query();
+q.setId(this.my_num);
+q.setSender(this.my_infos);
+q.setOrigin(this.my_infos);
+q.setAskingQuery(this.search_tf.getText());
+q.setTTL(this.my_conf.getTimeToLeave());
+\end{lstlisting}
+Questo oggetto viene così inviato nella rete attraverso i SN.
+Ogni SN leva un'unità di \emph{TTL} alla query e la rimbalza nella rete.
+
+La gestione del percorso di una query è affidata completamente alla classe \verb|SupernodeTCPWorkingThread.java| e ne parleremo in Sezione \ref{sec:smistamento_delle_query}.
+Quest'operazione è comune ai due tipi di client, ma contiene delle ovvie differeze, dovute alla natura dei vari nodi, che spiegheremo più avanti.
+
+\section{La classe SupernodeList.java}
+La classe \verb|SupernodeList.java| è una delle classi principali del progetto. Essa infatti mantiene un elenco dei SN presenti sulla rete.
+Essa in realtà è molto utile per indicizzare insiemi di nodi di qualsiasi tipo, difatti il Bootstrap server utilizza proprio questa classe per le sue liste di nodi.
+
+Come si può vedere dal seguente listato:
+\begin{lstlisting}
+private ArrayList<NodeInfo> sn_list;
+private ArrayList<NodeInfo> sub_set_list;
+
+public SupernodeList() {
+	this.sn_list = new ArrayList();
+	this.sub_set_list = null;
+}
+\end{lstlisting}
+
+la classe \verb|SupernodeList.java| è composta da due attributi:
+\begin{itemize}
+ \item \verb|sn_list|:
+un'\emph{ArrayList} di \verb|NodeInfo| utilizzata per tenere in memoria \emph{tutti} i nodi della rete;
+
+ \item \verb|sub_set|:
+una seconda \emph{ArrayList} di \verb|NodeInfo| utilizzata di volta in volta per memorizzare un sottoinsieme di nodi vicini e convenienti da contattare.
+\end{itemize}
+
+
+\begin{lstlisting}
+public synchronized void 
+refreshPing(InetAddress ia, int port, long new_ping) {
+	for (NodeInfo n : sn_list) {
+		//Confrontiamo l'indirizzo del nodo estratto 
+		//con quello passato come parametro del metodo
+		if (n.getIaNode().toString().equals(ia.toString())) {
+			if (n.getDoor() == port) {
+				n.setPing(new_ping);
+			}
+		}
+	}
+}
+
+public synchronized void refreshPing() {
+	//Thread pool
+	ThreadPoolExecutor my_thread_pool =
+		new ThreadPoolExecutor(
+			10, 15, 50000L, 
+			TimeUnit.MILLISECONDS,
+			new LinkedBlockingQueue<Runnable>());
+	
+	if (this.sn_list.size() >= 1) {
+		for (NodeInfo n : sn_list) {
+			NodePing pinging = 
+				new NodePing(
+					n.getIaNode(), 
+					n.getDoor(), 
+					this);
+
+			my_thread_pool.execute(pinging);
+		}
+	}
+	my_thread_pool.shutdown();
+
+	this.setChanged();
+	this.notifyObservers();
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+public synchronized void 
+subSet(int set_size, long threshold) {
+	ArrayList<NodeInfo> neighbors = new ArrayList();
+
+	for (NodeInfo n : this.sn_list) {
+		if (n.getPing() != -1) {
+
+			if (n.getPing() <= threshold) {
+				neighbors.add(n);
+				if (neighbors.size() == set_size) {
+					this.sub_set_list = neighbors;
+				}
+			}
+		}
+	}
+
+	this.sub_set_list = neighbors;
+}
+
+public synchronized ArrayList<NodeInfo> getSubSet() {
+
+	if (this.sub_set_list == null) {
+		subSet(10, 100);
+	}
+
+	return this.sub_set_list;
+}
+
+public synchronized NodeInfo getBest() {
+	NodeInfo best = new NodeInfo();
+
+	for (NodeInfo candidate : this.sn_list) {
+		if (best.getIaNode() == null) {
+			best.setInetAddress(candidate.getIaNode());
+			best.setCallbacksInterface(
+				candidate.getCallbackInterface());
+			best.setDoor(candidate.getDoor());
+			best.setId(candidate.getId());
+			best.setUsername(candidate.getUsername());
+			best.setPing(candidate.getPing());
+		} else {
+			if (candidate.getPing() < best.getPing()) {
+				best.setInetAddress(candidate.getIaNode());
+				best.setCallbacksInterface(
+					candidate.getCallbackInterface());
+				best.setDoor(candidate.getDoor());
+				best.setId(candidate.getId());
+				best.setUsername(candidate.getUsername());
+				best.setPing(candidate.getPing());
+			}
+		}
+	}
+	
+	return best;
+}
+\end{lstlisting}
+
+
+\section{Il paradigma Observable-Observator}
+
+\section{La grafica del client Mini-KaZaA}\label{sec:grafica}
 \begin{figure}[t]
  \centering
  \includegraphics[width=250px,height=225px,bb=14 14 841 737]{images/mini_kazaa_client.eps}

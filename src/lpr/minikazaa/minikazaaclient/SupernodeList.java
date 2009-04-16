@@ -61,7 +61,8 @@ public class SupernodeList extends Observable {
 
     public synchronized void refreshPing(InetAddress ia, int port, long new_ping) {
         for (NodeInfo n : sn_list) {
-            //Now we compare the 2 toString methods, comparing 2 strings.
+            //Confrontiamo l'indirizzo del nodo estratto con quello passato
+            //come parametro del metodo
             if (n.getIaNode().toString().equals(ia.toString())) {
                 if (n.getDoor() == port) {
                     n.setPing(new_ping);

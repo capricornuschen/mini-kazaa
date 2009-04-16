@@ -1,11 +1,16 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.10.31)  28 MAR 2009 16:07
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  16 APR 2009 22:09
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
 (./mini-kazaa.tex
 LaTeX2e <2005/12/01>
 Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, german, ngerman, italian, loaded.
+yphenation, arabic, farsi, croatian, ukrainian, russian, bulgarian, czech, slov
+ak, danish, dutch, finnish, basque, french, german, ngerman, ibycus, greek, mon
+ogreek, ancientgreek, hungarian, italian, latin, mongolian, norsk, icelandic, i
+nterlingua, turkish, coptic, romanian, welsh, serbian, slovenian, estonian, esp
+eranto, uppersorbian, indonesian, polish, portuguese, spanish, catalan, galicia
+n, swedish, ukenglish, pinyin, loaded.
 (/usr/share/texmf-texlive/tex/latex/base/report.cls
 Document Class: report 2005/09/16 v1.4f Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size11.clo
@@ -730,60 +735,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--37
  []
 
 
-Overfull \hbox (28.49915pt too wide) in paragraph at lines 38--39
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (45.14911pt too wide) in paragraph at lines 39--40
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (45.14911pt too wide) in paragraph at lines 40--41
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (61.79907pt too wide) in paragraph at lines 41--42
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (22.94916pt too wide) in paragraph at lines 42--43
-[][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (108.74776pt too wide) in paragraph at lines 45--47
-[]\T1/lmr/m/n/10.95 Con le istru-zio-ni al-la ri-ga 9 e 14 re-gi-stra l'in-ter-
-fac-cia di call-back []\T1/lmtt/m/n/10.95 SupernodeCallbacksInterface
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 45--47
+Underfull \hbox (badness 10000) in paragraph at lines 54--56
 
  []
 
-
-Overfull \hbox (6.2992pt too wide) in paragraph at lines 48--49
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (22.94916pt too wide) in paragraph at lines 49--50
-[][][][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (2.77621pt too wide) in paragraph at lines 73--74
+[6]
+Overfull \hbox (2.77621pt too wide) in paragraph at lines 85--86
 []\T1/lmr/m/n/10.95 La va-ria-bi-le pri-va-ta []\T1/lmtt/m/n/10.95 private Supe
 rnodeCallbacksInterface stub \T1/lmr/m/n/10.95 rap-
  []
 
-[6]
 File: images/bss_grafica.eps Graphic file (type eps)
- <images/bss_grafica.eps>) (./mini-kazaa_client.tex [7]
+<images/bss_grafica.eps>) (./mini-kazaa_client.tex [7] [8]
 Capitolo 3.
 
 Overfull \hbox (4.12384pt too wide) in paragraph at lines 13--14
@@ -791,67 +754,91 @@ Overfull \hbox (4.12384pt too wide) in paragraph at lines 13--14
 5 : que-sta li-bre-ria con-
  []
 
-[8
+[9
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 49--51
 
  []
 
-[9]
+[10]
 Underfull \hbox (badness 10000) in paragraph at lines 68--73
 
  []
 
-
-Overfull \hbox (11.84918pt too wide) in paragraph at lines 77--78
-[][][][][][][][][][][][][][][][][][] 
- []
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 129--131
-
- []
-
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 153--155
+Underfull \hbox (badness 10000) in paragraph at lines 143--145
 
  []
 
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 167--169
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--184
+
+ []
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 203--206
+
+ []
+
+
+Overfull \hbox (33.16145pt too wide) in paragraph at lines 215--216
+[]\T1/lmr/m/n/10.95 Il client Mini-KaZaA fa un uso par-ti-co-la-re del-la clas-
+se []\T1/lmtt/m/n/10.95 DownloadResponse.java\T1/lmr/m/n/10.95 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--219
+
+ []
+
+
+Overfull \hbox (2.89769pt too wide) in paragraph at lines 232--233
+[]\T1/lmr/m/n/10.95 Nella se-zio-ne [][][][] ab-bia-mo vi-sto di co-sa si com-p
+o-ne la clas-se []\T1/lmtt/m/n/10.95 Query.java\T1/lmr/m/n/10.95 .
+ []
+
+[14] [15] [16]
 File: images/mini_kazaa_client.eps Graphic file (type eps)
-<images/mini_kazaa_client.eps>) (./ordinarynode.tex [12] [13]
+ <images/mini_kazaa_client.eps>) (./ordinarynode.tex [17]
+[18]
 Capitolo 4.
 
 Overfull \hbox (54.34785pt too wide) in paragraph at lines 2--2
 []\T1/lmr/bx/n/14.4 Le clas-si del pac-ka-ge lpr.minikazaaclient.ordinarynode 
  []
 
-) (./supernode.tex [14
+) (./supernode.tex [19
 
 ]
 Capitolo 5.
-) (./util.tex [15
+) (./util.tex [20
 
 ]
 Capitolo 6.
-) (./Gui_Package.tex [16
+) (./Gui_Package.tex [21
 
 ]
 Capitolo 7.
-) (./manuale_uso.tex [17
+) (./manuale_uso.tex [22
 
 ]
 Appendice A.
-) [18
+) [23
 
 ] (./mini-kazaa.aux) ) 
 Here is how much of TeX's memory you used:
- 7167 strings out of 95067
- 96212 string characters out of 1182579
- 164811 words of memory out of 1500000
- 10148 multiletter control sequences out of 10000+50000
+ 7233 strings out of 94075
+ 97182 string characters out of 1165177
+ 173223 words of memory out of 1500000
+ 10324 multiletter control sequences out of 10000+50000
  87435 words of font info for 72 fonts, out of 1200000 for 2000
- 28 hyphenation exceptions out of 8191
- 28i,8n,40p,482b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
+ 645 hyphenation exceptions out of 8191
+ 29i,8n,40p,482b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (19 pages, 73376 bytes).
+Output written on mini-kazaa.dvi (24 pages, 120580 bytes).

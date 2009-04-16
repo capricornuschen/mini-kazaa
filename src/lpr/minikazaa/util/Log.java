@@ -26,9 +26,9 @@ public class Log {
 
     }
 
-
     //Salva il log su file solo se è attiva l'opzione per quel tipo.
     public void LogMessage(String message, int messageType ){
 
     }
+
 }
