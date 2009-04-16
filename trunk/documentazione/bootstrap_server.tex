@@ -35,18 +35,30 @@ SupernodeCallbacksInterface client_stub =
 Con le prime istruzioni il Bootstrap server mette a disposizione tutti i metodi della classe \verb|BootStrapServerInterface| che sono i seguenti:
 \newline
 \begin{lstlisting}
-public boolean addSuperNode(NodeInfo new_node) throws RemoteException;
-public boolean removeSuperNode(NodeInfo new_node) throws RemoteException;
-public boolean addOrdinaryNode(NodeInfo new_node) throws RemoteException;
-public boolean removeOrdinaryNode(NodeInfo new_node) throws RemoteException;
-public ArrayList<NodeInfo> getSuperNodeList() throws RemoteException;
+public boolean 
+	addSuperNode(NodeInfo new_node) throws RemoteException;
+
+public boolean 
+	removeSuperNode(NodeInfo new_node) throws RemoteException;
+
+public boolean 
+	addOrdinaryNode(NodeInfo new_node) throws RemoteException;
+
+public boolean 
+	removeOrdinaryNode(NodeInfo new_node) throws RemoteException;
+
+public ArrayList<NodeInfo> 
+	getSuperNodeList() throws RemoteException;
 \end{lstlisting}
 
-Con le istruzioni alla riga 9 e 14 registra l'interfaccia di callback \verb|SupernodeCallbacksInterface| che ha i seguenti metodi:
+Con le istruzioni alla riga 9 e 14 registra l'interfaccia di callback, definita nel package del Super Node,  \verb|SupernodeCallbacksInterface| che ha i seguenti metodi:
 \newline
 \begin{lstlisting}
-public void notifyMeAdd(NodeInfo new_node) throws RemoteException;
-public void notifyMeRemove(NodeInfo new_node) throws RemoteException;
+public void 
+	notifyMeAdd(NodeInfo new_node) throws RemoteException;
+
+public void 
+	notifyMeRemove(NodeInfo new_node) throws RemoteException;
 \end{lstlisting}
 
 Per poter trasmettere e ricevere le informazioni riguardanti i vari nodi della rete, il client Mini-KaZaA e il Bootstrap server usano una classe serializzabile che si chiama \verb|NodeInfo| che analizzamo nella sezione \ref{sec:nodeinfo}

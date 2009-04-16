@@ -18,13 +18,18 @@
 \BOOKMARK [2][-]{subsection.3.3.6}{DownloadRequest.java}{section.3.3}
 \BOOKMARK [2][-]{subsection.3.3.7}{DownloadResponse.java}{section.3.3}
 \BOOKMARK [1][-]{section.3.4}{Il percorso di una query}{chapter.3}
-\BOOKMARK [1][-]{section.3.5}{La grafica del client Mini-KaZaA}{chapter.3}
+\BOOKMARK [1][-]{section.3.5}{La classe SupernodeList.java}{chapter.3}
+\BOOKMARK [1][-]{section.3.6}{Il paradigma Observable-Observator}{chapter.3}
+\BOOKMARK [1][-]{section.3.7}{La grafica del client Mini-KaZaA}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Ordinary Node}{}
 \BOOKMARK [1][-]{section.4.1}{Le classi del package lpr.minikazaaclient.ordinarynode}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{OrdinarynodeFiles.java}{section.4.1}
 \BOOKMARK [1][-]{section.4.2}{Scelta del SN al quale connettersi}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Lo scambio di file}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Condivisione di file}{chapter.4}
 \BOOKMARK [0][-]{chapter.5}{Super Node}{}
 \BOOKMARK [1][-]{section.5.1}{L'interfaccia per le callback}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{Smistamento delle query}{chapter.5}
 \BOOKMARK [0][-]{chapter.6}{Il package Util}{}
 \BOOKMARK [1][-]{section.6.1}{Calcolo dell'md5}{chapter.6}
 \BOOKMARK [0][-]{chapter.7}{Il package di grafica}{}
