@@ -1,7 +1,5 @@
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -94,6 +92,7 @@ public class OrdinarynodeRMIManager implements Runnable {
                 my_infos.setCallbacksInterface(callbacks_stub);
                 my_infos.setIsSn(my_conf.getIsSN());
                 my_infos.setId(this.my_conf.getMyAddress()+":"+this.my_conf.getPort());
+                this.my_sn_ref.setMyInfo(this.my_infos);
             } catch (UnknownHostException ex) {
                 Logger.getLogger(OrdinarynodeRMIManager.class.getName()).log(Level.SEVERE, null, ex);
             }

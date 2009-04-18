@@ -1,6 +1,7 @@
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import java.io.Serializable;
+import lpr.minikazaa.bootstrap.NodeInfo;
 
 /**
  *
@@ -11,10 +12,14 @@ import java.io.Serializable;
 public class OrdinarynodeFriendRequest implements Serializable {
 
     private boolean want_to_be_friend;
+    private NodeInfo friend;
     //Ancora da vedere cosa scriverci.
     public OrdinarynodeFriendRequest(){
 
     }
     public void setRelationship(boolean rel){this.want_to_be_friend = rel;}
     public boolean getRelationship(){return this.want_to_be_friend;}
+
+    public void setInfo(NodeInfo info){this.friend = info;}
+    public NodeInfo getInfo(){return this.friend;}
 }

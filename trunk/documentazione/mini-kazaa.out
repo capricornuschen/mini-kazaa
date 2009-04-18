@@ -20,7 +20,8 @@
 \BOOKMARK [1][-]{section.3.4}{Il percorso di una query}{chapter.3}
 \BOOKMARK [1][-]{section.3.5}{La classe SupernodeList.java}{chapter.3}
 \BOOKMARK [1][-]{section.3.6}{Il paradigma Observable-Observator}{chapter.3}
-\BOOKMARK [1][-]{section.3.7}{La grafica del client Mini-KaZaA}{chapter.3}
+\BOOKMARK [1][-]{section.3.7}{Ping dei nodi}{chapter.3}
+\BOOKMARK [1][-]{section.3.8}{La grafica del client Mini-KaZaA}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Ordinary Node}{}
 \BOOKMARK [1][-]{section.4.1}{Le classi del package lpr.minikazaaclient.ordinarynode}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{OrdinarynodeFiles.java}{section.4.1}

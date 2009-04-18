@@ -71,7 +71,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
             if (read_object instanceof Query) {
                 peer_query = (Query) read_object;
 
-                System.out.println("DEBUG: Query ricevuta: "+ peer_query.getBodyQ());
+                System.out.println("DEBUG: Query ricevuta: " + peer_query.getBodyQ());
 
                 if (peer_query.getBodyQ() != null &&
                         peer_query.getBodyA() == null &&
@@ -82,7 +82,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                     my_answer = this.my_files.searchFiles(peer_query.getBodyQ());
 
                     Answer personal_answer = new Answer(my_answer, peer_query.getId());
-                    
+
                     //Richiesta di un file, all'interno di body_q abbiamo una
                     //espressione regolare che identifica la richiesta di un file
                     System.out.println("DEBUG: Ricevuta query con bodyQ != null : " + peer_query.getBodyQ());
@@ -174,16 +174,8 @@ public class SupernodeTCPWorkingThread implements Runnable {
                         //Send query.
                         NetUtil.sendQuery(other_answer);
                     }
-
-                } else if (peer_query.getBodyF() != null &&
-                        peer_query.getBodyA() == null &&
-                        peer_query.getBodyQ() == null) {
-                    //Bisogna aggiornare la lista di file relativi a un ordinary
-                    //node sottostante.
-                    this.my_on_f_list.addNewOnFileList(peer_query.getBodyF());
-
-
                 }
+
             } else if (read_object instanceof OrdinarynodeFriendRequest) {
 
                 System.out.println("DEBUG: Friendship request received.");
@@ -245,11 +237,17 @@ public class SupernodeTCPWorkingThread implements Runnable {
 
                     } else if (friend_request instanceof OrdinarynodeFiles) {
                         //Ricezione di una lista di file da un ON friend.
+                        OrdinarynodeFiles on_files = (OrdinarynodeFiles) friend_request;
+                        this.my_on_f_list.addNewOnFileList(on_files);
                     } else if (friend_request instanceof OrdinarynodeFriendRequest) {
                         //Probabile disconnessione o terminazione della relazione.
                         OrdinarynodeFriendRequest update_friend = (OrdinarynodeFriendRequest) friend_request;
                         if (!update_friend.getRelationship()) {
-                            friend = false; //Con conseguente uscita dal ciclo
+                            //Con conseguente uscita dal ciclo
+                            friend = false;
+
+                            //Rimozione dei file che il nodo aveva condiviso
+                            this.my_on_f_list.removeFiles(update_friend.getInfo());
                         }
                     }
 
@@ -350,6 +348,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
 
                 }
             }
+
 
         } catch (IOException ex) {
             Logger.getLogger(SupernodeTCPWorkingThread.class.getName()).log(Level.SEVERE, null, ex);

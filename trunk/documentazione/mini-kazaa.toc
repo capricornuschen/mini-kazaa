@@ -18,20 +18,21 @@
 \contentsline {subsection}{\numberline {3.3.5}Download.java}{13}{subsection.3.3.5}
 \contentsline {subsection}{\numberline {3.3.6}DownloadRequest.java}{14}{subsection.3.3.6}
 \contentsline {subsection}{\numberline {3.3.7}DownloadResponse.java}{14}{subsection.3.3.7}
-\contentsline {section}{\numberline {3.4}Il percorso di una query}{15}{section.3.4}
+\contentsline {section}{\numberline {3.4}Il percorso di una query}{14}{section.3.4}
 \contentsline {section}{\numberline {3.5}La classe SupernodeList.java}{15}{section.3.5}
-\contentsline {section}{\numberline {3.6}Il paradigma Observable-Observator}{17}{section.3.6}
-\contentsline {section}{\numberline {3.7}La grafica del client Mini-KaZaA}{17}{section.3.7}
-\contentsline {chapter}{\numberline {4}Ordinary Node}{19}{chapter.4}
-\contentsline {section}{\numberline {4.1}Le classi del package lpr.minikazaaclient.ordinarynode}{19}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}OrdinarynodeFiles.java}{19}{subsection.4.1.1}
-\contentsline {section}{\numberline {4.2}Scelta del SN al quale connettersi}{19}{section.4.2}
-\contentsline {section}{\numberline {4.3}Lo scambio di file}{19}{section.4.3}
-\contentsline {section}{\numberline {4.4}Condivisione di file}{19}{section.4.4}
-\contentsline {chapter}{\numberline {5}Super Node}{20}{chapter.5}
-\contentsline {section}{\numberline {5.1}L'interfaccia per le callback}{20}{section.5.1}
-\contentsline {section}{\numberline {5.2}Smistamento delle query}{20}{section.5.2}
-\contentsline {chapter}{\numberline {6}Il package Util}{21}{chapter.6}
-\contentsline {section}{\numberline {6.1}Calcolo dell'md5}{21}{section.6.1}
-\contentsline {chapter}{\numberline {7}Il package di grafica}{22}{chapter.7}
-\contentsline {chapter}{\numberline {A}Manuale d'uso}{23}{appendix.A}
+\contentsline {section}{\numberline {3.6}Il paradigma Observable-Observator}{18}{section.3.6}
+\contentsline {section}{\numberline {3.7}Ping dei nodi}{18}{section.3.7}
+\contentsline {section}{\numberline {3.8}La grafica del client Mini-KaZaA}{18}{section.3.8}
+\contentsline {chapter}{\numberline {4}Ordinary Node}{20}{chapter.4}
+\contentsline {section}{\numberline {4.1}Le classi del package lpr.minikazaaclient.ordinarynode}{20}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}OrdinarynodeFiles.java}{20}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Scelta del SN al quale connettersi}{20}{section.4.2}
+\contentsline {section}{\numberline {4.3}Lo scambio di file}{20}{section.4.3}
+\contentsline {section}{\numberline {4.4}Condivisione di file}{20}{section.4.4}
+\contentsline {chapter}{\numberline {5}Super Node}{21}{chapter.5}
+\contentsline {section}{\numberline {5.1}L'interfaccia per le callback}{21}{section.5.1}
+\contentsline {section}{\numberline {5.2}Smistamento delle query}{21}{section.5.2}
+\contentsline {chapter}{\numberline {6}Il package Util}{22}{chapter.6}
+\contentsline {section}{\numberline {6.1}Calcolo dell'md5}{22}{section.6.1}
+\contentsline {chapter}{\numberline {7}Il package di grafica}{23}{chapter.7}
+\contentsline {chapter}{\numberline {A}Manuale d'uso}{24}{appendix.A}

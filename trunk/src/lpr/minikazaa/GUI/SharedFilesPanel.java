@@ -2,8 +2,10 @@ package lpr.minikazaa.GUI;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.NodeConfig;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeRefSn;
 import lpr.minikazaa.util.FileUtil;
 import lpr.minikazaa.util.MKFileDescriptor;
 
@@ -14,11 +16,19 @@ import lpr.minikazaa.util.MKFileDescriptor;
 public class SharedFilesPanel extends javax.swing.JPanel {
 
     private NodeConfig my_config;
+    private NodeInfo my_infos;
     private OrdinarynodeFiles my_files;
+    private OrdinarynodeRefSn my_ref;
     /** Creates new form SharedFilesPanel */
-    public SharedFilesPanel(OrdinarynodeFiles files,NodeConfig conf) {
+    public SharedFilesPanel(
+            OrdinarynodeFiles files,
+            NodeConfig conf,
+            OrdinarynodeRefSn ref,
+            NodeInfo infos) {
         this.my_files = files;
         this.my_config = conf;
+        this.my_ref = ref;
+        this.my_infos = infos;
         initComponents();
         this.my_files.addObserver((SharedFilesTable)this.files_table);
     }
@@ -104,7 +114,7 @@ public class SharedFilesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void add_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_btActionPerformed
-        //Invoke new panel to select a folder.
+        //Invoca un nuovo pannello per la selezione dei file.
         JFileChooser choose_shared_dir = new JFileChooser(new File("./"));
         choose_shared_dir.setDialogTitle("Mini-Kazaa - Select your shared files");
         choose_shared_dir.setApproveButtonText("Ok");
@@ -117,7 +127,10 @@ public class SharedFilesPanel extends javax.swing.JPanel {
             MKFileDescriptor[] files = FileUtil.transformFileToMKFile(selected_file);
             this.my_files.addFiles(files);
 
-            //if i'm an ordinary node i have to send my files to my ordinary node
+            //Se sono un ordinary node invio la lista dei file al mio supernode
+            if(!this.my_config.getIsSN()){
+                this.my_ref.send(this.my_files);
+            }
             
         }
 
@@ -142,6 +155,11 @@ public class SharedFilesPanel extends javax.swing.JPanel {
         }
 
         this.my_files.removeFiles(files_to_remove);
+
+        //Se sono un ordinary node invio la lista dei file al mio supernode
+        if(!this.my_config.getIsSN()){
+            this.my_ref.send(this.my_files);
+        }
     }//GEN-LAST:event_remove_btActionPerformed
 
 
