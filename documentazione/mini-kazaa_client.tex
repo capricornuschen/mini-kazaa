@@ -77,10 +77,6 @@ private String body_q;
 //Query di risposta
 private Answer body_a;
 
-//Notifica a un supernodo di avere
-//file da condividere
-private OrdinarynodeFiles body_f;
-
 //Sorgente di una query
 private NodeInfo id_origin;
 
@@ -110,10 +106,6 @@ espressione regolare che il client Mini-KaZaA riesce a interpretare;
  \item \verb|body_a|:
 la parte dell'oggetto \verb|Query| che contiene la risposta a una determinata richiesta. Analizzaremo la classe
 \verb|Answer| successivamente;
-
- \item \verb|body_f|:
-questo campo viene riempito da un ON che vuole inviare al proprio SN la sua lista di file per metterli a disposizione
-di tutti;
 
  \item \verb|id_origin|:
 per ogni query deve essere nota l'origine dalla quale proviene la query stessa per poi poterla correttamente fermare
@@ -271,7 +263,11 @@ un'\emph{ArrayList} di \verb|NodeInfo| utilizzata per tenere in memoria \emph{tu
 una seconda \emph{ArrayList} di \verb|NodeInfo| utilizzata di volta in volta per memorizzare un sottoinsieme di nodi vicini e convenienti da contattare.
 \end{itemize}
 
+La classe fornisce anche tutti i metodi per gestire al meglio l'elenco di nodi.
 
+Per prima cosa ci sono due overload per quanto riguarda il calcolo della latenza di un nodo\footnote{La latenza viene calcolata in ms tramite una procedura che prende il nome di \emph{ping} che vedremo in Sezione \ref{sec:ping}}
+
+Il metodo in questo listato
 \begin{lstlisting}
 public synchronized void 
 refreshPing(InetAddress ia, int port, long new_ping) {
@@ -285,7 +281,11 @@ refreshPing(InetAddress ia, int port, long new_ping) {
 		}
 	}
 }
+\end{lstlisting}
+viene usato solo per cambiare il valore della latenza a un nodo specifico.
 
+Il secondo overload del metodo mostrato in precedenza consente invece di effettuare una passata di tutti i nodi che abbiamo nella nostra lista e di aggiornarne il valore della latenza.
+\begin{lstlisting}
 public synchronized void refreshPing() {
 	//Thread pool
 	ThreadPoolExecutor my_thread_pool =
@@ -311,6 +311,9 @@ public synchronized void refreshPing() {
 	this.notifyObservers();
 }
 \end{lstlisting}
+Questo metodo invece non vuole parametri poichè effettua l'aggiornamento su tutto il set di nodi.
+
+Mini-KaZaA crea un overlay network dinamico grazie al metodo \verb|subSet()| che seleziona un insieme di SN valutati come ``vicini'' a seconda della loro latenza. Per esplorare nuove porzioni della rete ne sceglie due sopra i 50ms di latenza e tutti gli altri al di sotto. Di seguito riportiamo la porzione di codice che si occupa di questa scelta.
 
 \begin{lstlisting}
 public synchronized void 
@@ -340,7 +343,10 @@ public synchronized ArrayList<NodeInfo> getSubSet() {
 
 	return this.sub_set_list;
 }
+\end{lstlisting}
 
+Per gli ON che devono scegliere il loro SN di rifermento la classe \verb|SupernodeList.java| mette a disposizione un metodo che seleziona il nodo ``migliore'' al quale connettersi. Il metodo si chiama \verb|getBest()| e il codice che lo riguarda è riportato di seguito.
+\begin{lstlisting}
 public synchronized NodeInfo getBest() {
 	NodeInfo best = new NodeInfo();
 
@@ -372,6 +378,15 @@ public synchronized NodeInfo getBest() {
 
 
 \section{Il paradigma Observable-Observator}
+\begin{figure}
+ \centering
+ \includegraphics[width=218.72px,height=129.12px,bb=14 14 635 381]{images/observable.eps}
+ % observable.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 635 381
+ \caption{Paradigma Observable - Observator}
+ \label{fig:observable}
+\end{figure}
+
+\section{Ping dei nodi}\label{sec:ping}
 
 \section{La grafica del client Mini-KaZaA}\label{sec:grafica}
 \begin{figure}[t]

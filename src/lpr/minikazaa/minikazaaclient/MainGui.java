@@ -31,6 +31,7 @@ import lpr.minikazaa.bootstrap.BootstrapRMIWrapper;
 import lpr.minikazaa.bootstrap.NodeInfo;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeDownloadMonitor;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
+import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFriendRequest;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeQuestionsList;
 import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeRefSn;
 import lpr.minikazaa.util.FileUtil;
@@ -120,6 +121,10 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             }
             else{
                 this.rmi_stub.getStub().removeOrdinaryNode(my_infos);
+                OrdinarynodeFriendRequest fr = new OrdinarynodeFriendRequest();
+                fr.setRelationship(false);
+                fr.setInfo(my_infos);
+                this.my_sn_ref.send(fr);
             }
         } catch (RemoteException ex) {
             System.err.println("Unable to remove me from bootstrap server.");
@@ -400,7 +405,9 @@ private void shared_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
         SharedFilesPanel shared_files_panel = new SharedFilesPanel(
                 this.my_files,
-                this.my_conf);
+                this.my_conf,
+                this.my_sn_ref,
+                this.my_infos);
         ImageIcon icon = new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_shared_files_icon.png"));
         this.main_tab.addTab("Shared Files", icon, shared_files_panel, "Manage your sharings.");
 

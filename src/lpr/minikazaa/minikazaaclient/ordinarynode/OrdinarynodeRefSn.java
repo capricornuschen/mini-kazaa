@@ -24,6 +24,7 @@ public class OrdinarynodeRefSn implements Observer {
     private NodeInfo best_sn;
     private int num_query;
     private ObjectOutputStream output_object;
+    private NodeInfo my_info;
 
     public OrdinarynodeRefSn() {
         this.num_query = 0;
@@ -55,6 +56,10 @@ public class OrdinarynodeRefSn implements Observer {
         this.best_sn = best;
     }
 
+    public synchronized void setMyInfo(NodeInfo info){
+        this.my_info = info;
+    }
+
     public synchronized Socket getSocket() {
         return this.my_sn;
     }
@@ -65,6 +70,10 @@ public class OrdinarynodeRefSn implements Observer {
 
     public synchronized NodeInfo getBestSn() {
         return this.best_sn;
+    }
+
+    public synchronized NodeInfo getMyInfo(){
+        return this.my_info;
     }
 
     public synchronized void increaseNumQuery() {
@@ -97,6 +106,7 @@ public class OrdinarynodeRefSn implements Observer {
 
                     OrdinarynodeFriendRequest friend_request = new OrdinarynodeFriendRequest();
                     friend_request.setRelationship(true);
+                    friend_request.setInfo(my_info);
                     output_object.writeObject(friend_request);
 
                 } catch (IOException ex) {

@@ -23,6 +23,7 @@ public class SupernodeOnFileList extends Observable{
     public SupernodeOnFileList(){
         this.file_list = new ArrayList();
     }
+
     
     public boolean alreadyHave(OrdinarynodeFiles f){
         
