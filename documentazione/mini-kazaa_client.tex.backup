@@ -345,7 +345,7 @@ public synchronized ArrayList<NodeInfo> getSubSet() {
 }
 \end{lstlisting}
 
-
+Per gli ON che devono scegliere il loro SN di rifermento la classe \verb|SupernodeList.java| mette a disposizione un metodo che seleziona il nodo ``migliore'' al quale connettersi. Il metodo si chiama \verb|getBest()| e il codice che lo riguarda è riportato di seguito.
 \begin{lstlisting}
 public synchronized NodeInfo getBest() {
 	NodeInfo best = new NodeInfo();
@@ -377,14 +377,30 @@ public synchronized NodeInfo getBest() {
 \end{lstlisting}
 
 
-\section{Il paradigma Observable-Observator}
-\begin{figure}
+\section{Il paradigma Observable-Observer}
+\begin{figure}[t]
  \centering
  \includegraphics[width=218.72px,height=129.12px,bb=14 14 635 381]{images/observable.eps}
  % observable.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 635 381
  \caption{Paradigma Observable - Observator}
  \label{fig:observable}
 \end{figure}
+Il linguaggio Java fornisce due classi molto utili per gestire in modo asincrono i cambiamenti di stato di determinate strutture dati.
+
+\`{E} molto utile, infatti, avere un modo agile e integrato nel linguaggio di nodificare ogni cambiamento che subisce una struttura dati. Esempi che riguardano Mini-KaZaA sono molto frequenti: la struttura dati che memorizza i file trovati e la tabella che li deve mostrare in grafica, la lista di SN e la tabella di Net Monitor e così via.
+
+Java mette a disposizione la classe \verb|Observable|,%extends Observable
+con la quale è possibile mettere ``sotto osservazione'' una determinata classe che estende Observable con il comando \verb|public class MyClass extends Observable|, e la classe \verb|Observer|, che va implementata con il comando \verb|public class MyClass implements Observer|.
+
+La situazione che si viene a creare è mostrata in Figura \ref{fig:observable}.
+La prima classe fornisce due metodi che vanno richiamati ogni qual volta si effettua una modifica all'oggetto che estende \verb|Observable|:
+\begin{lstlisting}
+this.setChanged();
+this.notifyObservers();
+\end{lstlisting}
+Questi due metodi svegliano il metodo \verb|update()|, di cui deve essere fatto \emph{obbligatoriamente} l'override, che è contenuto nella classe che implementa \verb|Observer|.
+La firma del metodo è sempre la soli
+public void update(Observable o, Object arg)
 
 \section{Ping dei nodi}\label{sec:ping}
 

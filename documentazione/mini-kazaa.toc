@@ -20,9 +20,9 @@
 \contentsline {subsection}{\numberline {3.3.7}DownloadResponse.java}{14}{subsection.3.3.7}
 \contentsline {section}{\numberline {3.4}Il percorso di una query}{14}{section.3.4}
 \contentsline {section}{\numberline {3.5}La classe SupernodeList.java}{15}{section.3.5}
-\contentsline {section}{\numberline {3.6}Il paradigma Observable-Observator}{18}{section.3.6}
-\contentsline {section}{\numberline {3.7}Ping dei nodi}{18}{section.3.7}
-\contentsline {section}{\numberline {3.8}La grafica del client Mini-KaZaA}{18}{section.3.8}
+\contentsline {section}{\numberline {3.6}Il paradigma Observable-Observer}{18}{section.3.6}
+\contentsline {section}{\numberline {3.7}Ping dei nodi}{19}{section.3.7}
+\contentsline {section}{\numberline {3.8}La grafica del client Mini-KaZaA}{19}{section.3.8}
 \contentsline {chapter}{\numberline {4}Ordinary Node}{20}{chapter.4}
 \contentsline {section}{\numberline {4.1}Le classi del package lpr.minikazaaclient.ordinarynode}{20}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}OrdinarynodeFiles.java}{20}{subsection.4.1.1}
