@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  18 APR 2009 17:04
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  19 APR 2009 17:29
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
@@ -809,18 +809,17 @@ Overfull \hbox (3.93106pt too wide) in paragraph at lines 316--317
  me-to-do []\T1/lmtt/m/n/10.95 subSet()
  []
 
-[16]
-Overfull \hbox (57.82813pt too wide) in paragraph at lines 348--349
-[]\T1/lmr/m/n/10.95 Per gli ON che de-vo-no sce-glie-re il lo-ro SN di ri-fer-m
-en-to la clas-se []\T1/lmtt/m/n/10.95 SupernodeList.java
- []
-
-[17]
+[16] [17]
 File: images/observable.eps Graphic file (type eps)
  <images/observable.eps>
+Overfull \hbox (7.09706pt too wide) in paragraph at lines 406--410
+\T1/lmr/m/n/10.95 Il pri-mo pa-ra-me-tro rap-pre-sen-ta l'og-get-to che ha chia
+-ma-to il me-to-do []\T1/lmtt/m/n/10.95 update()\T1/lmr/m/n/10.95 .
+ []
+
+[18]
 File: images/mini_kazaa_client.eps Graphic file (type eps)
- <images/mini_kazaa_client.eps>)
-(./ordinarynode.tex [18] [19]
+ <images/mini_kazaa_client.eps>) (./ordinarynode.tex [19]
 Capitolo 4.
 
 Overfull \hbox (54.34785pt too wide) in paragraph at lines 2--2
@@ -847,12 +846,12 @@ Appendice A.
 
 ] (./mini-kazaa.aux) ) 
 Here is how much of TeX's memory you used:
- 7237 strings out of 94075
- 97245 string characters out of 1165177
- 172223 words of memory out of 1500000
- 10327 multiletter control sequences out of 10000+50000
+ 7242 strings out of 94075
+ 97296 string characters out of 1165177
+ 173223 words of memory out of 1500000
+ 10332 multiletter control sequences out of 10000+50000
  87435 words of font info for 72 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
  29i,8n,40p,482b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (25 pages, 123364 bytes).
+Output written on mini-kazaa.dvi (25 pages, 127012 bytes).
