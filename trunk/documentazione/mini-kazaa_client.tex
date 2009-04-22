@@ -410,7 +410,111 @@ Il metodo update definirà quindi tutte le operazioni che dovranno essere fatte 
 
 \section{Ping dei nodi}\label{sec:ping}
 Ogni client Mini-KaZaA ha bisogno di sapere quanto dista dalla rete e, di conseguenza, quanto i nodi della rete distano da lui.
-Come unità di misura per la distanza da un nodo all'altro
+Come unità di misura per la distanza da un nodo all'altro vengono usati i millisecondi che intercorrono dall'invio di un particolare pacchetto alla ricezione del pacchetto di risposta.
+
+Mini-KaZaA ha due \emph{Task}: NodePing e NodePong.
+Il primo task crea un pacchetto Datagram con le seguenti istruzioni:
+\begin{lstlisting}
+DatagramSocket my_datagram_socket = null;
+
+try {
+	my_datagram_socket = new DatagramSocket();
+} catch (SocketException ex) {
+	//Log
+}
+		
+byte [] data = new byte[32];
+
+DatagramPacket pack = 
+new DatagramPacket(
+	data,
+	data.length, 
+	host_ia, 
+	host_port);
+
+//Preparazione del pacchetto package
+pack.setData(data,0,data.length);
+pack.setLength(data.length);
+\end{lstlisting}
+dopo di che lo invia al nodo destinatario e fa partire un timer.
+\begin{lstlisting}
+long start_time = System.currentTimeMillis();
+
+try {
+	my_datagram_socket.send(pack);
+} catch (IOException ex) {
+	//Log
+}
+\end{lstlisting}
+Non appena arriva il medesimo pacchetto di risposta viene calcolato il tempo in millisecondi intercorsi fra l'invio e la ricezione del pacchetto e questa sarà la stima della distanza fra i due nodi.
+Le istruzioni che si occupano della ricezione del pacchetto sono le seguenti:
+\begin{lstlisting}
+try {
+
+	my_datagram_socket.receive(pack);
+} catch (IOException ex) {
+	//Log
+}
+
+long arrive_time = System.currentTimeMillis();
+
+long ping = arrive_time - start_time;
+\end{lstlisting}
+Il secondo task invece funziona con il procedimento opposto. Ovvero, inizialmente predispone un socket di ascolto sulla porta scelta dall'utente al primo avvio del programma.
+\begin{lstlisting}
+int port = this.my_conf.getPort();
+DatagramSocket pong_sock = null;
+try {
+	pong_sock = new DatagramSocket(port);
+} catch (SocketException ex) {
+	//Log
+}
+\end{lstlisting}
+Poi entra in un ciclo infinito, che verrà interrotto solo dall'uscita del programma, il cui unico compito è quello di rispondere il più velocemente possibile alle richieste di ``ping'' che arrivano alla porta del socket.
+
+\begin{lstlisting}
+while (true) {
+
+	byte[] packet = new byte[32];
+
+	DatagramPacket pack = 
+		new DatagramPacket(
+			packet, 
+			packet.length);
+
+	try {
+
+		pong_sock.receive(pack);
+	} catch (IOException ex) {
+		//Log
+	}
+	packet = pack.getData();
+	DatagramSocket send_sock = null;
+	try {
+
+		send_sock = new DatagramSocket();
+	} catch (SocketException ex) {
+		//Log
+	}
+
+	byte [] send_byte = packet;
+	DatagramPacket send_pack = 
+		new DatagramPacket(
+			send_byte,
+			send_byte.length,
+			pack.getAddress(),
+			pack.getPort());
+
+	try {
+
+		send_sock.send(send_pack);
+	} catch (IOException ex) {
+		//Log
+	}
+	
+}
+\end{lstlisting}
+Ovviamente ogni errore o eccezione che è sollevata in questi frammenti di codice viene loggata per future analisi\footnote{In questi frammenti di codice abbiamo omesso la chiamata allaclasse di log per concentraci maggiormente sulle istruzioni che sono più strettamente legate alle misurazioni delle latenze tramite socket UDP}
 
 \section{La grafica del client Mini-KaZaA}\label{sec:grafica}
 \begin{figure}[t]
@@ -420,4 +524,32 @@ Come unità di misura per la distanza da un nodo all'altro
  \caption{L'interfaccia grafica principale del client.}
  \label{fig:mini_kazaa_client}
 \end{figure}
+Il client Mini-KaZaA è dotato di un front-end grafico per facilitarne l'utilizzo agli utenti finali. La grafica di Mini-KaZaA è scritta usando le librerie Swing, che mette a disposizione il linguaggio Java, con un unica differenza:
+\begin{lstlisting}
+try {
+	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+} catch (Exception ex) {
+}
+\end{lstlisting}
+con queste operazioni si vuole che la grafica Swing ottenga il rendering dall'environment di sistema. Questo comando funziona, per il momento, solamente in ambiente grafico Win e Gnome (GTK+2), mentre non viene attivato, e quindi vengono visualizzati con il rendering originale i componenti Swing, su KDE\footnote{Sistemi utilizzati per questo tipo di test: Windows Vista(Win), Ubuntu(Gnome), Xandros OS (KDE).}
+
+L'interfaccia principale (Figura \ref{fig:mini_kazaa_client}), comune a tutti i tipi di nodi si divide in quattro parti principali:
+\begin{enumerate}
+ \item \textbf{Barra dei menù:}
+la prima barra in alto dove è possibile trovare il menù:
+	\begin{enumerate}
+		\item \textit{File}: per le operazioni sul client;
+		\item \textit{Edit}: per il controllo delle configurazioni;
+		\item \textit{Help}: per ottenere aiuto e informazioni su Mini-KaZaA.
+	\end{enumerate}
+
+ \item \textbf{Barra dei pannelli:}
+contiene dei grossi pulsanti che attivano dei pannelli per le varie operazioni;
+
+ \item \textbf{Panel Box:}
+il riquadro centrale nel quale compaiono e scompaiono i vari pannelli attivabili dalla barra;
+
+ \item \textbf{Barra di stato:}
+posizionata in fondo alla finestra contiene informazioni di sistema riguardante il client Mini-KaZaA.
+\end{enumerate}
 
