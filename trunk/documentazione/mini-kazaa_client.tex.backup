@@ -519,10 +519,49 @@ Ovviamente ogni errore o eccezione che è sollevata in questi frammenti di codic
 \section{La grafica del client Mini-KaZaA}\label{sec:grafica}
 \begin{figure}[t]
  \centering
- \includegraphics[width=250px,height=225px,bb=14 14 841 737]{images/mini_kazaa_client.eps}
+ \includegraphics[width=270px,height=245px,bb=14 14 841 737]{images/mini_kazaa_client.eps}
  % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
  \caption{L'interfaccia grafica principale del client.}
  \label{fig:mini_kazaa_client}
 \end{figure}
-Il client Mini-KaZaA è dotato di un front-end grafico per facilitarne l'utilizzo agli utenti finali.
+Il client Mini-KaZaA è dotato di un front-end grafico per facilitarne l'utilizzo agli utenti finali. La grafica di Mini-KaZaA è scritta usando le librerie Swing, che mette a disposizione il linguaggio Java, con un unica differenza:
+\begin{lstlisting}
+try {
+	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+} catch (Exception ex) {
+}
+\end{lstlisting}
+con queste operazioni si vuole che la grafica Swing ottenga il rendering dall'environment di sistema. Questo comando funziona, per il momento, solamente in ambiente grafico Win e Gnome (GTK+2), mentre non viene attivato, e quindi vengono visualizzati con il rendering originale i componenti Swing, su KDE\footnote{Sistemi utilizzati per questo tipo di test: Windows Vista(Win), Ubuntu(Gnome), Xandros OS (KDE).}
+
+L'interfaccia principale (Figura \ref{fig:mini_kazaa_client}), comune a tutti i tipi di nodi si divide in quattro parti principali:
+\begin{enumerate}
+ \item \textbf{Barra dei menù:}
+la prima barra in alto dove è possibile trovare il menù:
+	\begin{enumerate}
+		\item \textit{File}: per le operazioni sul client;
+		\item \textit{Edit}: per il controllo delle configurazioni;
+		\item \textit{Help}: per ottenere aiuto e informazioni su Mini-KaZaA.
+	\end{enumerate}
+
+ \item \textbf{Barra dei pannelli:}
+contiene dei grossi pulsanti che attivano dei pannelli per le varie operazioni;
+
+ \item \textbf{Panel Box:}
+il riquadro centrale nel quale compaiono e scompaiono i vari pannelli attivabili dalla barra;
+
+ \item \textbf{Barra di stato:}
+posizionata in fondo alla finestra contiene informazioni di sistema riguardante il client Mini-KaZaA.
+\end{enumerate}
+
+Nella \emph{barra dei pannelli} troviamo sei pulsanti, ognuno dei quali ha una precisa funzione:
+\begin{enumerate}
+ \item \textbf{Search:}
+ \item \textbf{File transfer:}
+ \item \textbf{Shared Files:}
+ \item \textbf{Net Monitor:}
+ \item \textbf{Close Tab:}
+ \item \textbf{Shut Down:}
+\end{enumerate}
+
+
 

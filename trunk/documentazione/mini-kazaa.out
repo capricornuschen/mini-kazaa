@@ -24,10 +24,18 @@
 \BOOKMARK [1][-]{section.3.8}{La grafica del client Mini-KaZaA}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Ordinary Node}{}
 \BOOKMARK [1][-]{section.4.1}{Le classi del package lpr.minikazaaclient.ordinarynode}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{OrdinarynodeFiles.java}{section.4.1}
-\BOOKMARK [1][-]{section.4.2}{Scelta del SN al quale connettersi}{chapter.4}
-\BOOKMARK [1][-]{section.4.3}{Lo scambio di file}{chapter.4}
-\BOOKMARK [1][-]{section.4.4}{Condivisione di file}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{OrdinarynodeDownloadMonitor.java}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{OrdinarynodeFoundList.java}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{OrdinarynodeFriendRequest.java}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{OrdinarynodeQuestionList.java}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.5}{OrdinarynodeFiles.java}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{Il cuore di un Ordinary Node}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Engine}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{ON in ascolto sul socket TCP}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.3}{ON e RMI}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.4}{Scelta del SN al quale connettersi}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.5}{Lo scambio di file}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.6}{Condivisione di file}{section.4.2}
 \BOOKMARK [0][-]{chapter.5}{Super Node}{}
 \BOOKMARK [1][-]{section.5.1}{L'interfaccia per le callback}{chapter.5}
 \BOOKMARK [1][-]{section.5.2}{Smistamento delle query}{chapter.5}

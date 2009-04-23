@@ -1,0 +1,9 @@
+\chapter{Ordinary Node}
+\section{Le classi del package lpr.minikazaaclient.ordinarynode}
+\subsection{OrdinarynodeFiles.java}\label{sec:on_files}
+
+\section{Scelta del SN al quale connettersi}\label{sec:scelta_sn}
+%Parlare in particolare della classe OrdinarynodeRefSn.java
+\section{Lo scambio di file}\label{sec:scambio}
+\section{Condivisione di file}
+La condivisione di file avviene non appena l'utente di un ON decide di condividere file tramite l'apposito pannello descritto in Sezione \ref{sec:grafica}

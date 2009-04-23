@@ -1,9 +1,21 @@
 \chapter{Ordinary Node}
 \section{Le classi del package lpr.minikazaaclient.ordinarynode}
+All'interno del progetto Mini-KaZaA ogni package contiene delle classi che sono state scritte non solo per il tipo di nodo specifico, ma che, grazie alla \emph{modularità} e alla \emph{genericità} dei metodi, sono utili a tutti i tipi di nodi.
+Di seguito quindi presentiamo le varie classi del package lpr.minikazaaclient.ordinarynode, ma non vanno pensate come dedicate esclusivamente al tipo di nodo ON. Vanno piuttosto legate agli ON da un punto di vista concettuale, ma nulla vieta di utilizzare queste pratiche classi nei SN.
+\subsection{OrdinarynodeDownloadMonitor.java}
+Parliamo di una classe che serve per indicizzare tutti i download di una determinata sessione.
+\subsection{OrdinarynodeFoundList.java}
+\subsection{OrdinarynodeFriendRequest.java}
+\subsection{OrdinarynodeQuestionList.java}
 \subsection{OrdinarynodeFiles.java}\label{sec:on_files}
 
-\section{Scelta del SN al quale connettersi}\label{sec:scelta_sn}
+\section{Il cuore di un Ordinary Node}
+\subsection{Engine}
+\subsection{ON in ascolto sul socket TCP}
+\subsection{ON e RMI}
+
+\subsection{Scelta del SN al quale connettersi}\label{sec:scelta_sn}
 %Parlare in particolare della classe OrdinarynodeRefSn.java
-\section{Lo scambio di file}\label{sec:scambio}
-\section{Condivisione di file}
+\subsection{Lo scambio di file}\label{sec:scambio}
+\subsection{Condivisione di file}
 La condivisione di file avviene non appena l'utente di un ON decide di condividere file tramite l'apposito pannello descritto in Sezione \ref{sec:grafica}

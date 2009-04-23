@@ -142,8 +142,6 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
     private void initComponents() {
 
         tool_bar = new javax.swing.JToolBar();
-        connect_bt = new javax.swing.JButton();
-        disconnect_bt = new javax.swing.JButton();
         search_bt = new javax.swing.JButton();
         transfer_bt = new javax.swing.JButton();
         shared_bt = new javax.swing.JButton();
@@ -168,20 +166,6 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
         setIconImage(new ImageIcon(getClass().getResource("/lpr/minikazaa/icons/mini_kazaa_main_icon.png")).getImage());
 
         tool_bar.setRollover(true);
-
-        connect_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/connections_icon.png"))); // NOI18N
-        connect_bt.setText("Connect");
-        connect_bt.setFocusable(false);
-        connect_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        connect_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tool_bar.add(connect_bt);
-
-        disconnect_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/discconnections_icon.png"))); // NOI18N
-        disconnect_bt.setText("Disconnect");
-        disconnect_bt.setFocusable(false);
-        disconnect_bt.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        disconnect_bt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tool_bar.add(disconnect_bt);
 
         search_bt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lpr/minikazaa/icons/search_icon.png"))); // NOI18N
         search_bt.setText("Search");
@@ -474,9 +458,7 @@ private void infos_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem close_item;
     private javax.swing.JButton close_tab_bt;
     private javax.swing.JMenuItem configuration_item;
-    private javax.swing.JButton connect_bt;
     private javax.swing.JLabel connection_status;
-    private javax.swing.JButton disconnect_bt;
     private javax.swing.JMenu edit_menu;
     private javax.swing.JMenu file_menu;
     private javax.swing.JMenu help_menu;
