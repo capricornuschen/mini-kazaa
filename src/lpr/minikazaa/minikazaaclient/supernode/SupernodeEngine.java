@@ -38,7 +38,7 @@ public class SupernodeEngine implements Runnable {
         
         BootstrapRMIWrapper rmi_stub = new BootstrapRMIWrapper();
         
-        //Init main GUI of supernode
+        //Inizializza la main GUI del supernode
         MainGui main_gui = new MainGui(
                 this.my_conf,
                 my_file_list,
@@ -52,12 +52,12 @@ public class SupernodeEngine implements Runnable {
         main_gui.setVisible(true);
         
               
-        //Init ping service to receive pings
+        //Inizializza il servizio ping per ricevere i ping
         NodePong pong = new NodePong(this.my_conf);
         Thread ping_service = new Thread(pong);
         ping_service.start();
         
-        //Init RMI manager Thread.
+        //Inizializza RMI manager Thread.
         SupernodeRMIManager sn_rmi = new SupernodeRMIManager(
                 my_conf,
                 sn_list,
@@ -66,7 +66,7 @@ public class SupernodeEngine implements Runnable {
         Thread rmi_manager = new Thread(sn_rmi);
         rmi_manager.start();
         
-        //Init TCP requests manager
+        //Inizializza TCP requests manager
         SupernodeTCPListener listener_tcp = new SupernodeTCPListener(
                 this.my_conf,
                 sn_list,

@@ -39,8 +39,9 @@ public class NetUtil {
             return ipv4_addr;
 
 
-        } catch (NullPointerException ex0) {
-            try {
+        } catch (NullPointerException ex0) { 
+
+              try {
                 System.out.println("Interfaccia controllata 1");
                 NetworkInterface ni = NetworkInterface.getByName("eth1");
 
@@ -53,7 +54,7 @@ public class NetUtil {
                 System.out.println(ipv4_addr.toString());
 
                 return ipv4_addr;
-            } catch (NullPointerException ex1) {
+            } catch (NullPointerException ex1) { 
                 try {
                     System.out.println("Interfaccia controllata 2");
                     NetworkInterface ni = NetworkInterface.getByName("eth2");

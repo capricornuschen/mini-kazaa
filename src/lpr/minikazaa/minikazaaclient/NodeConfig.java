@@ -1,14 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package lpr.minikazaa.minikazaaclient;
 
 import java.io.Serializable;
 
 /**
- * @author giovine
+ *
+ * @author Andrea Di Grazia, Massimiliano Giovine
+ * @date 24-april-2008
+ * @file NodeConfig.java
  */
 public class NodeConfig extends Object implements Serializable {
 

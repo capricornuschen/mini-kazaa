@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package lpr.minikazaa.minikazaaclient;
 
@@ -22,7 +19,7 @@ public class DownloadRequest implements Serializable{
             String file,
             NodeInfo ni){
     
-        //Initialize the download request.
+        //Inizializza la richiesta di download.
         this.file_request = file;
         this.request_source = ni;
     }

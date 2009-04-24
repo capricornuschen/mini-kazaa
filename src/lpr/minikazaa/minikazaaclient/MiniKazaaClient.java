@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lpr.minikazaa.minikazaaclient;
 
 import java.beans.XMLDecoder;
@@ -29,7 +26,7 @@ public class MiniKazaaClient {
         } catch (Exception ex) {
         }
 
-        //Create downloads directory if it doesn't exist
+        //Imposta la cartella di download e se non la trova la crea.
         File down_dir = new File("./downloads");
         if(!down_dir.exists() || !down_dir.isDirectory())
             down_dir.mkdir();
@@ -37,13 +34,13 @@ public class MiniKazaaClient {
         File xml_config = new File("./config.xml");
 
         if (!xml_config.exists()) {
-            //Xml file, contains the configuration, doesn't exist so user
-            //will decide any parameter.
+            //xml file, contiene la configurazione, se non esiste l' utente
+            //dovrà decidere i parametri.
             InitialChoiceFrame init_frame = new InitialChoiceFrame();
             init_frame.setLocationRelativeTo(null);
             init_frame.setVisible(true);
 
-            //Waiting creation of config file
+            //Attendendo la creazione del file di configurazione.
             while (!xml_config.exists()) {
                 try {
                     Thread.sleep(1000);
@@ -53,8 +50,8 @@ public class MiniKazaaClient {
 
             NodeConfig config;
 
-            //It won't call any exception cause the xml file is created during
-            //while loop.
+            //Non verranno chiamate le eccezione che vengono create dentro il
+            //ciclo.
             XMLDecoder decode_xml = new XMLDecoder(
                     new BufferedInputStream(
                     new FileInputStream("config.xml")));
@@ -63,7 +60,7 @@ public class MiniKazaaClient {
 
             if (config.getIsSN()) {
                 System.out.println("We must load a Super node application.");
-                //Start a new thread with super node engine.
+                //Avvio il nuono thread con il motore del Supernode.
                 SupernodeEngine sn_eng = new SupernodeEngine(config);
                 Thread super_node_thread = new Thread(sn_eng);
                 super_node_thread.start();
@@ -77,7 +74,7 @@ public class MiniKazaaClient {
             }
         }
         else{
-            //Xml file exists so we can load properly application.
+            //Il file Xml esiste e quindi possiamo caricare le proprietà dell' applicazione.
             NodeConfig config;
             //It won't call any exception cause the "if" above checks
             //if the xml file exists

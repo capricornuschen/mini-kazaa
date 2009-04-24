@@ -12,14 +12,14 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
  */
 public class Query implements Serializable, Cloneable{
 
-    private NodeInfo sender;            //NodeInfo of sender node.
+    private NodeInfo sender;            //NodeInfo del nodo che invia.
     private String body_q;              //Regex of a sended query
     private Answer body_a;              //Answer query
     private OrdinarynodeFiles body_f;   //Notify a supernode to have many
     private NodeInfo id_origin;         //Source of a query
-    private NodeInfo receiver;          //NodeInfo of receiver node
-    private int ttl;                    //Time to live of a query
-    private int id;                     //Id of origin query
+    private NodeInfo receiver;          //NodeInfo del nodo che riceve
+    private int ttl;                    //Time to live della query
+    private int id;                     //Id dell' origionario delle query
     
     public Query(){
         //Inizialize variables
