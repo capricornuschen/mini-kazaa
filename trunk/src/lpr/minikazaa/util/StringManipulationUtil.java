@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package lpr.minikazaa.util;
 
@@ -16,10 +13,11 @@ import java.util.StringTokenizer;
 public class StringManipulationUtil {
     
     /**
-     * Function that check a string to say if it's a correct addres or not.
+     * Function che controlla la stringa e verifica se è un indirizzo valido
+     * no.
      * 
      * @param addr
-     * @return true if addr is a correct address false otherwise.
+     * @return true se si tratta di un indirizzo, false altrimenti.
      */
     public static boolean isInetAddress(String addr){
         StringTokenizer tokenizer = new StringTokenizer(addr,".");

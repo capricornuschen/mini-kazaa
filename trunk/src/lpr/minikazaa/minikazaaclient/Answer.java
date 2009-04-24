@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package lpr.minikazaa.minikazaaclient;
 
@@ -17,8 +14,8 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeFiles;
  * @file Answer.java
  */
 public class Answer implements Serializable {
-    private ArrayList <OrdinarynodeFiles> files;    //List of files that corresponding to a query.
-    private int id;                                 //Id of origin query
+    private ArrayList <OrdinarynodeFiles> files;    //Lista di file che corrispondono alla query.
+    private int id;                                 //Id della query originale.
     
     public Answer(int n){this.id = n;}
     public Answer(ArrayList <OrdinarynodeFiles> owner_list,int n){

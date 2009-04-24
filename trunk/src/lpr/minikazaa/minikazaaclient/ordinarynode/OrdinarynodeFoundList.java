@@ -1,8 +1,5 @@
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import java.util.ArrayList;
@@ -15,6 +12,8 @@ import lpr.minikazaa.util.MKFileDescriptor;
  * Class that lists the answers from super nodes with the shearched files.
  * 
  * @author Andrea Di Grazia, Massimiliano Giovine
+ * @date 9-ott-2008
+ * @file OrdinarynodeFoundList.java
  */
 public class OrdinarynodeFoundList extends Observable {
     private int id;

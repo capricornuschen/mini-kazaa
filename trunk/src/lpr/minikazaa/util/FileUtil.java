@@ -56,14 +56,14 @@ public class FileUtil {
     }
 
     /**
-     * Function that allows you to get a specified part of a file and
-     * transform it in an byte array to send it over the net.
+     * Funzione che prende una parte specifica di file e la traforma in un
+     * array di byte per spedirlo sulla rete.
      *
-     * @param absolute_path the absolute path to open the file
-     * @param part the part we want to transform in an byte[]
-     * @param length the length of the part in bytes
+     * @param absolute_path il path del file che deve essere trasformato
+     * @param part la parte del file che deve essere trasformata in byte[]
+     * @param length la lunghezza della parte di byte
      *
-     * @return the byte array that rapresents the part of the file.
+     * @return byte_part l' array che rappresenta la parte di byte.
      */
     public static byte[] getFilePart(String absolute_path, int part, int length) {
         byte[] byte_part = new byte[length];
