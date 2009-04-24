@@ -1,6 +1,6 @@
 
 package lpr.minikazaa.minikazaaclient;
-
+ 
 import java.beans.XMLDecoder;
 import java.io.BufferedInputStream;
 import java.io.File;
