@@ -148,7 +148,7 @@ La classe \verb|Answer.java| viene utilizzata
 
 L'attributo \verb|id| richiama semplicemente l'id univoco della query di cui fa parte l'oggetto \verb|Answer|.
 
-\subsection{SearchField.java}
+\subsection{SearchField.java}\label{sec:searchField_class}
 La classe \verb|SearchField.java| viene utilizzata dal client Mini-KaZaA per tenere in memoria tutti i risultati
 associati a una richesta di file.
 Da uno di questi campi poi vengono estratte le informazioni per eventuali download di file.
@@ -170,7 +170,7 @@ Con queste due semplici informazioni è possibile sia risalire al proprietario, 
 per il download, sia ottenere tutti i metadati del file da scaricare\footnote{I download così come le ricerche vengono
 effettuati mediante l'hash univoco md5 che tratteremo nella Sezione \ref{sec:md5}}.
 
-\subsection{Download.java}
+\subsection{Download.java}\label{sec:download_class}
 La classe \verb|Download.java| serve al client Mini-KaZaA per indicizzare i downloads che si effettuano. Questa classe si distingue da \verb|SearchField.java| perchè mantiene anche il numero di byte già scaricati.
 \newline
 \begin{lstlisting}
@@ -377,7 +377,7 @@ public synchronized NodeInfo getBest() {
 \end{lstlisting}
 
 
-\section{Il paradigma Observable-Observer}
+\section{Il paradigma Observable-Observer}\label{sec:obs-obs}
 \begin{figure}[t]
  \centering
  \includegraphics[width=218.72px,height=129.12px,bb=14 14 635 381]{images/observable.eps}

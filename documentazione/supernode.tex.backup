@@ -36,11 +36,8 @@ Nel caso non esista già una lista per il nodo mittente, si aggiunge un nuovo ca
 Mostriamo quindi il frammento di codice che si occupa di queste operazioni.
 \begin{lstlisting}
 for(OrdinarynodeFiles o : this.file_list){
-	if(o.getOwner().getId().
-		equals(new_file_list.getOwner().getId())){
-
-		//Abbiamo gia' informazioni per il
-		//nodo owner
+	if(o.getOwner().getId().equals(new_file_list.getOwner().getId())){
+		//Abbiamo già una lista per il nodo Owner
 		o.resetList(new_file_list.getFileList());
 		return;
 	}
