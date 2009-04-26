@@ -1,21 +1,655 @@
 \chapter{Ordinary Node}
-\section{Le classi del package lpr.minikazaaclient.ordinarynode}
+\section{Le classi del package ordinarynode}
 All'interno del progetto Mini-KaZaA ogni package contiene delle classi che sono state scritte non solo per il tipo di nodo specifico, ma che, grazie alla \emph{modularità} e alla \emph{genericità} dei metodi, sono utili a tutti i tipi di nodi.
-Di seguito quindi presentiamo le varie classi del package lpr.minikazaaclient.ordinarynode, ma non vanno pensate come dedicate esclusivamente al tipo di nodo ON. Vanno piuttosto legate agli ON da un punto di vista concettuale, ma nulla vieta di utilizzare queste pratiche classi nei SN.
+Di seguito quindi presentiamo le varie classi del package ordinarynode, ma non vanno pensate come dedicate esclusivamente al tipo di nodo ON. Vanno piuttosto legate agli ON da un punto di vista concettuale, ma nulla vieta di utilizzare queste pratiche classi nei SN.
+
+\subsection{OrdinarynodeFiles.java}\label{sec:on_files}
+La classe \verb|OrdinarynodeFiles.java| si occupa di indicizzare i file che il client decide di condividere all'interno della rete.
+%\ref{sec:mk_filedescriptor}.
+Questa classe implementa \emph{Observable}, quindi è sempre possibile monitorare tutte le informazioni sui file condivisi nella rete da parte del client.
+Per essere utilizzata il più possibile, la classe utilizza gli attributi che sono descritti, assieme al costruttore della classe, nel seguente frammento di codice.
+\begin{lstlisting}
+private ArrayList<MKFileDescriptor> file_list;
+private NodeInfo my_info;
+
+public OrdinarynodeFiles(NodeInfo infos) {
+	this.my_info = infos;
+	this.file_list = new ArrayList();
+}
+\end{lstlisting}
+
+L'\emph{ArrayList} di \emph{MKFileDescriptor}(Sezione \ref{sec:mk_filedescriptor}), \verb|file_list| consente di contenere in memoria tutti i file che si è deciso di condividere tramite l'apposito form.
+Fra gli attributi compare anche \verb|my_info| che viene utilizzato dal client per segnalare nella rete che un determinato \emph{set} di file appartiene a un certo nodo che ha come \emph{NodeInfo}, Sezione \ref{sec:nodeinfo}.
+
+La classe predispone anche una serie di metodi che consentono di manipolare la lista di file per aggiungere, modificare, estrapolare le informazioni.
+
+\subsubsection{addFiles}\label{sec:on_files_add}
+\begin{lstlisting}
+public synchronized void 
+addFiles(MKFileDescriptor[] new_files) {
+	for (int i = 0; i < new_files.length; i++) {
+
+		if (!isIn(new_files[i])) {
+			this.file_list.add(new_files[i]);
+		}
+	}
+	this.setChanged();
+	this.notifyObservers();
+}
+\end{lstlisting}
+Questo metodo consente di inserire all'interno della lista un \emph{array} di \emph{MKFileDescriptor}.
+La scelta di ricevere come parametro un array di \emph{MKFileDescriptor} è dettata da come Java interagisce con il file system.
+Java, infatti, quando si effettua la selezione di un insieme di file dal file system, restituisce un array di \emph{File}.
+\`{E} quindi più semplice, quindi preferibile, effettuare una conversione fra \emph{File} e \emph{MKFileDescriptor}.
+
+\subsubsection{removeFiles}
+\begin{lstlisting}
+public synchronized void 
+removeFiles(MKFileDescriptor[] old_files) {
+        
+	for (int i = 0; i < old_files.length; i++) {
+		int index = 0;
+		for (MKFileDescriptor file : this.file_list) {
+			
+			if ((old_files[i].
+				getFileName().equals(file.
+				getFileName())) &&
+				old_files[i].getMd5().
+					equals(file.getMd5()) &&
+				old_files[i].getPath().
+					equals(file.getPath())) {
+
+				
+				this.file_list.remove(index);
+				break;
+			}
+			index ++;
+		}
+
+	}
+	this.setChanged();
+	this.notifyObservers();
+}
+\end{lstlisting}
+Questo metodo consente di rimuovere un \emph{Array} di \emph{MKFileDescriptor} dalla lista di file condivisi. La scelta di avere come parametro
+un array di \emph{MKFileDescriptor} è già stata spiegata in Sezione \ref{sec:on_files_add}.
+\`{E} un metodo piuttosto semplice che scorre la lista di file e si interrompe quando il doppio controllo\footnote{Abbiamo inserito un doppio contorllo su md5 (Sezione \ref{sec:md5}) e sul path del file per evitare qualsiasi tipo di problema dovuto a malfunzionamenti o scritture di memoria eseguite in maniera scorretta.} su \emph{md5} e \emph{path} del file segnala che il file è stato individuato.
+Una volta individuato il file, viene rimosso e il metodo viene interrotto.
+
+\subsubsection{searchFiles}
+\begin{lstlisting}
+public synchronized 
+ArrayList <OrdinarynodeFiles> 
+searchFiles(String regex){
+
+ArrayList <OrdinarynodeFiles> l = 
+	new ArrayList();
+	Pattern pattern = Pattern.compile(regex);
+	OrdinarynodeFiles files_found = 
+		new OrdinarynodeFiles(this.my_info);
+
+	MKFileDescriptor [] new_array = null;
+	for(MKFileDescriptor file : file_list){
+		ArrayList <MKFileDescriptor> found_list = 
+			new ArrayList();
+
+			Matcher matcher = 
+				pattern.matcher(file.getFileName());
+
+			while(matcher.find()){
+				found_list.add(file);
+				new_array = 
+					new MKFileDescriptor[found_list.size()];
+				
+				int index = 0;
+				
+				for(MKFileDescriptor file_just_found : found_list){
+					new_array[index] = file_just_found;
+					index ++;
+				}
+				
+				files_found.addFiles(new_array);
+				l.add(files_found);
+			}
+
+	}
+	
+	return l;
+}
+\end{lstlisting}
+Questo metodo deve ritornare al chiamante un \emph{ArrayList} di \emph{Ordinarynode} in cui andranno inserite i risultati della ricerca.
+ 
+La ricerca viene effettuata prendendo come parametro una stringa, \verb|regex|, che è un'espressione regolare.
+Con questa espressione regolare il metodo invoca due diverse classi: \verb|Pattern|, che contiene tutti i pattern che l'espressione regolare contiene, \verb|Matcher|, che si occupa di controllare eventuali \emph{match}\footnote{Si ricerca una corrispondenza fra gli oggetti passati e i vari pattern dell'espressione regolare.} con i file della lista.
+Una volta individuate delle corrispondenze, i file vengono inserite nella lista da ritornare, \verb|l|, assieme alle \emph{NodeInfo} relative al nodo proprietario dei file.
+Infine viene fatto un \verb|return| della lista, anche se è vuota.
+%scelta di progetto inviare anche risposte vuote
+
 \subsection{OrdinarynodeDownloadMonitor.java}
 Parliamo di una classe che serve per indicizzare tutti i download di una determinata sessione.
+Questa classe implementa Observable, in modo che sia possibile far vedere in grafica in ogni momento lo stato dei download.
+
+\verb|OrdinarynodeDownloadMonitor.java| ha un solo attributo che consiste in un \emph{ArrayList} di Download, Sezione \ref{sec:download_class}.
+%Aggiungere un riferimento alla classe Download
+Questo attributo nel costruttore viene inizializzato con un nuovo ArrayList, quindi ogni nodo che partirà avrà un suo \emph{DowloadMonitor}.
+\begin{lstlisting}
+ArrayList <Download> downloads;
+    
+public OrdinarynodeDownloadMonitor(){
+	this.downloads = new ArrayList();
+}
+\end{lstlisting}
+
+I file vengono divisi in parti come ved(remo) in Sezione \ref{sec:download_tcp}. A ogni parte ricevuta è quindi necessario andare ad aggiornare il numero di byte scaricati per quel file.
+Questo è il compito del seguente metodo:
+\begin{lstlisting}
+public synchronized boolean addBytes(DownloadResponse part){
+	//Individuo il download e agiungo i byte
+	for(Download d : downloads){
+		if(d.getFile().
+				getMd5().
+				equals(part.getFile())){
+			d.updateDownloadBytes(
+				part.getPart().length);
+			
+		}
+	}
+
+	//Notifico il cambiamento
+	this.setChanged();
+	this.notifyObservers();
+
+	return true;
+}
+\end{lstlisting}
+
+Questo metodo, quindi richiama l'attenzione di tutti gli \emph{Observer} per aggiornare lo stato dei download.
+Infine, i metodi \verb|set| e \verb|get| sono piuttosto semplici e non meritano particolare attenzione.
+
 \subsection{OrdinarynodeFoundList.java}
-\subsection{OrdinarynodeFriendRequest.java}
+La classe \verb|OrdinarynodeFoundList.java| consente di enumerare molto facilmente i risultati delle ricerche che si sono effettuate.
+Si compone dei seguenti attributi:
+\begin{lstlisting}
+private int id;
+private ArrayList<SearchField> found;
+
+public OrdinarynodeFoundList(int n) {
+	this.id = n;
+	found = new ArrayList();
+}
+\end{lstlisting}
+I due attributi descritti nel frammento di codice rendono molto semplice la gesione dei risultati delle ricerche.
+\verb|int id| indica l'indice corrispondente alla query di ricerca che è stata lanciata.
+\verb|ArrayList<SearchField> found| è una lista di tutti i risultati che corrispondono a una determinata ricerca, che vengono convertiti in oggetti di tipo \verb|SearchField|, Sezione \ref{sec:searchField_class}.
+%Aggiungere riferimento in SearchFieldClass.java
+
+I campi che costituiscono la lista \verb|found| vengono costruiti a partire dall' \emph{Answer} che arriva con indice corrispondente a \verb|id|.
+Il frammento di codice che si occupa di inserire nella lista i campi correttamente costruiti è il seguente:
+\begin{lstlisting}
+public void add(Answer k) {
+	ArrayList <OrdinarynodeFiles> list = 
+		k.getFilesList();
+
+	for(OrdinarynodeFiles of : list){
+		ArrayList <MKFileDescriptor> 
+			answer_files = of.getFileList();
+			
+		for(MKFileDescriptor files : answer_files){
+			SearchField field = 
+				new SearchField(files,of.getOwner());
+
+			found.add(field);
+		}
+	}
+
+	this.setChanged();
+	this.notifyObservers();
+}
+\end{lstlisting}
+Il metodo per prima cosa estrae la lista di \emph{OrdinarynodeFiles}, Sezione \ref{sec:on_files}, dopo di che scorre tutti gli \emph{OrdinarynodeFiles} ed estrae i vari descrittori di files, MKFileDescriptor \ref{sec:mk_filedescriptor}.
+%Inserire un riferimento in MKFileDescriptor nel package util.
+
+Il tipo \emph{MKFileDescriptor} però non consente un indicizzazione per proprietario, quindi, sempre per mantenere modularità nel codice, Mini-KaZaA converte i \emph{MKFileDescriptor} in \emph{SearchField} e li inserisce nell'\emph{ArrayList}.
+Infine il metodo notifica tutti gli \emph{Observer} che stanno monitornando l'oggetto.
+
+I vari metodi \verb|get| sono molto semplici, quindi non sono necessari ulteriori chiarimenti.
+
 \subsection{OrdinarynodeQuestionList.java}
-\subsection{OrdinarynodeFiles.java}\label{sec:on_files}
+La classe \verb|OrdinarynodeQuestionList.java| consente di effettuare uno storage di tutte le ricerche che si stanno effettuando con il client Mini-KaZaA.
+
+Questa classe ha solo un attributo, che è una \emph{List} di \emph{OrdinarynodeFoundList}.
+\begin{lstlisting}
+private List <OrdinarynodeFoundList> my_res_list;
+
+public OrdinarynodeQuestionsList(){
+	this.my_res_list = new ArrayList();
+}
+\end{lstlisting}
+
+In \verb|my_res_list| vengono aggiunti di volta in volta i risultati delle varie ricerche.
+Ogni volta che arriva il risultato di una ricerca sarà quindi necessario individuare a quale ricerca si riferisce.
+Questo si può fare grazie all'indice \verb|id| che è contenuto sia nell'\emph{Answer} sia nella \emph{OrdinarynodeFoundList}.
+\begin{lstlisting}
+public synchronized void add(Answer a){
+	for(OrdinarynodeFoundList l : this.my_res_list){
+		if(a.getID() == l.getId()){
+			l.add(a);
+			return;
+		}
+	}
+}
+\end{lstlisting}
+La classe \verb|OrdinarynodeQuestionList.java| mette anche a disposizione un metodo che consenta di individuare uno specifico file, tramite il codice md5, Sezione \ref{sec:md5}.
+\begin{lstlisting}
+public SearchField getFile(String md5){
+
+	for(OrdinarynodeFoundList list : this.my_res_list){
+		ArrayList <SearchField> file_list = 
+			list.getFoundList();
+
+		for(SearchField file : file_list){
+			if((file.getFile().
+				getMd5()).equals(md5)){
+				
+				return file;
+			}
+		}
+	}
+
+	return null;
+}
+
+\end{lstlisting}
+
+\subsection{OrdinarynodeFriendRequest.java}\label{sec:friend_request}
+La classe \verb|OrdinarynodeFriendRequest.java| è la classe su cui si basa l'\emph{overlay network} che si crea fra ON e SN.
+Questa classe serve infatti per comunicare a un SN che l'ON, mittente della richiesta, ha scelto come SN di riferimento proprio lui.
+
+\verb|OrdinarynodeFriendRequest.java| è un \emph{Java bean}, Sezione \ref{sec:java_bean}
+%aggiungere un riferimento ai Java bean nel capitolo scelte di progetto.
+che contiene solo i metodi \verb|set| e \verb|get| che si possono visualizzare nel seguente frammento di codice.
+\begin{lstlisting}
+private boolean want_to_be_friend;
+private NodeInfo friend;
+
+public OrdinarynodeFriendRequest(){ }
+//Metodi set
+public void 
+setRelationship(boolean rel)
+	{this.want_to_be_friend = rel;}
+
+public void 
+setInfo(NodeInfo info)
+	{this.friend = info;}
+
+//Metodi get
+public boolean getRelationship()
+	{return this.want_to_be_friend;}
+
+public NodeInfo getInfo()
+	{return this.friend;}
+\end{lstlisting}
 
 \section{Il cuore di un Ordinary Node}
+Oltre a tutte le classi che sono state descritte nelle sezioni precedenti, un Ordinary Node ha anche un motore che combina tutte le classi in modo che siano realmente operative.
+Come è possibile vedere il diagramma di disposizione logica di Mini-KaZaA, Sezione \ref{sec:UML_logica}
+%creare un riferimento nella sezione UML
+un Ordinary Node ha un motore principale e quattro interfacce principali con il mondo esterno:
+\begin{itemize}
+ \item \textbf{Grafica utente:}
+che viene mostrata in modo chiaro e completo nel Capitolo \ref{chap:gui_package}, e nella Sezione \ref{sec:grafica};
+
+ \item \textbf{Socket UDP:}
+utilizzato solo per la misurazione delle latenze e mostrata in Sezione \ref{sec:ping};
+ 
+ \item \textbf{Socket TCP:} 
+utilizzato per la maggior parte delle comunicazioni nella rete;
+
+ \item \textbf{Comunicazioni RMI:}
+utilizzato per l'interazione con il Bootstrap Server per gli aggiornamenti sui nodi della rete.
+\end{itemize}
+
+Tutti questi componenti sono coordinati da un ``motore'' principale che ora andremo a descrivere.
+
 \subsection{Engine}
+Il motore di un Ordinary Node è il task 
+\begin{verbatim}
+public class OrdinarynodeEngine implements Runnable
+\end{verbatim}
+\verb|OrdinarynodeEngine| ha il compito di inizializzare le variabili e gli oggetti che poi utilizzaranno i \emph{thread} dell'ON e di far partire tutti i vari task che controllano le varie interfacce.
+
+Guardiamo ora, in un piccolo frammento di codice, le variabili e gli oggetti istanziati dall'\emph{engine} dell'Ordinary Node.
+\begin{lstlisting}
+NodeInfo my_infos = new NodeInfo();
+
+SupernodeList sn_list = new SupernodeList();
+
+OrdinarynodeQuestionsList found_list = 
+	new OrdinarynodeQuestionsList();
+	
+OrdinarynodeFiles my_file_list = 
+	FileUtil.loadMySharedFiles(my_infos);
+	
+OrdinarynodeDownloadMonitor dl_monitor = 
+	new OrdinarynodeDownloadMonitor();
+
+BootstrapRMIWrapper rmi_stub = 
+	new BootstrapRMIWrapper();
+	
+OrdinarynodeRefSn my_ref_sn = 
+	new OrdinarynodeRefSn();
+sn_list.addObserver((OrdinarynodeRefSn) my_ref_sn);
+
+\end{lstlisting}
+
+Fa quindi partire i \emph{thread} che possiamo vedere nel seguente listato.
+
+\begin{lstlisting}
+//Init TCP listener
+OrdinarynodeTCPListener on_tcp = 
+new OrdinarynodeTCPListener(
+	this.my_conf, 
+	found_list, 
+	dl_monitor, 
+	my_file_list);
+Thread tcp_thread = new Thread(on_tcp);
+tcp_thread.start();
+
+//Init main GUI of supernode
+MainGui main_gui = new MainGui(
+		this.my_conf,
+		my_file_list,
+		found_list,
+		sn_list,
+		my_infos,
+		dl_monitor,
+		rmi_stub,
+		my_ref_sn);
+main_gui.setLocationRelativeTo(null);
+main_gui.setVisible(true);
+
+//Init RMI manager
+OrdinarynodeRMIManager on_rmi = 
+new OrdinarynodeRMIManager(
+		this.my_conf,
+		my_infos,
+		sn_list,
+		rmi_stub,
+		my_ref_sn);
+Thread rmi_thread = new Thread(on_rmi);
+rmi_thread.start();
+
+//Init ping service to receive pings
+NodePong pong = new NodePong(this.my_conf);
+Thread ping_service = new Thread(pong);
+ping_service.start();
+\end{lstlisting}
+I \emph{thread} dei quali viene eseguito il comando \verb|.start()| sono quelli che poi andranno a gestire le varie interfacce che un client Mini-KaZaA deve avere.
+
 \subsection{ON in ascolto sul socket TCP}
+Ogni client Mini-KaZaA deve stare costantemente in ascolto sul socket TPC poichè da esso giungono la maggior parte delle comunicazioni.
+Ogni client, pertanto, dedica un \emph{thread} alla funzione di ascolto su tale socket.
+
+\verb|OrdinarynodeTCPListener.java| contiene un task con firma
+\begin{verbatim}
+public class OrdinarynodeTCPListener implements Runnable
+\end{verbatim}
+
+Questo task ha il compito di accettare le richieste che provengono dalla rete e creare un \emph{sotto-thread} che si occupi della richiesta specifica.
+La classe \verb|OrdinarynodeTCPListener.java| ha i seguenti attributi.
+\begin{lstlisting}
+private NodeConfig my_conf;
+private OrdinarynodeQuestionsList my_found_list;
+private OrdinarynodeDownloadMonitor my_dl_monitor;
+private OrdinarynodeFiles my_files;
+
+public OrdinarynodeTCPListener(
+		NodeConfig conf,
+		OrdinarynodeQuestionsList list,
+		OrdinarynodeDownloadMonitor dl_monitor,
+		OrdinarynodeFiles files){
+
+	this.my_conf = conf;
+	this.my_found_list = list;
+	this.my_dl_monitor = dl_monitor;
+	this.my_files = files;
+}
+\end{lstlisting}
+Gli attributi appena mostrati occorrono al \emph{TCPListener} per poterli poi far ereditare ai \emph{sotto-thread}. Essi poi li utilizzeranno per rispondere alle richieste che arrivano dalla rete.
+Diamo uno sguardo al codice che si occupa di ricevere le richieste e far partire i \emph{sotto-thread}.
+\begin{lstlisting}
+ServerSocket listen_sock = null;
+Socket incoming_sock = null;
+
+ThreadPoolExecutor answer_pool = new ThreadPoolExecutor
+		(10,15,50000L,
+		TimeUnit.MILLISECONDS, 
+		new LinkedBlockingQueue <Runnable>());
+
+try{
+	listen_sock = 
+		new ServerSocket(this.my_conf.getPort());
+}
+catch(IOException ex){
+	//Log
+}
+
+while(true){
+	try {
+		incoming_sock = listen_sock.accept();
+		
+		OrdinarynodeTCPWorkingThread tcp_job = 
+				new OrdinarynodeTCPWorkingThread(
+				incoming_sock,
+				this.my_found_list,
+				this.my_dl_monitor,
+				this.my_files);
+
+		answer_pool.execute(tcp_job);
+	} catch (IOException ex) {
+		//Log
+	}
+}
+\end{lstlisting}
+Il codice mostrato è piuttosto semplice ma utilizza una tecnologia Java molto utile: \emph{Thread Pool}.
+Ogni richiesta che il client riceve sul socket TCP viene infatti delegata a un \emph{sotto-thread} che la elabora, lasciando libero il thread principale di ricevere altre richieste sul socket.
+
 \subsection{ON e RMI}
+La connessione di un Ordinary Node al Bootstrap server avviene tramite protocollo RMI che consente di richiamare metodi di classi che stanno su una macchina remota e di elaborare i dati di ritorno.
+
+La connessione tramite protocollo RMI viene gestita dal task
+\begin{verbatim}
+public class OrdinarynodeRMIManager implements Runnable
+\end{verbatim}
+
+Questa classe ha i parametri descritti nel frammento di codice che viene riportato sotto.
+\begin{lstlisting}
+private NodeConfig my_conf;
+private NodeInfo my_infos;
+private SupernodeList sn_list;
+private BootstrapRMIWrapper rmi_stub;
+
+public OrdinarynodeRMIManager(
+		NodeConfig conf,
+		NodeInfo info,
+		SupernodeList list,
+		BootstrapRMIWrapper rmi) {
+		
+	this.my_conf = conf;
+	this.my_infos = info;
+	this.sn_list = list;
+	this.rmi_stub = rmi;
+}
+\end{lstlisting}
+L'attributo \verb|my_conf| e \verb|my_infos| vengono utilizzati dalla classe per recuperare informazioni riguardanti il nodo come il tipo di nodo o l'indirizzo IP del nodo.
+Gli attributi \verb|sn_list|, \verb|rmi_stub| e \verb|my_infos| vengono utilizzati all'interno di tutto il client ma vengono istanziati all'interno del task \verb|OrdinarynodeRMIManager| poichè le informazioni necessarie alla loro istanziazione sono recuperabili esclusivamente dal Bootstrap Server.
+
+Diamo anche uno sguardo a come l'\emph{RMIManager} utilizza il protocollo RMI per recuperare le informazioni utili.
+\begin{lstlisting}
+Registry bootstrap_service;
+
+BootStrapServerInterface callbacks_remote;
+
+SupernodeCallbacksInterface callbacks_stub;
+
+try {
+	bootstrap_service = 
+		LocateRegistry.getRegistry
+		(my_conf.getBootStrapAddress(), 2008);
+
+	//Divisione logica delle chiamate a procedure remote
+	rmi_stub.setStub((BootStrapServerInterface) 
+		bootstrap_service.lookup("BootStrap"));
+		
+	callbacks_remote = (BootStrapServerInterface) 
+		bootstrap_service.lookup("BootStrap");
+
+	ArrayList<NodeInfo> ni_list = 
+		rmi_stub.getStub().getSuperNodeList();
+
+	sn_list.refreshList(ni_list);
+
+	//Managing callbacks.
+	SupernodeCallbacksImpl callback_obj = 
+		new SupernodeCallbacksImpl(
+			this.sn_list, 
+			this.my_conf);
+			
+	callbacks_stub = 
+		(SupernodeCallbacksInterface) 
+		UnicastRemoteObject.exportObject(callback_obj, 0);
+
+	//Modifica degli attributi di NodeInfo
+	try {
+		my_infos.setInetAddress(
+			InetAddress.getByName(my_conf.getMyAddress()));
+			
+		my_infos.setDoor(
+			my_conf.getPort());
+			
+		my_infos.setCallbacksInterface(
+			callbacks_stub);
+			
+		my_infos.setIsSn(
+			my_conf.getIsSN());
+			
+		my_infos.setId(
+			this.my_conf.getMyAddress()+
+			":"+this.my_conf.getPort());
+			
+		this.my_sn_ref.setMyInfo(this.my_infos);
+		
+	} catch (UnknownHostException ex) {
+		//Log
+	}
+
+	callbacks_remote.addOrdinaryNode(my_infos);
+
+	sn_list.refreshList(ni_list);
+	sn_list.refreshPing();
+
+} catch (RemoteException ex) {
+	//Error message
+} catch (NotBoundException ex) {
+	//Error message
+}
+\end{lstlisting}
+Dal listato possiamo notare come in un primo momento l'\emph{RMIManager} si connette al Bootstrap Server tramite protocollo RMI e successivamente, una volta ottenute le informazioni riguardanti i SN presenti nella rete, inizializza tutti gli attributi della classe \emph{NodeInfo} poi richiama la procedura remota per aggiungere se stesso alla lista degli Ordinary Node presenti nella rete.
+
+Le eccezioni catturate si riferiscono all'impossibilità di creare una connessione con il Bootstrap Server per errori nell'inserimento dell'indirizzo IP.
+La gestione di tali eccezioni è stata oscurata per rendere più leggibile il codice.
+In realtà viene presentato un \emph{Dialog Panel} che consente di modificare \emph{on the fly} l'indirizzo del Bootstrap Server.
 
 \subsection{Scelta del SN al quale connettersi}\label{sec:scelta_sn}
 %Parlare in particolare della classe OrdinarynodeRefSn.java
+Un nodo di tipo ON che si connette alla rete ha bisogno di connettersi a un SN per poter accedere alla rete e cominciare a condividere ed effettuare ricerche all'interno della rete.
+Scegliere però un nodo è uno dei problemi principali che un ON incontra appena inizia la sua attività.
+Mini-KaZaA client ha quindi, grazie al paradigma \emph{Observer-Observable}, Sezione \ref{sec:obs-obs}, un sistema che monitora i SN nella rete
+e sceglie il migliore.
+
+Ciò avviene attraverso la classe \verb|OrdinarynodeRefSn.java| che contiene i senguenti attributi con il costurttore, descritti all'interno del
+seguente frammento di codice.
+\begin{lstlisting}
+private Socket my_sn;
+private NodeInfo best_sn;
+private int num_query;
+private ObjectOutputStream output_object;
+private NodeInfo my_info;
+
+public OrdinarynodeRefSn() {
+	this.num_query = 0;
+	this.my_sn = null;
+	this.best_sn = null;
+}
+\end{lstlisting}
+Gli attributi descritti sono quelli che servono per instanziare una connessione tra l'ON e il SN.
+A fini statistici contiene anche il numero di query che vengono effettuate tramite questa connessione.
+%Inserire questa parte nelle scelte di progetto.
+Una prima domanda che potrebbe sorgere guardando questi attributi è: perchè creare un \emph{wrapper} per un socket?
+La risposta sta nella dinamicità delle connessioni di rete che caratterizzano il progetto Mini-KaZaA.
+
+Poichè è possibile che appena un ON entra nella rete non ci siano SN ai quali connettersi\footnote{La spiegazione al perchè è stato creato un \emph{wrapper} per un socket, Sezione \ref{sec:wrap_sock}.} Mini-KaZaA si affida ancora una volta al paradigma \emph{Observer-Observable}, Sezione \ref{sec:obs-obs}, per risolvere eventuali inconsistenze.
+
+La firma della classe è
+\begin{verbatim}
+public class OrdinarynodeRefSn implements Observer
+\end{verbatim}
+quindi è interessante andare a vedere il metodo \verb|public synchronized| \verb|void| \verb|update(Observable o,| \verb|Object arg)| di cui la classe ha dovuto fare un \emph{override}.
+
+\begin{lstlisting}
+if (o instanceof SupernodeList) {
+	SupernodeList list = (SupernodeList) o;
+
+	if ((this.my_sn == null) && 
+		(list.getList().size() > 0)) {
+		
+		NodeInfo best = list.getBest();
+
+		this.setSocket(
+			best.getIaNode(), 
+			best.getDoor());
+			
+		this.best_sn = best;
+		
+		try {
+
+			this.output_object = 
+				new ObjectOutputStream(
+					this.my_sn.getOutputStream());
+
+			OrdinarynodeFriendRequest friend_request = 
+				new OrdinarynodeFriendRequest();
+				
+			friend_request.setRelationship(true);
+			
+			friend_request.setInfo(my_info);
+			
+			output_object.writeObject(friend_request);
+
+		} catch (IOException ex) {
+			//Log
+		}
+	}
+}
+\end{lstlisting}
+Innanzitutto il metodo verifica che l'oggetto che ha chiamato il metodo sia effettivamente di tipo \emph{SupernodeList} e 
+quindi esegue un \emph{cast} per poterne sfruttare tutti i metodi.
+Fondamentale è, quindi, l'istruzione \verb|NodeInfo best =| \verb|list.getBest();| che estrae dalla lista \verb|list| di tipo \emph{SupernodeList}
+il nodo ``migliore''\footnote{Rimandiamo alla misurazione delle latenze, Sezione \ref{sec:ping}} e lo salva all'interno della variabile
+\verb|best|.
+Successivamente instanzia un \emph{stream} di dati verso il nodo \verb|best| e invia un oggetto di tipo \emph{OrdinarynodeFriendRequest}, Sezione
+\ref{sec:friend_request}, con il valore \verb|true|, che indica l'inizio di un ``amicizia''.
+
+Va fatto notare che con le istruzioni
+\begin{lstlisting}
+if ((this.my_sn == null) && 
+		(list.getList().size() > 0)) {
+\end{lstlisting}
+l'ON evita di creare confusione nella rete istanziando più di una connessione.
+
 \subsection{Lo scambio di file}\label{sec:scambio}
-\subsection{Condivisione di file}
+%valutare la rimozione di questa subsection in favore di una subsection generale.
+
+\subsection{Condivisione di file}%Valutarne la rimozione di questa subsection in favore di una subsection nella grafica
 La condivisione di file avviene non appena l'utente di un ON decide di condividere file tramite l'apposito pannello descritto in Sezione \ref{sec:grafica}
+Se si è un ON va però comunicata la selezione al proprio SN

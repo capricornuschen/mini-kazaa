@@ -23,12 +23,12 @@
 \BOOKMARK [1][-]{section.3.7}{Ping dei nodi}{chapter.3}
 \BOOKMARK [1][-]{section.3.8}{La grafica del client Mini-KaZaA}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Ordinary Node}{}
-\BOOKMARK [1][-]{section.4.1}{Le classi del package lpr.minikazaaclient.ordinarynode}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.1.1}{OrdinarynodeDownloadMonitor.java}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.2}{OrdinarynodeFoundList.java}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.3}{OrdinarynodeFriendRequest.java}{section.4.1}
+\BOOKMARK [1][-]{section.4.1}{Le classi del package ordinarynode}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{OrdinarynodeFiles.java}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{OrdinarynodeDownloadMonitor.java}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{OrdinarynodeFoundList.java}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.4}{OrdinarynodeQuestionList.java}{section.4.1}
-\BOOKMARK [2][-]{subsection.4.1.5}{OrdinarynodeFiles.java}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.5}{OrdinarynodeFriendRequest.java}{section.4.1}
 \BOOKMARK [1][-]{section.4.2}{Il cuore di un Ordinary Node}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.2.1}{Engine}{section.4.2}
 \BOOKMARK [2][-]{subsection.4.2.2}{ON in ascolto sul socket TCP}{section.4.2}
@@ -38,9 +38,12 @@
 \BOOKMARK [2][-]{subsection.4.2.6}{Condivisione di file}{section.4.2}
 \BOOKMARK [0][-]{chapter.5}{Super Node}{}
 \BOOKMARK [1][-]{section.5.1}{L'interfaccia per le callback}{chapter.5}
-\BOOKMARK [1][-]{section.5.2}{Smistamento delle query}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{Indicizzamento dei file degli ON collegati}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.1}{addNewOnFileList}{section.5.2}
+\BOOKMARK [1][-]{section.5.3}{Smistamento delle query}{chapter.5}
+\BOOKMARK [1][-]{section.5.4}{Il cuore di un Super Node}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.4.1}{Engine}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{SN e RMI}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.3}{SN in ascolto su socket TCP}{section.5.4}
 \BOOKMARK [0][-]{chapter.6}{Il package Util}{}
-\BOOKMARK [1][-]{section.6.1}{Calcolo dell'md5}{chapter.6}
-\BOOKMARK [0][-]{chapter.7}{Il package di grafica}{}
-\BOOKMARK [1][-]{section.7.1}{Le tabelle di Java e le custom cells}{chapter.7}
-\BOOKMARK [0][-]{appendix.A}{Manuale d'uso}{}
+\BOOKMARK [1][-]{section.6.1}{Descrittore di file custom}{chapter.6}

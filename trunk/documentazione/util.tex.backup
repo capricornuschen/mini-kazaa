@@ -1,7 +1,7 @@
 \chapter{Il package Util}
 Durante lo sviluppo del client Mini-KaZaA sono state individuate una serie di funzioni di utilità varia che logicamente non appartenevano a nessun package visto il compito piuttosto particolare che dovevano svolgere.
 
-\section{Descrittore di file custom}\label{sec:mk_filedescriptor}
+\section{Descrittore di file custom}\ref{sec:mk_filedescriptor}
 %riprendere l'argomento nelle scelte di progetto
 Mini-KaZaA utilizza come descrittore dei file una classe che ha definito al suo interno.
 Questa classe contiene i metadati utili alla manipolazione dei file e consente di inviare sulla rete un oggetto piuttosto ``agile'' per scambiare informazioni sui files.
@@ -45,11 +45,9 @@ Da questo piccolo frammento si può notare quanto sia importante l'md5 e che, gr
 
 \section{Calcolo dell'md5}\label{sec:md5}
 %inserire controllo per il quote.
-
-\begin{quotation}
 L'acronimo MD5 (Message Digest algorithm 5) indica un algoritmo crittografico di hashing realizzato da Ronald Rivest nel 1991 e standardizzato con la RFC 1321.
 
-Questo tipo di codifica prende in input una stringa di lunghezza arbitraria e ne produce in output un'altra a 128 bit (ovvero con lunghezza fissa di 32 valori esadecimali, indipendentemente dalla stringa di input) che può essere usata per calcolare la firma digitale dell'input. La codifica avviene molto velocemente e si presuppone che l'output (noto anche come "MD5 Checksum" o "MD5 Hash") restituito sia univoco (ovvero si ritiene che sia impossibile, o meglio, che sia altamente improbabile ottenere con due diverse stringhe in input una stessa firma digitale in output) e che non ci sia possibilità, se non per tentativi, di risalire alla stringa di input partendo dalla stringa di output (la gamma di possibili valori in output è pari a 16 alla 32esima potenza).\end{quotation} 
+Questo tipo di codifica prende in input una stringa di lunghezza arbitraria e ne produce in output un'altra a 128 bit (ovvero con lunghezza fissa di 32 valori esadecimali, indipendentemente dalla stringa di input) che può essere usata per calcolare la firma digitale dell'input. La codifica avviene molto velocemente e si presuppone che l'output (noto anche come "MD5 Checksum" o "MD5 Hash") restituito sia univoco (ovvero si ritiene che sia impossibile, o meglio, che sia altamente improbabile ottenere con due diverse stringhe in input una stessa firma digitale in output) e che non ci sia possibilità, se non per tentativi, di risalire alla stringa di input partendo dalla stringa di output (la gamma di possibili valori in output è pari a 16 alla 32esima potenza).
 %fine del quote
 
 Questa definizione è stata estratta da http://it.wikipedia.org/wiki/Md5 e chiarifica piuttosto bene che cosa intendiamo per \emph{md5}.
