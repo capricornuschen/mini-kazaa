@@ -47,3 +47,31 @@
 \BOOKMARK [2][-]{subsection.5.4.3}{SN in ascolto su socket TCP}{section.5.4}
 \BOOKMARK [0][-]{chapter.6}{Il package Util}{}
 \BOOKMARK [1][-]{section.6.1}{Descrittore di file custom}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Calcolo dell'md5}{chapter.6}
+\BOOKMARK [1][-]{section.6.3}{Manipolazione delle stringhe}{chapter.6}
+\BOOKMARK [1][-]{section.6.4}{Interazione con i file e con i metadati}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.4.1}{getFilesIntoDirectory}{section.6.4}
+\BOOKMARK [2][-]{subsection.6.4.2}{transformFileToMKFile}{section.6.4}
+\BOOKMARK [2][-]{subsection.6.4.3}{saveMySharedFiles}{section.6.4}
+\BOOKMARK [2][-]{subsection.6.4.4}{loadMySharedFiles}{section.6.4}
+\BOOKMARK [1][-]{section.6.5}{Classe di log}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Il package di grafica}{}
+\BOOKMARK [1][-]{section.7.1}{Il campo di testo}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{I bottoni}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{Le tabelle di Java}{chapter.7}
+\BOOKMARK [1][-]{section.7.4}{Le custom cells}{chapter.7}
+\BOOKMARK [0][-]{chapter.8}{Scelte di progetto}{}
+\BOOKMARK [1][-]{section.8.1}{Java Bean}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{UML Logica}{chapter.8}
+\BOOKMARK [1][-]{section.8.3}{Classe Wrapper per il socket}{chapter.8}
+\BOOKMARK [0][-]{chapter.9}{Connessione TCP: Il working thread}{}
+\BOOKMARK [1][-]{section.9.1}{Caratteristiche TCP}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{Divisione del file in parti.}{chapter.9}
+\BOOKMARK [0][-]{appendix.A}{Manuale d'uso}{}
+\BOOKMARK [1][-]{section.A.1}{Installazione}{appendix.A}
+\BOOKMARK [1][-]{section.A.2}{Come funziona}{appendix.A}
+\BOOKMARK [2][-]{subsection.A.2.1}{Vita da SuperNode}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.2}{Vita da OrdinaryNode}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.3}{Cercare e scaricare un file}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.4}{Aggiungere un file nella lista dei file condivisi}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.5}{}{section.A.2}
