@@ -7,7 +7,8 @@
  \label{fig:swing_diagram}
 \end{figure}
 
-La parte grafica del MiniKazaa è stata implementata con la grafica che mette a disposizione il linguaggio Java e con l' ausiolio dello strumento di programmazione NetBeans.
+La parte grafica del MiniKazaa è stata implementata con la grafica che mette a disposizione il linguaggio Java e con l' ausilio dello strumento di programmazione NetBeans.
+Nella parte che segue andiamo a vedere un pochino più di preciso cosa abbiamo usato per creare le interfaccie.
 
 \section{Il campo di testo}
 Il JTextField è un componente "campo di testo", usabile per scrivere e visualizzare una riga di testo.
@@ -17,9 +18,9 @@ Se invece è sufficiente registrare i cambiamenti solo quando si
 preme INVIO, basta gestire semplicemente l' ActionEvent.
 
 \section{I bottoni}
-Quando viene premuto, un bottone genera un evento di classe ActionEvent
+Quando viene premuto, un bottone genera un evento di classe ActionEvent.
 Questo evento viene inviato dal sistema allo specifico ascoltatore degli eventi per quel bottone.
-L'ascoltatore degli eventi deve implementare la interfaccia ActionListener,
+L'ascoltatore degli eventi deve implementare l' interfaccia ActionListener:
 \begin{itemize}
 \item può essere un oggetto di un'altra classe al di fuori del
 pannello;
@@ -27,6 +28,13 @@ pannello;
 \end{itemize}
 Tale ascoltatore degli eventi deve implementare il metodo definito nella interfaccia actionListener void actionPerformed(ActionEvent ev);
 che gestisce l'evento, nel senso che reagisce all'evento con opportune azioni.
+
+\section{Gestore degli eventi}
+Una volta generato l’oggetto evento, questo viene inviato ad un oggetto ascoltatore degli eventi (event listener).
+L’event listener deve essere definito e creato da noi e deve essere associato al componente attivo, cosicché quando si genera un evento, la JVM sappia a chi inviare l’oggetto evento.
+L’event listener gestisce l’evento mediante un opportuno metodo, che non è altro che l’implementazione di un particolare metodo di un’interfaccia associata a tali tipi
+di eventi.
+
 
 \section{Le tabelle di Java}
 Una tabella è un componente che visualizza righe e colonne di dati. È possibile trascinare il cursore sui bordi delle colonne per ridimensionarle; è anche possibile trascinare una colonna in una nuova posizione. Le tabelle sono implementate dalla classe JTable.
@@ -42,4 +50,3 @@ Ecco i passi per utilizzare una tabella in un frame:
 \end{itemize}
 Un JScrollPane è un pannello di scorrimento che presenta un'area rettangolare nella quale si può vedere un componente. Se il componente ha dimensione maggiore del pannello vengono fornite barre di scorrimento orizzontali e/o verticali.
 
-\section{Le custom cells}

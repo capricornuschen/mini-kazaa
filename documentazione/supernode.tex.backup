@@ -36,8 +36,11 @@ Nel caso non esista già una lista per il nodo mittente, si aggiunge un nuovo ca
 Mostriamo quindi il frammento di codice che si occupa di queste operazioni.
 \begin{lstlisting}
 for(OrdinarynodeFiles o : this.file_list){
-	if(o.getOwner().getId().equals(new_file_list.getOwner().getId())){
-		//Abbiamo già una lista per il nodo Owner
+	if(o.getOwner().getId().
+		equals(new_file_list.getOwner().getId())){
+
+		//Abbiamo gia' informazioni per il
+		//nodo owner
 		o.resetList(new_file_list.getFileList());
 		return;
 	}
@@ -46,8 +49,36 @@ for(OrdinarynodeFiles o : this.file_list){
 this.file_list.add(new_file_list);
 \end{lstlisting}
 
+% public synchronized ArrayList <OrdinarynodeFiles> searchFiles(String regex){
+\subsection{searchFiles}
+La funzione di ricerca dei file viene fatta come per la classe OrdinarynodeFiles, Sezione \ref{sec:on_searchFiles}.
+La differenza in questo caso è che si lavora su liste di OrdinaryNodeFiles, quindi bisogna distinguere gli \emph{owner} di ogni lista di file.
+Il codice è uguale a quello di Sezione \ref{sec:on_searchFiles} per cui non vale la pena riportarlo nuovamente.
+
+\subsection{Altri metodi}
+La classe prevede altri metodi per la rimozione delle liste o per verificare se un file è già presente all'interno della struttura dati, ma sono metodi molto semplici composti da poche righe, quindi li citiamo, ma non li mostriamo completamente.
+
 \section{Smistamento delle query}\label{sec:smistamento_delle_query}
 %SupernodeQueryList.java
+Il compito principale di un Super Node, che poi è anche quello che lo differenzia principalemente da un Ordinary Node, è quello di smistare le \emph{query} nella rete, ovvero spargere le richieste nella rete.
+
+Per fare questo però un Super Node non solo deve inviare le \emph{query} ai nodi che ritiene ``più vicini'', ma anche far ritornare le \emph{query} al mittente una volta ricevute le risposte.
+
+Questo compito viene svolto dal \emph{TCPWorkingThread} sfruttando una struttura dati che si chiama \verb|SupernodeQueryList|.
+Prima di tutto vediamo come questa struttura dati è costrutita.
+
+Si compone di un solo attributo.
+\begin{lstlisting}
+private ArrayList <Query> query_list;
+\end{lstlisting}
+Questo attributo viene inizializzato nel costruttore a una lista vuota.
+La classe mette anche a disposizione:
+\begin{itemize}
+ \item \textbf{getRelativeQuery}: data una query di risposta ricevuta in input restituisce la relativa che è stata ricevuta in precedenza;
+ \item \textbf{generateQueryList}: prende in input una query di ricerca e una lista di node info e genera $n$ query per gli $n$ nodi contenuti nella lista passata come parametro;
+\end{itemize}
+
+
 
 \section{Il cuore di un Super Node}
 \subsection{Engine}
@@ -55,3 +86,40 @@ this.file_list.add(new_file_list);
 \subsection{SN e RMI}
 
 \subsection{SN in ascolto su socket TCP}
+Ogni client Mini-KaZaA deve stare costantemente in ascolto sul socket TPC poichè da esso giungono la maggior parte delle comunicazioni e un Super Node non fa eccezione.
+Ogni client, pertanto, dedica un \emph{thread} alla funzione di ascolto su tale socket.
+In un Super Node il thread dedicato a questa funzione è contenuto nella classe \verb|SupernodeTCPListener.java|.
+Questa classe contiene un task che ha la seguente firma
+\begin{verbatim}
+public class OrdinarynodeTCPListener implements Runnable
+\end{verbatim}
+e i seguenti attributi.
+\begin{lstlisting}
+private NodeConfig my_conf;
+private SupernodeList my_list;
+private SupernodeOnFileList on_files;
+private OrdinarynodeFiles my_files;
+private OrdinarynodeDownloadMonitor my_dl_monitor;
+private OrdinarynodeQuestionsList my_found_list;
+
+public SupernodeTCPListener(
+		NodeConfig conf,
+		SupernodeList list,
+		SupernodeOnFileList file_list,
+		OrdinarynodeFiles sn_files,
+		OrdinarynodeDownloadMonitor dl_monitor,
+		OrdinarynodeQuestionsList found_list) {
+	this.on_files = file_list;
+	this.my_conf = conf;
+	this.my_list = list;
+	this.my_files = sn_files;
+	this.my_dl_monitor = dl_monitor;
+	this.my_found_list = found_list;
+}
+\end{lstlisting}
+
+
+\ref{sec:thread_pool}
+
+
+

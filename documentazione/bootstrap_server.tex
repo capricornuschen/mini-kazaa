@@ -11,7 +11,7 @@ Il Bootstrap server deve fornire questo servizio anche agli ON che vogliono entr
 Per questa ragione si è reso necessario indicizzare anche gli ordinary node all'interno del bootstrap server.
 
 \section{Entriamo nel dettaglio}
-Il bootstrap server si avvia dal main situato all'interno del file \verb|BootstrapService.java| e subito crea il servizio RMI sulla porta 2008 da mettere a disposizione per i vari nodi della rete con le seguenti istruzioni:
+Il bootstrap server si avvia dal programma principale situato all'interno del file \verb|BootstrapService.java| e subito crea il servizio RMI sulla porta 2008 da mettere a disposizione per i vari nodi della rete con le seguenti istruzioni:
 \newline
 \begin{lstlisting}
 Registry registry = LocateRegistry.createRegistry(2008);
@@ -79,7 +79,7 @@ private boolean is_sn;
 \end{lstlisting} 
 
 Le prime tre variabili private riguardano tutte le informazioni di rete dei nodi, ovvero l'indirizzo IP,
-la porta di connessione e un id univoco ottenuto facendo la concatenazione della rappresentazione decimale
+la porta di connessione e un \emph{id} \footnote{codice identificativo univoco} ottenuto facendo la concatenazione della rappresentazione decimale
 dell'indirizzo IP.
 
 La variabile privata \verb|private SupernodeCallbacksInterface stub| rappresenta l'interfaccia per le callbacks che viene messa a disposizione dal nodo. In questo modo il bootstrap server può richiamare direttamente l'interfaccia delle callback di ogni nodo interessato all'aggionrnamento.

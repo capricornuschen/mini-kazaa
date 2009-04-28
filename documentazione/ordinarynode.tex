@@ -76,7 +76,7 @@ un array di \emph{MKFileDescriptor} è già stata spiegata in Sezione \ref{sec:o
 \`{E} un metodo piuttosto semplice che scorre la lista di file e si interrompe quando il doppio controllo\footnote{Abbiamo inserito un doppio contorllo su md5 (Sezione \ref{sec:md5}) e sul path del file per evitare qualsiasi tipo di problema dovuto a malfunzionamenti o scritture di memoria eseguite in maniera scorretta.} su \emph{md5} e \emph{path} del file segnala che il file è stato individuato.
 Una volta individuato il file, viene rimosso e il metodo viene interrotto.
 
-\subsubsection{searchFiles}
+\subsubsection{searchFiles}\label{sec:on_searchFiles}
 \begin{lstlisting}
 public synchronized 
 ArrayList <OrdinarynodeFiles> 
@@ -122,7 +122,8 @@ Questo metodo deve ritornare al chiamante un \emph{ArrayList} di \emph{Ordinaryn
 La ricerca viene effettuata prendendo come parametro una stringa, \verb|regex|, che è un'espressione regolare.
 Con questa espressione regolare il metodo invoca due diverse classi: \verb|Pattern|, che contiene tutti i pattern che l'espressione regolare contiene, \verb|Matcher|, che si occupa di controllare eventuali \emph{match}\footnote{Si ricerca una corrispondenza fra gli oggetti passati e i vari pattern dell'espressione regolare.} con i file della lista.
 Una volta individuate delle corrispondenze, i file vengono inserite nella lista da ritornare, \verb|l|, assieme alle \emph{NodeInfo} relative al nodo proprietario dei file.
-Infine viene fatto un \verb|return| della lista, anche se è vuota.
+Infine viene fatto un \verb|return| della lista, anche se dovesse risultare vuota.
+Ritornale comunque la lista anche se fosse vuota è stata una decisione presa per un' implementazione a noi piu' congeniale del progetto.
 %scelta di progetto inviare anche risposte vuote
 
 \subsection{OrdinarynodeDownloadMonitor.java}
@@ -178,8 +179,8 @@ public OrdinarynodeFoundList(int n) {
 	found = new ArrayList();
 }
 \end{lstlisting}
-I due attributi descritti nel frammento di codice rendono molto semplice la gesione dei risultati delle ricerche.
-\verb|int id| indica l'indice corrispondente alla query di ricerca che è stata lanciata.
+I due attributi descritti nel frammento di codice rendono molto semplice la gestione dei risultati delle ricerche.
+\verb|int id| indica l' indice corrispondente alla query di ricerca che è stata lanciata.
 \verb|ArrayList<SearchField> found| è una lista di tutti i risultati che corrispondono a una determinata ricerca, che vengono convertiti in oggetti di tipo \verb|SearchField|, Sezione \ref{sec:searchField_class}.
 %Aggiungere riferimento in SearchFieldClass.java
 
@@ -300,13 +301,14 @@ un Ordinary Node ha un motore principale e quattro interfacce principali con il 
 che viene mostrata in modo chiaro e completo nel Capitolo \ref{chap:gui_package}, e nella Sezione \ref{sec:grafica};
 
  \item \textbf{Socket UDP:}
-utilizzato solo per la misurazione delle latenze e mostrata in Sezione \ref{sec:ping};
+utilizzato solo per la misurazione delle latenze e mostrata nel Capitolo \ref{chap:scelte_di_progetto} in Sezione \ref{sec:ping};
  
  \item \textbf{Socket TCP:} 
-utilizzato per la maggior parte delle comunicazioni nella rete;
+utilizzato per la maggior parte delle comunicazioni nella rete, mostrato anch' esso nel Capitolo \ref{chap:scelte_di_progetto};
 
  \item \textbf{Comunicazioni RMI:}
 utilizzato per l'interazione con il Bootstrap Server per gli aggiornamenti sui nodi della rete.
+RMI che tratteremo nel dettaglio nel Capitolo \ref{chap:scelte_di_progetto}
 \end{itemize}
 
 Tutti questi componenti sono coordinati da un ``motore'' principale che ora andremo a descrivere.
@@ -451,7 +453,7 @@ while(true){
 	}
 }
 \end{lstlisting}
-Il codice mostrato è piuttosto semplice ma utilizza una tecnologia Java molto utile: \emph{Thread Pool}.
+Il codice mostrato è piuttosto semplice ma utilizza una tecnologia Java molto utile: \emph{Thread Pool}\ref{sec:thread_pool}.
 Ogni richiesta che il client riceve sul socket TCP viene infatti delegata a un \emph{sotto-thread} che la elabora, lasciando libero il thread principale di ricevere altre richieste sul socket.
 
 \subsection{ON e RMI}
@@ -647,8 +649,9 @@ if ((this.my_sn == null) &&
 \end{lstlisting}
 l'ON evita di creare confusione nella rete istanziando più di una connessione.
 
-\subsection{Lo scambio di file}\label{sec:scambio}
+%\subsection{Lo scambio di file}\label{sec:scambio}
 %valutare la rimozione di questa subsection in favore di una subsection generale.
+%eliminato e spostato in mini-kazaa client.tex
 
 \subsection{Condivisione di file}%Valutarne la rimozione di questa subsection in favore di una subsection nella grafica
 La condivisione di file avviene non appena l'utente di un ON decide di condividere file tramite l'apposito pannello descritto in Sezione \ref{sec:grafica}
