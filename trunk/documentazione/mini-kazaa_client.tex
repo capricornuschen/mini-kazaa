@@ -4,14 +4,14 @@ Oltre che di un Bootstrap server, la rete Mini-KaZaA si basa su un client che gl
 Mini-KaZaA client presenta tutte le funzionalità che consentono una condivisione peer to peer dei contenuti.
 Ogni client al primo avvio chiede all'utente, tramite un comodo pannello, di scegliere il \emph{ruolo} da interpretare all'interno della rete.
 
-Chi ha più risorse da mettere a disposizione e una banda di comunicazione più ampia può scegliere di essere un Super Node, che oltre a condividere e scaricare, ha la funzione di smistare le query nella rete e accettare richieste direttamente dagli Ordinary Node \emph{figli}. Chi ha meno risorse da mettere a disposizione può scegliere di essere un semplice Ordinary Node.
+Chi ha più risorse da mettere a disposizione e una banda di comunicazione più ampia può scegliere di essere un Super Node, il quale oltre a condividere e scaricare, ha la funzione di smistare le query nella rete e accettare richieste direttamente dagli Ordinary Node \emph{figli}. Chi ha meno risorse da mettere a disposizione può scegliere di essere un semplice Ordinary Node.
 
 \section{Il codice di Mini-KaZaA client}
 Il codice di Mini-KaZaA client è distribuito in tre diverse librerie:
 \begin{itemize}
  \item \textbf{lpr.minikazaa.minikazaaclient}: questa libreria contiene classi comuni a tutti e due i tipi di client dal punto di vista logico. L'esempio più evidente è la classe \verb|MainGui.java|.
- \item \textbf{lpr.minikazaa.minikazaaclient.ordinarynode}: questa libreria contiene le classi che loogicamente appartengono al tipo di client Ordinary Node, ma che, all'occorrenza, possono essere importate anche da un Super Node.
- \item \textbf{lpr.minikazaa.minikazaaclent.supernode}: questa libreria, infine contiene tutte le classi che servono a un supernodo per funzionare e che appartengono a questo logicamente. Alcune di queste classi, come per esempio \verb|SupernodeCallbacksInterface.java|, vengono utilizzate anche dagli ORdinary Node.
+ \item \textbf{lpr.minikazaa.minikazaaclient.ordinarynode}: questa libreria contiene le classi che logicamente appartengono al tipo di client Ordinary Node, ma che, all'occorrenza, possono essere importate anche da un Super Node.
+ \item \textbf{lpr.minikazaa.minikazaaclent.supernode}: questa libreria, infine contiene tutte le classi che servono ad un supernodo per funzionare e che appartengono a questo logicamente. Alcune di queste classi, come per esempio \verb|SupernodeCallbacksInterface.java|, vengono utilizzate anche dagli Ordinary Node.
 \end{itemize}
 
 Questa suddivisione è puramente logica visto che i due tipi di client differiscono solo per alcune caratteristiche.
@@ -26,7 +26,7 @@ else
 \end{verbatim}
 si è preferito separare in due classi distinte.
 
-Passiamo ora a una presentazione più particolareggiata del codice comune a Super Node e Ordinary Node.
+Passiamo ora a una presentazione più dettagliata del codice comune a Super Node e Ordinary Node.
 
 \section{Le strutture dati comuni}
 Per lo sviluppo di Mini-KaZaA è stato necessario predisporre una serie di strutture dati che tutto il software
@@ -43,7 +43,7 @@ All'interno del package \verb|lpr.minikazaa.minikazaaclient| troviamo le seguent
  \item \verb|DownloadResponse.java|
 \end{itemize}
 
-Guardiamo cosa si nasconde all'interno di ognuna di queste classi.
+Guardiamo cosa si nasconde all'interno di ognuna delle classi sopracitate.
 
 \subsection{NodeConfig.java}
 La classe \verb|NodeConfig.java| contiene i seguenti attributi:
@@ -65,7 +65,7 @@ Questi attributi sono i campi che l'utente inserisce nel form al primo avvio del
 \subsection{Query.java}\label{sec:query}
 La classe \verb|Query.java| viene utilizzata dal client Mini-KaZaA per l'invio di richieste di file nella rete.
 
-Contiene diversi attributi per i quali ci sono i metodi \verb|set| e \verb|get|. Questa classe inoltre implementa
+Contiene diversi attributi per i quali sono disponibili i metodi \verb|set| e \verb|get|. Questa classe inoltre implementa
 le interfacce \verb|Serializable| e \verb|Cloneable|.
 La prima serve per poter inviare su rete come flusso di byte l'oggetto \verb|Query|. La seconda invece serve per poter
 copiare un'istanza dell'oggetto \verb|Query| in una seconda istanza.
@@ -144,8 +144,6 @@ private int id;
 
 L'attributo \verb|files| è una lista di OrdinarynodeFiles, Sezione \ref{sec:on_files}.
 
-La classe \verb|Answer.java| viene utilizzata 
-
 L'attributo \verb|id| richiama semplicemente l'id univoco della query di cui fa parte l'oggetto \verb|Answer|.
 
 \subsection{SearchField.java}\label{sec:searchField_class}
@@ -167,7 +165,7 @@ private MKFileDescriptor file;
 \end{lstlisting}
 
 Con queste due semplici informazioni è possibile sia risalire al proprietario, compreso l'indirizzo ip da contattare
-per il download, sia ottenere tutti i metadati del file da scaricare\footnote{I download così come le ricerche vengono
+per il download, sia ottenere tutti i metadati\footnote{Quando parliamo di metadati ci riferiamo alle informazioni che riguardano i file, come la dimensione, il path assoluto ecc. Queste informazioni si possono sempre ricavare perchè salvate all'interno del file.} del file da scaricare\footnote{I download così come le ricerche vengono
 effettuati mediante l'hash univoco md5 che tratteremo nella Sezione \ref{sec:md5}}.
 
 \subsection{Download.java}\label{sec:download_class}
@@ -223,7 +221,7 @@ Vedremo meglio come funziona lo scambio di file all'interno della Sezione \ref{s
 \section{Il percorso di una query}
 Nella sezione \ref{sec:query} abbiamo visto di cosa si compone la classe \verb|Query.java|. Ora vediamo come viene utilizzata dal client nello scambio di richieste.
 
-Ogni query di ricerca di file comincia con l'input dell'utente tramite un apposita formdi cui parleremo nella Sezione \ref{sec:grafica}.
+Ogni query di ricerca di file comincia con l'input dell'utente tramite un apposita form di cui parleremo nella Sezione \ref{sec:grafica}.
 Viene così generato un oggetto di tipo query con il seguente frammento di codice:
 \begin{lstlisting}
 Query q = new Query();
@@ -378,6 +376,9 @@ public synchronized NodeInfo getBest() {
 
 
 \section{Il paradigma Observable-Observer}\label{sec:obs-obs}
+
+Il linguaggio Java fornisce due classi molto utili per gestire in modo asincrono i cambiamenti di stato di determinate strutture dati.
+
 \begin{figure}[t]
  \centering
  \includegraphics[width=218.72px,height=129.12px,bb=14 14 635 381]{images/observable.eps}
@@ -385,7 +386,6 @@ public synchronized NodeInfo getBest() {
  \caption{Paradigma Observable - Observer}
  \label{fig:observable}
 \end{figure}
-Il linguaggio Java fornisce due classi molto utili per gestire in modo asincrono i cambiamenti di stato di determinate strutture dati.
 
 \`{E} molto utile, infatti, avere un modo agile e integrato nel linguaggio di nodificare ogni cambiamento che subisce una struttura dati. Esempi che riguardano Mini-KaZaA sono molto frequenti: la struttura dati che memorizza i file trovati e la tabella che li deve mostrare in grafica, la lista di SN e la tabella di Net Monitor e così via.
 
@@ -405,14 +405,14 @@ public void update(Observable o, Object arg)
 \end{lstlisting}
 Il primo parametro rappresenta l'oggetto che ha chiamato il metodo \verb|update()|. Per generalizzare il metodo,
 questo parametro rappresenta un \emph{Observable} sul quale poi dovrà essere fatto un'operazione di \emph{cast}
-per convertirlo nell'oggetto corretto e poter utilizzare le sue funzioni. Il secondo paramtro rappresenta i parametri aggiuntivi che possono essere utili al metodo update.
+per convertirlo nell'oggetto corretto e poter utilizzare le sue funzioni. Il secondo parametro rappresenta i parametri aggiuntivi che possono essere utili al metodo update.
 Il metodo update definirà quindi tutte le operazioni che dovranno essere fatte a ogni aggiornamento della struttura dati sotto osservazione.
 
 \section{Ping dei nodi}\label{sec:ping}
 Ogni client Mini-KaZaA ha bisogno di sapere quanto dista dalla rete e, di conseguenza, quanto i nodi della rete distano da lui.
 Come unità di misura per la distanza da un nodo all'altro vengono usati i millisecondi che intercorrono dall'invio di un particolare pacchetto alla ricezione del pacchetto di risposta.
 
-Mini-KaZaA ha due \emph{Task}: NodePing e NodePong.
+In Mini-KaZaA sono stati implementati due \emph{Task}: NodePing e NodePong.
 Il primo task crea un pacchetto Datagram con le seguenti istruzioni:
 \begin{lstlisting}
 DatagramSocket my_datagram_socket = null;
@@ -515,6 +515,118 @@ while (true) {
 }
 \end{lstlisting}
 Ovviamente ogni errore o eccezione che è sollevata in questi frammenti di codice viene loggata per future analisi\footnote{In questi frammenti di codice abbiamo omesso la chiamata allaclasse di log per concentraci maggiormente sulle istruzioni che sono più strettamente legate alle misurazioni delle latenze tramite socket UDP}
+
+\section{Invio di file e divisione del file in parti.}\label{sec:download_tcp}\label{sec:scambio}
+L'attività principale che Mini-KaZaA prevede è lo scambio di file. I file vengono trasmessi sulla rete, anche su grandi distanze.
+I file possono anche essere molto grandi quindi non conviene inviare tutto il file in un unico momento. \`{E} molto più conveniente dividere il file in parti.
+Di questo si occupa la parte che invia il file nel \emph{TCPWorkingThread}.
+Il codice che esegue queste operazioni è comune a tutti i tipi di nodi, dato che sia SN che ON possono inviare file sulla rete, ed è esposto nel seguente listato.
+\begin{lstlisting}
+if (incoming_obj instanceof DownloadRequest) {
+	//Devo spedire il file richiesto
+	DownloadRequest request = 
+		(DownloadRequest) incoming_obj;
+
+	MKFileDescriptor file_to_send = 
+		this.my_files.getFileList(request.getFile());
+
+	Socket send_sock = new Socket(
+			request.getSource().getIaNode(),
+			request.getSource().getDoor());
+
+	ObjectOutputStream output = 
+		new ObjectOutputStream
+		(send_sock.getOutputStream());
+
+	//Avvisa l'inizio del trasferimento.
+	DownloadResponse init_response = 
+		new DownloadResponse(null, file_to_send.getMd5());
+
+	output.writeObject(init_response);
+
+	File file_pointer = new File(file_to_send.getPath());
+
+	FileInputStream in_file = 
+		new FileInputStream(file_pointer);
+
+	byte[] buffer = new byte[4096];
+
+	while (true) {
+		try {
+			int letti = in_file.read(buffer);
+			if (letti > 0) {
+				DownloadResponse filepart = 
+					new DownloadResponse(buffer, null);
+				output.writeObject(filepart);
+			} else {
+				break;
+			}
+		} catch (IOException e) {
+			break;
+		}
+	}
+
+	//Chiude la comunicazione
+	DownloadResponse stop_sending = 
+		new DownloadResponse(null, file_to_send.getMd5());
+	output.writeObject(stop_sending);
+
+	in_file.close();
+	output.flush();
+	output.close();
+
+	send_sock.close();
+
+	
+}
+\end{lstlisting}
+Il procedimento è standard. Ovvero, prima si inizializza la connessione con una prima comunicazione, poi si inviano le varie parti di file e infine si chiude la comunicazione.
+
+Dall'altro lato si troverà chi ha inviato la richiesta di download e che ora si prepara alla ricezione.
+Il listato che riceve il file è il duale di quanto appena mostrato ed è il seguente.
+\begin{lstlisting}
+if (incoming_obj instanceof DownloadResponse){
+	DownloadResponse response = 
+		(DownloadResponse) incoming_obj;
+
+	//Inizio dell'invio di un file.
+	if (response.getPart() == null) {
+		Download file_dl = 
+			this.my_dl_monitor.getDownload(response.getFile());
+		
+		File file = new File(
+			file_dl.getDownloaderPath() + 
+			file_dl.getFile().getFileName());
+		
+		FileOutputStream file_downloading = 
+			new FileOutputStream(file);
+		
+		while (true) {
+			Object read_part = input_object.readObject();
+
+			if (read_part instanceof DownloadResponse) {
+				DownloadResponse part = (DownloadResponse) read_part;
+				if (part.getFile() == null) {
+					//Posso inserire la parte sia 
+					//nel monitor che nel file effettivo.
+					byte[] buffer = part.getPart();
+
+					if (buffer.length > 0) {
+						file_downloading.write(buffer, 0, buffer.length);
+						part.setFile(file_dl.getFile().getMd5());
+						this.my_dl_monitor.addBytes(part);
+					}
+				}
+				else{
+					break;
+				}
+			}
+		}
+
+		file_downloading.flush();
+		file_downloading.close();
+	}
+\end{lstlisting}
 
 \section{La grafica del client Mini-KaZaA}\label{sec:grafica}
 \begin{figure}[t]

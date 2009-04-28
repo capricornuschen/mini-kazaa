@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  27 APR 2009 22:24
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  28 APR 2009 22:27
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
@@ -717,12 +717,6 @@ LaTeX Font Info:    Try loading font information for T1+lmtt on input line 14.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
-Overfull \hbox (66.13432pt too wide) in paragraph at lines 14--16
-[]\T1/lmr/m/n/10.95 Il boo-tstrap ser-ver si av-via dal main si-tua-to al-l'in-
-ter-no del fi-le []\T1/lmtt/m/n/10.95 BootstrapService.java
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 14--16
 
  []
@@ -746,7 +740,7 @@ rnodeCallbacksInterface stub \T1/lmr/m/n/10.95 rap-
  []
 
 File: images/bss_grafica.eps Graphic file (type eps)
-<images/bss_grafica.eps>) (./mini-kazaa_client.tex [8] [9]
+<images/bss_grafica.eps> [8]) (./mini-kazaa_client.tex [9]
 Capitolo 3.
 
 Overfull \hbox (4.12384pt too wide) in paragraph at lines 13--14
@@ -772,39 +766,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 135--137
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 159--161
+Underfull \hbox (badness 10000) in paragraph at lines 157--159
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 174--176
+Underfull \hbox (badness 10000) in paragraph at lines 172--174
 
  []
 
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 195--198
+Underfull \hbox (badness 10000) in paragraph at lines 193--196
 
  []
 
 
-Overfull \hbox (33.16145pt too wide) in paragraph at lines 207--208
+Overfull \hbox (33.16145pt too wide) in paragraph at lines 205--206
 []\T1/lmr/m/n/10.95 Il client Mini-KaZaA fa un uso par-ti-co-la-re del-la clas-
 se []\T1/lmtt/m/n/10.95 DownloadResponse.java\T1/lmr/m/n/10.95 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--211
+Underfull \hbox (badness 10000) in paragraph at lines 207--209
 
  []
 
 
-Overfull \hbox (2.89769pt too wide) in paragraph at lines 224--225
+Overfull \hbox (2.89769pt too wide) in paragraph at lines 222--223
 []\T1/lmr/m/n/10.95 Nella se-zio-ne [][][][] ab-bia-mo vi-sto di co-sa si com-p
 o-ne la clas-se []\T1/lmtt/m/n/10.95 Query.java\T1/lmr/m/n/10.95 .
  []
 
 [15] [16]
-Overfull \hbox (3.93106pt too wide) in paragraph at lines 316--317
+Overfull \hbox (3.93106pt too wide) in paragraph at lines 314--315
 []\T1/lmr/m/n/10.95 Mini-KaZaA crea un over-lay net-work di-na-mi-co gra-zie al
  me-to-do []\T1/lmtt/m/n/10.95 subSet()
  []
@@ -817,25 +811,37 @@ Overfull \hbox (7.09706pt too wide) in paragraph at lines 406--410
 -ma-to il me-to-do []\T1/lmtt/m/n/10.95 update()\T1/lmr/m/n/10.95 .
  []
 
-[19] [20] [21]
+[19] [20] [21] [22] [23]
 File: images/mini_kazaa_client.eps Graphic file (type eps)
- <images/mini_kazaa_client.eps> [22]
-Overfull \hbox (28.49915pt too wide) in paragraph at lines 530--531
+ <images/mini_kazaa_client.eps>
+Overfull \hbox (28.49915pt too wide) in paragraph at lines 642--643
 [][][][][][][][][][][][][][][] 
  []
 
-) (./ordinarynode.tex [23]
+[24] [25]) (./ordinarynode.tex [26]
 Capitolo 4.
-[24
+[27
 
-] [25]
-Overfull \hbox (2.71506pt too wide) in paragraph at lines 122--127
+] [28]
+Overfull \hbox (2.71506pt too wide) in paragraph at lines 122--128
 []\T1/lmr/m/n/10.95 La ri-cer-ca vie-ne ef-fet-tua-ta pren-den-do co-me pa-ra-m
 e-tro una strin-ga, []\T1/lmtt/m/n/10.95 regex\T1/lmr/m/n/10.95 ,
  []
 
-[26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]) (./supernode.tex
-[37] [38]
+[29] [30] [31] [32]
+
+LaTeX Warning: Reference `chap:scelte_di_progetto' on page 33 undefined on inpu
+t line 304.
+
+
+LaTeX Warning: Reference `chap:scelte_di_progetto' on page 33 undefined on inpu
+t line 307.
+
+
+LaTeX Warning: Reference `chap:scelte_di_progetto' on page 33 undefined on inpu
+t line 311.
+
+[33] [34] [35] [36] [37] [38] [39] [40]) (./supernode.tex [41]
 Capitolo 5.
 
 Overfull \hbox (27.7406pt too wide) in paragraph at lines 21--24
@@ -843,13 +849,19 @@ Overfull \hbox (27.7406pt too wide) in paragraph at lines 21--24
 o-de. []\T1/lmtt/m/n/10.95 SupernodeOnFileList.java
  []
 
-[39
+[42
 
-]) (./util.tex [40]
+] [43] [44] [45] [46]
+Overfull \hbox (8.14117pt too wide) in paragraph at lines 237--239
+[]\T1/lmr/m/n/10.95 Il co-di-ce mo-stra-to uti-liz-za una tec-no-lo-gia Ja-va m
+ol-to uti-le: \T1/lmr/m/it/10.95 Th-read Pool[][][][]\T1/lmr/m/n/10.95 .
+ []
+
+) (./util.tex [47]
 Capitolo 6.
-[41
+[48
 
-] [42] [43]
+] [49] [50]
 
 LaTeX Warning: Command \` invalid in math mode on input line 119.
 
@@ -861,26 +873,26 @@ e-ro di by-te ([]\T1/lmtt/m/n/10.95 long file_size\T1/lmr/m/n/10.95 ),
 
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 131.
-[44]
+[51]
 Overfull \hbox (28.48218pt too wide) in paragraph at lines 179--180
 \T1/lmr/m/n/10.95 Nella se-con-da par-te in-ve-ce, con-ver-te tut-ti e so-li i 
 fi-le, da []\T1/lmtt/m/n/10.95 File \T1/lmr/m/n/10.95 a []\T1/lmtt/m/n/10.95 MK
 FileDescriptor\T1/lmr/m/n/10.95 . 
  []
 
-[45] [46]
+[52] [53]
 Overfull \hbox (5.78975pt too wide) in paragraph at lines 248--249
 \T1/lmr/m/n/10.95 in-put un og-get-to di ti-po \T1/lmr/m/it/10.95 No-deIn-fo\T1
 /lmr/m/n/10.95 , []\T1/lmtt/m/n/10.95 my_infos\T1/lmr/m/n/10.95 , e re-sti-tui-
 sce l'\T1/lmr/m/it/10.95 OrdinarynodeFiles
  []
 
-) (./Gui_Package.tex [47]
+) (./Gui_Package.tex [54]
 Capitolo 7.
 File: images/swing_diagram.eps Graphic file (type eps)
-<images/swing_diagram.eps> [48
+<images/swing_diagram.eps> [55
 
-]) (./scelte_di_progetto.tex [49]
+] [56]) (./scelte_di_progetto.tex [57]
 Capitolo 8.
 File: images/logica_uml.eps Graphic file (type eps)
 <images/logica_uml.eps>
@@ -888,24 +900,24 @@ Overfull \hbox (41.50618pt too wide) in paragraph at lines 19--21
  [][] 
  []
 
-[50
+[58
 
-]) (./connessione_tcp.tex [51]
-Capitolo 9.
-) (./manuale_uso.tex [52
-
-] [53]
+] [59] [60]) (./manuale_uso.tex [61]
 Appendice A.
-[54
+[62
 
-]) [55] (./mini-kazaa.aux) ) 
+]) [63] (./mini-kazaa.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 7521 strings out of 94075
- 101516 string characters out of 1165177
- 177971 words of memory out of 1500000
- 10603 multiletter control sequences out of 10000+50000
+ 7567 strings out of 94075
+ 102246 string characters out of 1165177
+ 178709 words of memory out of 1500000
+ 10652 multiletter control sequences out of 10000+50000
  87435 words of font info for 72 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 29i,8n,40p,837b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
+ 29i,8n,40p,1024b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (56 pages, 388036 bytes).
+Output written on mini-kazaa.dvi (64 pages, 462012 bytes).

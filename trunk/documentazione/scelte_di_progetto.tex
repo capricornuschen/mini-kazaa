@@ -1,4 +1,4 @@
-\chapter{Scelte di progetto}
+\chapter{Scelte di progetto e cenni di teoria}\label{chapt:scelte_di_progetto}
 
 \section{Java Bean}\label{sec:java_bean}
 Le JavaBean sono usate per incapsulare molti oggetti in un singolo oggetto (il bean), così da poter passare il bean invece degli oggetti individuali.
@@ -31,8 +31,36 @@ Possiamo vedere come ogni nodo abbia due tipi di componenti:
  \item componenti di interfaccia con il mondo esterno.
 \end{itemize}
 
-Tutti questi componenti vengono gestiti da un motore centrale.
+Tutti questi componenti vengono gestiti da un motore centrale che richiama opportunamente le strutture dati utilizzate e i thread che devono svolgere i vari compiti.
 
 
 \section{Classe Wrapper per il socket}\label{sec:wrap_sock}
 Il fine del Wrapper è di fornire una soluzione astratta al problema dell'interoperabilità tra interfacce differenti. Il problema si presenta ogni qual volta nel progetto di un software si debbano utilizzare sistemi di supporto (come per esempio librerie) dotati di interfaccia non perfettamente compatibile con quelle richieste da applicazioni già esistenti. Invece di dover riscrivere parte del sistema, oneroso e non sempre possibile se non si ha a disposizione il codice sorgente, può essere comodo scrivere un Adapter che faccia da tramite tra le diverse interfacce, rendendole così compatibili.
+
+Il wrapper inoltre ci ha consentito di poter inizializzare un oggetto che ci serviva all'interno di un \emph{sotto-thread} all'interno dell'\emph{engine} per poi modificarne il contenuto all'interno dei vari sotto-thread non appena si rendevano disponibili le informazioni per completarne la struttura.
+
+
+\section{Il protocollo  TCP}
+Il TCP nacque nel 1970 come frutto del lavoro di un gruppo di ricerca del dipartimento di difesa statunitense. I suoi punti di forza sono l'alta affidabilità e robustezza.
+Il protocollo TCP serve a creare degli stream socket, cioè una forma di canale di comunicazione che stabilisce una connessione stabile fra due stazioni, in modo che queste possano scambiarsi dei dati.
+
+Il servizio offerto da TCP è il trasporto di un flusso di byte bidirezionale tra due applicazioni in esecuzione su host differenti. Il protocollo permette alle due applicazioni di trasmettere contemporaneamente nelle due direzioni, quindi il servizio può essere considerato "Full Duplex" anche se non tutti i protocolli applicativi basati su TCP utilizzano questa possibilità.
+Il flusso di byte viene frazionato in blocchi per la trasmissione dall'applicazione a TCP (che normalmente è implementato all'interno del sistema operativo), per la trasmissione all'interno di segmenti TCP, per la consegna all'applicazione che lo riceve, ma questa divisione in blocchi non è per forza la stessa nei diversi passaggi.
+TCP è un protocollo orientato alla connessione, ovvero prima di poter trasmettere dati deve stabilire la comunicazione, negoziando una connessione tra mittente e destinatario, che viene esplicitamente chiusa quando non più necessaria. Esso quindi ha le funzionalità per creare, mantenere e chiudere una connessione.
+TCP garantisce che i dati trasmessi, se giungono a destinazione, lo facciano in ordine e una volta sola. Questo è realizzato attraverso vari meccanismi di acknowledgment e di ritrasmissione su timeout.
+TCP possiede funzionalità di controllo di flusso e di controllo della congestione sulla connessione, attraverso il meccanismo della finestra scorrevole. Questo permette di ottimizzare l'utilizzo della rete anche in caso di congestione.
+
+\section{Il protocollo UDP}
+A differenza del TCP, l'UDP è un protocollo di tipo connectionless, inoltre non gestisce il riordinamento dei pacchetti né la ritrasmissione di quelli persi, ed è perciò generalmente considerato di minore affidabilità. È in compenso molto rapido ed efficiente per le applicazioni "leggere" o time-sensitive. Ad esempio, è usato spesso per la trasmissione di informazioni audio o video. Dato che le applicazioni in tempo reale spesso richiedono un ritmo minimo di spedizione, non vogliono ritardare eccessivamente la trasmissione dei pacchetti e possono tollerare qualche perdita di dati, il modello di servizio TCP può non essere particolarmente adatto alle loro caratteristiche. L'UDP fornisce soltanto i servizi basilari del livello di trasporto, ovvero:
+\begin{itemize}
+    \item multiplazione delle connessioni, ottenuta attraverso il meccanismo delle porte
+    \item verifica degli errori mediante una checksum, inserita in un campo dell'intestazione del pacchetto.
+\end{itemize}
+mentre TCP garantisce anche il trasferimento affidabile dei dati, il controllo di flusso e il controllo della congestione.
+L'UDP non tiene nota dello stato della connessione, dunque ha rispetto al TCP informazioni in meno da memorizzare. Un server dedicato ad una particolare applicazione che scelga UDP come protocollo di trasporto può supportare molti più client attivi.
+
+\section{Remote Method Invocation}
+In informatica, e in particolare nel contesto del linguaggio di programmazione object-oriented Java, Remote Method Invocation (invocazione remota di metodi) o RMI è una tecnologia che consente a processi Java distribuiti di comunicare attraverso una rete. Questa tecnologia include una API (application programming interface) il cui scopo esplicito è quello di rendere trasparenti al programmatore quasi tutti i dettagli della comunicazione su rete. Essa consente infatti di invocare un metodo di un oggetto remoto (cioè appartenente a un diverso processo, potenzialmente su una diversa macchina) quasi come se tale oggetto fosse "locale" (ovvero appartenente allo stesso processo in cui viene eseguita l'invocazione). In questo senso, la tecnologia RMI può essere ricondotta, da un punto di vista concettuale, all'idea di chiamata di procedura remota riformulata per il paradigma object-oriented (in cui, appunto, le procedure sono sostituite da metodi).
+L'utilizzo di un meccanismo di invocazione remota di metodi in un sistema object-oriented comporta notevoli vantaggi di omogeneità e simmetria nel progetto, poiché consente di modellare le interazioni fra processi distribuiti usando lo stesso strumento concettuale che si utilizza per rappresentare le interazioni fra i diversi oggetti di una applicazione, ovvero la chiamata di metodo. 
+
+\section{Utilizzo dei ThreadPool}\label{sec:thread_pool}

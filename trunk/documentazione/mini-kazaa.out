@@ -21,7 +21,8 @@
 \BOOKMARK [1][-]{section.3.5}{La classe SupernodeList.java}{chapter.3}
 \BOOKMARK [1][-]{section.3.6}{Il paradigma Observable-Observer}{chapter.3}
 \BOOKMARK [1][-]{section.3.7}{Ping dei nodi}{chapter.3}
-\BOOKMARK [1][-]{section.3.8}{La grafica del client Mini-KaZaA}{chapter.3}
+\BOOKMARK [1][-]{section.3.8}{Invio di file e divisione del file in parti.}{chapter.3}
+\BOOKMARK [1][-]{section.3.9}{La grafica del client Mini-KaZaA}{chapter.3}
 \BOOKMARK [0][-]{chapter.4}{Ordinary Node}{}
 \BOOKMARK [1][-]{section.4.1}{Le classi del package ordinarynode}{chapter.4}
 \BOOKMARK [2][-]{subsection.4.1.1}{OrdinarynodeFiles.java}{section.4.1}
@@ -34,12 +35,13 @@
 \BOOKMARK [2][-]{subsection.4.2.2}{ON in ascolto sul socket TCP}{section.4.2}
 \BOOKMARK [2][-]{subsection.4.2.3}{ON e RMI}{section.4.2}
 \BOOKMARK [2][-]{subsection.4.2.4}{Scelta del SN al quale connettersi}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.5}{Lo scambio di file}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.6}{Condivisione di file}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.5}{Condivisione di file}{section.4.2}
 \BOOKMARK [0][-]{chapter.5}{Super Node}{}
 \BOOKMARK [1][-]{section.5.1}{L'interfaccia per le callback}{chapter.5}
 \BOOKMARK [1][-]{section.5.2}{Indicizzamento dei file degli ON collegati}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.2.1}{addNewOnFileList}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.2}{searchFiles}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.3}{Altri metodi}{section.5.2}
 \BOOKMARK [1][-]{section.5.3}{Smistamento delle query}{chapter.5}
 \BOOKMARK [1][-]{section.5.4}{Il cuore di un Super Node}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.4.1}{Engine}{section.5.4}
@@ -58,20 +60,23 @@
 \BOOKMARK [0][-]{chapter.7}{Il package di grafica}{}
 \BOOKMARK [1][-]{section.7.1}{Il campo di testo}{chapter.7}
 \BOOKMARK [1][-]{section.7.2}{I bottoni}{chapter.7}
-\BOOKMARK [1][-]{section.7.3}{Le tabelle di Java}{chapter.7}
-\BOOKMARK [1][-]{section.7.4}{Le custom cells}{chapter.7}
-\BOOKMARK [0][-]{chapter.8}{Scelte di progetto}{}
+\BOOKMARK [1][-]{section.7.3}{Gestore degli eventi}{chapter.7}
+\BOOKMARK [1][-]{section.7.4}{Le tabelle di Java}{chapter.7}
+\BOOKMARK [0][-]{chapter.8}{Scelte di progetto e cenni di teoria}{}
 \BOOKMARK [1][-]{section.8.1}{Java Bean}{chapter.8}
 \BOOKMARK [1][-]{section.8.2}{UML Logica}{chapter.8}
 \BOOKMARK [1][-]{section.8.3}{Classe Wrapper per il socket}{chapter.8}
-\BOOKMARK [0][-]{chapter.9}{Connessione TCP: Il working thread}{}
-\BOOKMARK [1][-]{section.9.1}{Caratteristiche TCP}{chapter.9}
-\BOOKMARK [1][-]{section.9.2}{Divisione del file in parti.}{chapter.9}
+\BOOKMARK [1][-]{section.8.4}{Il protocollo TCP}{chapter.8}
+\BOOKMARK [1][-]{section.8.5}{Il protocollo UDP}{chapter.8}
+\BOOKMARK [1][-]{section.8.6}{Remote Method Invocation}{chapter.8}
+\BOOKMARK [1][-]{section.8.7}{Utilizzo dei ThreadPool}{chapter.8}
 \BOOKMARK [0][-]{appendix.A}{Manuale d'uso}{}
 \BOOKMARK [1][-]{section.A.1}{Installazione}{appendix.A}
 \BOOKMARK [1][-]{section.A.2}{Come funziona}{appendix.A}
-\BOOKMARK [2][-]{subsection.A.2.1}{Vita da SuperNode}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.2}{Vita da OrdinaryNode}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.3}{Cercare e scaricare un file}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.4}{Aggiungere un file nella lista dei file condivisi}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.5}{}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.1}{Cercare e scaricare un file}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.2}{Aggiungere un file nella lista dei file condivisi}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.3}{Controllare lo stato dei download}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.4}{Vita da OrdinaryNode}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.5}{NetMonitor}{section.A.2}
+\BOOKMARK [2][-]{subsection.A.2.6}{Chiudere le schede}{section.A.2}
+\BOOKMARK [1][-]{section.A.3}{Consigli degli autori per l' utilizzo}{appendix.A}

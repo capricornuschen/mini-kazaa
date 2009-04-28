@@ -45,7 +45,8 @@ public class SupernodeTCPListener implements Runnable {
     }
 
     public void run() {
-        //Server that liste all TCP requests.
+        //Socket che ascolta tutte le richieste
+        //provenienti dalla rete
         ServerSocket listen_sock = null;
         Socket client_socket = null;
         SupernodeQueryList query_list = new SupernodeQueryList();

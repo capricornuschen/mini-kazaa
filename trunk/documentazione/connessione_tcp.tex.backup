@@ -14,7 +14,7 @@ TCP garantisce che i dati trasmessi, se giungono a destinazione, lo facciano in 
 TCP possiede funzionalità di controllo di flusso e di controllo della congestione sulla connessione, attraverso il meccanismo della finestra scorrevole. Questo permette di ottimizzare l'utilizzo della rete anche in caso di congestione.
 
 \section{Il Working Thread nel dettaglio}
-\section{Invio di file e divisione del file in parti.}\label{sec:download_tcp}
+\subsection{Invio di file e divisione del file in parti.}\label{sec:download_tcp}
 L'attività principale che Mini-KaZaA prevede è lo scambio di file. I file vengono trasmessi sulla rete, anche su grandi distanze.
 I file possono anche essere molto grandi quindi non conviene inviare tutto il file in un unico momento. \`{E} molto più conveniente dividere il file in parti.
 Di questo si occupa la parte che invia il file nel \emph{TCPWorkingThread}.
@@ -36,7 +36,6 @@ if (incoming_obj instanceof DownloadRequest) {
 		new ObjectOutputStream
 		(send_sock.getOutputStream());
 
-	//Avvisa l'inizio del trasferimento.
 	DownloadResponse init_response = 
 		new DownloadResponse(null, file_to_send.getMd5());
 
@@ -64,7 +63,6 @@ if (incoming_obj instanceof DownloadRequest) {
 		}
 	}
 
-	//Chiude la comunicazione
 	DownloadResponse stop_sending = 
 		new DownloadResponse(null, file_to_send.getMd5());
 	output.writeObject(stop_sending);
@@ -78,52 +76,3 @@ if (incoming_obj instanceof DownloadRequest) {
 	
 }
 \end{lstlisting}
-Il procedimento è standard. Ovvero, prima si inizializza la connessione con una prima comunicazione, poi si inviano le varie parti di file e infine si chiude la comunicazione.
-
-Dall'altro lato si troverà chi ha inviato la richiesta di download e che ora si prepara alla ricezione.
-Il listato che riceve il file è il duale di quanto appena mostrato ed è il seguente.
-\begin{lstlisting}
-if (incoming_obj instanceof DownloadResponse){
-	DownloadResponse response = 
-		(DownloadResponse) incoming_obj;
-
-	//Inizio dell'invio di un file.
-	if (response.getPart() == null) {
-		Download file_dl = 
-			this.my_dl_monitor.getDownload(response.getFile());
-		
-		File file = new File(
-			file_dl.getDownloaderPath() + 
-			file_dl.getFile().getFileName());
-		
-		FileOutputStream file_downloading = 
-			new FileOutputStream(file);
-		
-		while (true) {
-			Object read_part = input_object.readObject();
-
-			if (read_part instanceof DownloadResponse) {
-				DownloadResponse part = (DownloadResponse) read_part;
-				if (part.getFile() == null) {
-					//Posso inserire la parte sia 
-					//nel monitor che nel file effettivo.
-					byte[] buffer = part.getPart();
-
-					if (buffer.length > 0) {
-						file_downloading.write(buffer, 0, buffer.length);
-						part.setFile(file_dl.getFile().getMd5());
-						this.my_dl_monitor.addBytes(part);
-					}
-				}
-				else{
-					break;
-				}
-			}
-		}
-
-		file_downloading.flush();
-		file_downloading.close();
-	}
-\end{lstlisting}
-
-
