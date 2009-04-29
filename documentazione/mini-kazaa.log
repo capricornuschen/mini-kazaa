@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  28 APR 2009 22:27
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  29 APR 2009 22:49
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
@@ -828,20 +828,8 @@ Overfull \hbox (2.71506pt too wide) in paragraph at lines 122--128
 e-tro una strin-ga, []\T1/lmtt/m/n/10.95 regex\T1/lmr/m/n/10.95 ,
  []
 
-[29] [30] [31] [32]
-
-LaTeX Warning: Reference `chap:scelte_di_progetto' on page 33 undefined on inpu
-t line 304.
-
-
-LaTeX Warning: Reference `chap:scelte_di_progetto' on page 33 undefined on inpu
-t line 307.
-
-
-LaTeX Warning: Reference `chap:scelte_di_progetto' on page 33 undefined on inpu
-t line 311.
-
-[33] [34] [35] [36] [37] [38] [39] [40]) (./supernode.tex [41]
+[29] [30] [31] [32] [33] [34] [35] [36] [37] [38] [39] [40]) (./supernode.tex
+[41]
 Capitolo 5.
 
 Overfull \hbox (27.7406pt too wide) in paragraph at lines 21--24
@@ -852,16 +840,23 @@ o-de. []\T1/lmtt/m/n/10.95 SupernodeOnFileList.java
 [42
 
 ] [43] [44] [45] [46]
-Overfull \hbox (8.14117pt too wide) in paragraph at lines 237--239
+Overfull \hbox (9.45258pt too wide) in paragraph at lines 227--228
+\T1/lmr/m/n/10.95 L'\T1/lmr/m/it/10.95 RMIManager \T1/lmr/m/n/10.95 del Su-per 
+No-de si com-po-ne de-gli at-tri-bu-ti, pas-sa-ti dall'\T1/lmr/m/it/10.95 Engin
+e\T1/lmr/m/n/10.95 ,
+ []
+
+[47] [48] [49] [50]
+Overfull \hbox (8.14117pt too wide) in paragraph at lines 403--405
 []\T1/lmr/m/n/10.95 Il co-di-ce mo-stra-to uti-liz-za una tec-no-lo-gia Ja-va m
 ol-to uti-le: \T1/lmr/m/it/10.95 Th-read Pool[][][][]\T1/lmr/m/n/10.95 .
  []
 
-) (./util.tex [47]
+) (./util.tex [51]
 Capitolo 6.
-[48
+[52
 
-] [49] [50]
+] [53] [54]
 
 LaTeX Warning: Command \` invalid in math mode on input line 119.
 
@@ -873,26 +868,26 @@ e-ro di by-te ([]\T1/lmtt/m/n/10.95 long file_size\T1/lmr/m/n/10.95 ),
 
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 131.
-[51]
+[55]
 Overfull \hbox (28.48218pt too wide) in paragraph at lines 179--180
 \T1/lmr/m/n/10.95 Nella se-con-da par-te in-ve-ce, con-ver-te tut-ti e so-li i 
 fi-le, da []\T1/lmtt/m/n/10.95 File \T1/lmr/m/n/10.95 a []\T1/lmtt/m/n/10.95 MK
 FileDescriptor\T1/lmr/m/n/10.95 . 
  []
 
-[52] [53]
+[56] [57]
 Overfull \hbox (5.78975pt too wide) in paragraph at lines 248--249
 \T1/lmr/m/n/10.95 in-put un og-get-to di ti-po \T1/lmr/m/it/10.95 No-deIn-fo\T1
 /lmr/m/n/10.95 , []\T1/lmtt/m/n/10.95 my_infos\T1/lmr/m/n/10.95 , e re-sti-tui-
 sce l'\T1/lmr/m/it/10.95 OrdinarynodeFiles
  []
 
-) (./Gui_Package.tex [54]
+) (./Gui_Package.tex [58]
 Capitolo 7.
 File: images/swing_diagram.eps Graphic file (type eps)
-<images/swing_diagram.eps> [55
+<images/swing_diagram.eps> [59
 
-] [56]) (./scelte_di_progetto.tex [57]
+] [60]) (./scelte_di_progetto.tex [61]
 Capitolo 8.
 File: images/logica_uml.eps Graphic file (type eps)
 <images/logica_uml.eps>
@@ -900,24 +895,25 @@ Overfull \hbox (41.50618pt too wide) in paragraph at lines 19--21
  [][] 
  []
 
-[58
-
-] [59] [60]) (./manuale_uso.tex [61]
-Appendice A.
 [62
 
-]) [63] (./mini-kazaa.aux)
+] [63] [64]
+File: images/pippo.eps Graphic file (type eps)
+ <images/pippo.eps>
+File: images/pluto.eps Graphic file (type eps)
+ <images/pluto.eps>) [65] (./manuale_uso.tex
+[66] [67]
+Appendice A.
+[68
 
-LaTeX Warning: There were undefined references.
-
- ) 
+]) [69] (./mini-kazaa.aux) ) 
 Here is how much of TeX's memory you used:
- 7567 strings out of 94075
- 102246 string characters out of 1165177
- 178709 words of memory out of 1500000
- 10652 multiletter control sequences out of 10000+50000
+ 7594 strings out of 94075
+ 102644 string characters out of 1165177
+ 177837 words of memory out of 1500000
+ 10677 multiletter control sequences out of 10000+50000
  87435 words of font info for 72 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
  29i,8n,40p,1024b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (64 pages, 462012 bytes).
+Output written on mini-kazaa.dvi (70 pages, 502768 bytes).

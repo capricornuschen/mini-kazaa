@@ -47,42 +47,42 @@
 \contentsline {subsection}{\numberline {5.2.2}searchFiles}{43}{subsection.5.2.2}
 \contentsline {subsection}{\numberline {5.2.3}Altri metodi}{43}{subsection.5.2.3}
 \contentsline {section}{\numberline {5.3}Smistamento delle query}{44}{section.5.3}
-\contentsline {section}{\numberline {5.4}Il cuore di un Super Node}{44}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Engine}{44}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}SN e RMI}{46}{subsection.5.4.2}
-\contentsline {subsection}{\numberline {5.4.3}SN in ascolto su socket TCP}{46}{subsection.5.4.3}
-\contentsline {chapter}{\numberline {6}Il package Util}{48}{chapter.6}
-\contentsline {section}{\numberline {6.1}Descrittore di file custom}{48}{section.6.1}
-\contentsline {section}{\numberline {6.2}Calcolo dell'md5}{49}{section.6.2}
-\contentsline {section}{\numberline {6.3}Manipolazione delle stringhe}{50}{section.6.3}
-\contentsline {subsubsection}{isInetAddress}{50}{section*.4}
-\contentsline {subsubsection}{getRappresentableSize}{51}{section*.5}
-\contentsline {section}{\numberline {6.4}Interazione con i file e con i metadati}{52}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}getFilesIntoDirectory}{52}{subsection.6.4.1}
-\contentsline {subsection}{\numberline {6.4.2}transformFileToMKFile}{53}{subsection.6.4.2}
-\contentsline {subsection}{\numberline {6.4.3}saveMySharedFiles}{53}{subsection.6.4.3}
-\contentsline {subsection}{\numberline {6.4.4}loadMySharedFiles}{54}{subsection.6.4.4}
-\contentsline {section}{\numberline {6.5}Classe di log}{54}{section.6.5}
-\contentsline {chapter}{\numberline {7}Il package di grafica}{55}{chapter.7}
-\contentsline {section}{\numberline {7.1}Il campo di testo}{55}{section.7.1}
-\contentsline {section}{\numberline {7.2}I bottoni}{55}{section.7.2}
-\contentsline {section}{\numberline {7.3}Gestore degli eventi}{56}{section.7.3}
-\contentsline {section}{\numberline {7.4}Le tabelle di Java}{56}{section.7.4}
-\contentsline {chapter}{\numberline {8}Scelte di progetto e cenni di teoria}{58}{chapter.8}
-\contentsline {section}{\numberline {8.1}Java Bean}{58}{section.8.1}
-\contentsline {section}{\numberline {8.2}UML Logica}{58}{section.8.2}
-\contentsline {section}{\numberline {8.3}Classe Wrapper per il socket}{59}{section.8.3}
-\contentsline {section}{\numberline {8.4}Il protocollo TCP}{60}{section.8.4}
-\contentsline {section}{\numberline {8.5}Il protocollo UDP}{60}{section.8.5}
-\contentsline {section}{\numberline {8.6}Remote Method Invocation}{61}{section.8.6}
-\contentsline {section}{\numberline {8.7}Utilizzo dei ThreadPool}{61}{section.8.7}
-\contentsline {chapter}{\numberline {A}Manuale d'uso}{62}{appendix.A}
-\contentsline {section}{\numberline {A.1}Installazione}{62}{section.A.1}
-\contentsline {section}{\numberline {A.2}Come funziona}{62}{section.A.2}
-\contentsline {subsection}{\numberline {A.2.1}Cercare e scaricare un file}{62}{subsection.A.2.1}
-\contentsline {subsection}{\numberline {A.2.2}Aggiungere un file nella lista dei file condivisi}{63}{subsection.A.2.2}
-\contentsline {subsection}{\numberline {A.2.3}Controllare lo stato dei download}{63}{subsection.A.2.3}
-\contentsline {subsection}{\numberline {A.2.4}Vita da OrdinaryNode}{63}{subsection.A.2.4}
-\contentsline {subsection}{\numberline {A.2.5}NetMonitor}{63}{subsection.A.2.5}
-\contentsline {subsection}{\numberline {A.2.6}Chiudere le schede}{63}{subsection.A.2.6}
-\contentsline {section}{\numberline {A.3}Consigli degli autori per l' utilizzo}{63}{section.A.3}
+\contentsline {section}{\numberline {5.4}Il cuore di un Super Node}{45}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Engine}{46}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}SN e RMI}{47}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}SN in ascolto su socket TCP}{49}{subsection.5.4.3}
+\contentsline {chapter}{\numberline {6}Il package Util}{52}{chapter.6}
+\contentsline {section}{\numberline {6.1}Descrittore di file custom}{52}{section.6.1}
+\contentsline {section}{\numberline {6.2}Calcolo dell'md5}{53}{section.6.2}
+\contentsline {section}{\numberline {6.3}Manipolazione delle stringhe}{54}{section.6.3}
+\contentsline {subsubsection}{isInetAddress}{54}{section*.4}
+\contentsline {subsubsection}{getRappresentableSize}{55}{section*.5}
+\contentsline {section}{\numberline {6.4}Interazione con i file e con i metadati}{56}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}getFilesIntoDirectory}{56}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}transformFileToMKFile}{57}{subsection.6.4.2}
+\contentsline {subsection}{\numberline {6.4.3}saveMySharedFiles}{57}{subsection.6.4.3}
+\contentsline {subsection}{\numberline {6.4.4}loadMySharedFiles}{58}{subsection.6.4.4}
+\contentsline {section}{\numberline {6.5}Classe di log}{58}{section.6.5}
+\contentsline {chapter}{\numberline {7}Il package di grafica}{59}{chapter.7}
+\contentsline {section}{\numberline {7.1}Il campo di testo}{59}{section.7.1}
+\contentsline {section}{\numberline {7.2}I bottoni}{59}{section.7.2}
+\contentsline {section}{\numberline {7.3}Gestore degli eventi}{60}{section.7.3}
+\contentsline {section}{\numberline {7.4}Le tabelle di Java}{60}{section.7.4}
+\contentsline {chapter}{\numberline {8}Scelte di progetto e cenni di teoria}{62}{chapter.8}
+\contentsline {section}{\numberline {8.1}Java Bean}{62}{section.8.1}
+\contentsline {section}{\numberline {8.2}UML Logica}{62}{section.8.2}
+\contentsline {section}{\numberline {8.3}Classe Wrapper per il socket}{63}{section.8.3}
+\contentsline {section}{\numberline {8.4}Il protocollo TCP}{64}{section.8.4}
+\contentsline {section}{\numberline {8.5}Il protocollo UDP}{64}{section.8.5}
+\contentsline {section}{\numberline {8.6}Remote Method Invocation}{65}{section.8.6}
+\contentsline {section}{\numberline {8.7}Utilizzo dei ThreadPool}{65}{section.8.7}
+\contentsline {section}{\numberline {8.8}Come funzionano le query}{66}{section.8.8}
+\contentsline {chapter}{\numberline {A}Manuale d'uso}{68}{appendix.A}
+\contentsline {section}{\numberline {A.1}Installazione}{68}{section.A.1}
+\contentsline {section}{\numberline {A.2}Come funziona}{68}{section.A.2}
+\contentsline {subsection}{\numberline {A.2.1}Cercare e scaricare un file}{68}{subsection.A.2.1}
+\contentsline {subsection}{\numberline {A.2.2}Aggiungere un file nella lista dei file condivisi}{69}{subsection.A.2.2}
+\contentsline {subsection}{\numberline {A.2.3}Controllare lo stato dei download}{69}{subsection.A.2.3}
+\contentsline {subsection}{\numberline {A.2.4}NetMonitor}{69}{subsection.A.2.4}
+\contentsline {subsection}{\numberline {A.2.5}Chiudere le schede}{69}{subsection.A.2.5}
+\contentsline {section}{\numberline {A.3}Consigli degli autori per l' utilizzo}{69}{section.A.3}

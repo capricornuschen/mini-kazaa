@@ -1,4 +1,4 @@
-\chapter{Scelte di progetto e cenni di teoria}\label{chapt:scelte_di_progetto}
+\chapter{Scelte di progetto e cenni di teoria}\label{chap:scelte_di_progetto}
 
 \section{Java Bean}\label{sec:java_bean}
 Le JavaBean sono usate per incapsulare molti oggetti in un singolo oggetto (il bean), così da poter passare il bean invece degli oggetti individuali.
@@ -64,3 +64,23 @@ In informatica, e in particolare nel contesto del linguaggio di programmazione o
 L'utilizzo di un meccanismo di invocazione remota di metodi in un sistema object-oriented comporta notevoli vantaggi di omogeneità e simmetria nel progetto, poiché consente di modellare le interazioni fra processi distribuiti usando lo stesso strumento concettuale che si utilizza per rappresentare le interazioni fra i diversi oggetti di una applicazione, ovvero la chiamata di metodo. 
 
 \section{Utilizzo dei ThreadPool}\label{sec:thread_pool}
+In molte applicazioni vengono creati thread il cui stato è quasi sempre sospeso, in attesa che si verifichi un evento. Altri thread potrebbero entrare in uno stato di inattività ed essere attivati solo periodicamente alla ricerca di informazioni sullo stato di una modifica o di un aggiornamento. Il polling del thread consente di utilizzare i thread in modo più efficiente fornendo all'applicazione un pool di thread di lavoro gestiti dal sistema. Un unico thread consente di controllare lo stato di varie operazioni di attesa in coda nel pool di thread. Quando un'operazione di attesa viene completata, la funzione di callback corrispondente viene eseguita da un thread di lavoro contenuto nel pool di thread.
+
+\section{Come funzionano le query}\label{sec:risposte_vuote}
+Per aiutare a comprendere il meccanismo che stà dietro al nostro sistema di comunicazione per la ricerca di un file abbiamo creato una semplice vignetta che facilita il tutto.
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=300px,height=275px,bb=14 14 841 737]{images/pippo.eps}
+ % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
+ \caption{Richiesta file.}
+ \label{fig:richiesta_file}
+\end{figure}
+Ora che abbiamo trovato il file che desideriamo avviamo la comunicazione e lo scambio.
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=300px,height=275px,bb=14 14 841 737]{images/pluto.eps}
+ % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
+ \caption{Download.}
+ \label{fig:download}
+\end{figure}
+%Spiegare perchè mandiamo risposte vuote.

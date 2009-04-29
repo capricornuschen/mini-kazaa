@@ -78,12 +78,249 @@ La classe mette anche a disposizione:
  \item \textbf{generateQueryList}: prende in input una query di ricerca e una lista di node info e genera $n$ query per gli $n$ nodi contenuti nella lista passata come parametro;
 \end{itemize}
 
+Questa classe viene utilizzata dal Super Node nel suo \emph{TCPWorkingThread} che, una volta riconosciuto che l'oggetto che sta arrivando sul socket è una query, controlla che tipo di query è e poi agisce di conseguenza.
+Vediamo questo procedimento nel dettaglio.
+
+Un primo caso è che la query entrante sia una query di richiesta. Si riconosce perchè ha solo il \verb|body_q| diverso da \verb|null|.
+\begin{lstlisting}
+if (peer_query.getBodyQ() != null &&
+	peer_query.getBodyA() == null &&
+	peer_query.getBodyF() == null) 
+\end{lstlisting}
+
+Dopo aver inviato le risposte al nodo che ha inviato la query, Sezione \ref{sec:risposte_vuote}, si richiamano le funzioni della class mostrata sopra per poter smistare la query.
+\begin{lstlisting}
+//Propagazione query
+if (peer_query.getTTL() >= 1) {
+	//Propaga la query
+	ArrayList<Query> out_query_queue =
+			this.my_q_list.
+			generateQueryList(peer_query,
+			this.my_list.getSubSet());
+
+	for (Query q : out_query_queue) {
+		NetUtil.sendQuery(q);
+	}
+}
+\end{lstlisting}
+Ovviamente le operazioni di smistamento vengono effettuate se alla query non è ancora scaduto il TTL.
+
+Il secondo caso è che la query che è arrivata è una risposta a una query precedentemente inviata.
+\begin{lstlisting}
+if (peer_query.getBodyA() != null &&
+	peer_query.getBodyF() == null)
+\end{lstlisting}
+In questo caso è stato inserito un meccanismo per vedere se è una query di una nostra richiesta, onde evitare di rimbalzare query in maniera errata.
+\begin{lstlisting}
+if (origin_id.equals(my_id)) {
+	//La risposta  è a una mia query, quindi interrompo il cammino.
+	this.my_found_list.add(peer_query.getBodyA());
+}
+\end{lstlisting}
+Altrimenti viene ricercata nella classe mostrata prima la query d'origine e inviata al risposta al nodo mittente della richiesta precedentemente salvata.
+\begin{lstlisting}
+//E' arrivata al nodo una risposta di un altro peer,
+//bisogna dunque inoltrarla al peer richiedente.
+Query other_answer = 
+	this.my_q_list.getRelativeQuery(peer_query);
+
+other_answer.setAnswerQuery(peer_query.getBodyA());
+
+//Scambio mittete e destinatario.
+NodeInfo temp_sender = other_answer.getSender();
+other_answer.setSender(other_answer.getReceiver());
+other_answer.setReceiver(temp_sender);
+
+//Send query.
+NetUtil.sendQuery(other_answer);
+\end{lstlisting}
+Molto semplicemente vengono scambiati il \emph{sender} e il \emph{receiver} all'interno della query che precedentemente era arrivato al nodo sena ulteriori sprechi di informazioni memorizzate.
+Questo metodo ci ha permesso di semplificare notevolmente lo scambio delle query all'interno della rete, che come è possibile vedere, viene gestito da poche righe di codice.
+Le informazioni sui nodi attraversati dalla query potevano essere salvate all'interno della query, ma si sarebbe immessa nella rete una query sempre più grossa, quindi impegnativa da trasmettere.
+Abbiamo ritenuto questo metodo più agile ed elegante.
 
 
 \section{Il cuore di un Super Node}
+Oltre che dalle classi appena viste, un Super Node è composto anche da un motore principale che fa in modo che il SN, così come accade per un ON, ``respiri''.
+Questo concetto di motore è chiaramente visibile nel diagramma, Sezione \ref{sec:UML_logica}, che decrive come sono relazionate le componenti di un Super Node.
 \subsection{Engine}
+Il motore di un Super Node è il task 
+\begin{verbatim}
+public class SupernodeEngine implements Runnable
+\end{verbatim}
+\verb|SupernodeEngine| ha il compito di inizializzare le variabili e gli oggetti che poi utilizzaranno i \emph{thread} dell'ON e di far partire tutti i vari task che controllano le varie interfacce.
+
+Guardiamo ora, in un piccolo frammento di codice, le variabili e gli oggetti istanziati dall'\emph{engine} dell'Ordinary Node.
+\begin{lstlisting}
+NodeInfo my_infos = 
+	new NodeInfo();
+
+SupernodeList sn_list = 
+	new SupernodeList();
+
+SupernodeOnFileList on_files = 
+	new SupernodeOnFileList();
+
+OrdinarynodeFiles my_file_list = 
+	FileUtil.loadMySharedFiles(my_infos);
+
+OrdinarynodeQuestionsList found_list = 
+	new OrdinarynodeQuestionsList();
+
+OrdinarynodeDownloadMonitor dl_monitor = 
+	new OrdinarynodeDownloadMonitor();
+
+
+BootstrapRMIWrapper rmi_stub = 
+	new BootstrapRMIWrapper();
+\end{lstlisting}
+Fa quindi partire i \emph{thread} che possiamo vedere nel seguente listato.
+\begin{lstlisting}
+//Inizializza la main GUI del supernode
+MainGui main_gui = new MainGui(
+		this.my_conf,
+		my_file_list,
+		found_list,
+		sn_list,
+		my_infos,
+		dl_monitor,
+		rmi_stub,
+		null);
+main_gui.setLocationRelativeTo(null);
+main_gui.setVisible(true);
+
+	
+//Inizializza il servizio ping per ricevere i ping
+NodePong pong = new NodePong(this.my_conf);
+Thread ping_service = new Thread(pong);
+ping_service.start();
+
+//Inizializza RMI manager Thread.
+SupernodeRMIManager sn_rmi = new SupernodeRMIManager(
+		my_conf,
+		sn_list,
+		my_infos,
+		rmi_stub);
+Thread rmi_manager = new Thread(sn_rmi);
+rmi_manager.start();
+
+//Inizializza TCP requests manager
+SupernodeTCPListener listener_tcp = new SupernodeTCPListener(
+		this.my_conf,
+		sn_list,
+		on_files,
+		my_file_list,
+		dl_monitor,
+		found_list);
+Thread tcp_listen = new Thread(listener_tcp);
+tcp_listen.start();
+\end{lstlisting}
+I \emph{thread} dei quali viene eseguito il comando \verb|.start()| sono quelli che poi andranno a gestire le varie interfacce che un client Mini-KaZaA, in particolare un Super Node, deve avere.
 
 \subsection{SN e RMI}
+Parliamo ora di come un Super Node sfrutta il protocollo RMI per recuperare informazioni sulla rete.
+Un Super Node dedica all'interazione con il Bootstrap Server tramite protocollo RMI un thread che esegue il task
+\begin{verbatim}
+public class SupernodeRMIManager implements Runnable
+\end{verbatim}
+L'\emph{RMIManager} del Super Node si compone degli attributi, passati dall'\emph{Engine}, e vengono inizializzati, dal costruttore, come mostrato nel listato seguente.
+\begin{lstlisting}
+private NodeConfig my_conf;
+private SupernodeList sn_list;
+private NodeInfo my_infos;
+
+private BootstrapRMIWrapper rmi_stub;
+
+
+public SupernodeRMIManager(
+		NodeConfig conf,
+		SupernodeList list,
+		NodeInfo infos,
+		BootstrapRMIWrapper rmi) {
+	this.my_conf = conf;
+	this.sn_list = list;
+	this.my_infos = infos;
+	this.rmi_stub = rmi;
+}
+\end{lstlisting}
+Quando viene eseguito il \verb|.start()| di questo task vengono eseguite nell'ordine le seguenti operazioni.
+\begin{lstlisting}
+Registry bootstrap_service;
+BootStrapServerInterface callbacks_remote;
+SupernodeCallbacksImpl callback_obj = null;
+SupernodeCallbacksInterface callbacks_stub = null;
+
+try {
+	
+	bootstrap_service = 
+		LocateRegistry.getRegistry(
+		my_conf.getBootStrapAddress(),2008);
+	
+	rmi_stub.setStub(
+		(BootStrapServerInterface) 
+		bootstrap_service.lookup("BootStrap"));
+
+	callbacks_remote = 
+		(BootStrapServerInterface) 
+		bootstrap_service.lookup("BootStrap");
+
+	ArrayList<NodeInfo> ni_list = 
+		rmi_stub.getStub().getSuperNodeList();
+	
+	
+	sn_list.refreshList(ni_list);
+
+	//Eseguo un refresh dei ping
+	sn_list.refreshPing();
+	
+	//Gestione delle callbacks
+	callback_obj = 
+		new SupernodeCallbacksImpl(
+		this.sn_list, this.my_conf);
+
+	callbacks_stub = 
+		(SupernodeCallbacksInterface) 
+		UnicastRemoteObject.
+		exportObject(callback_obj, 0);
+
+	//Creazione delle mie informazioni
+	try {
+		my_infos.setInetAddress(
+			InetAddress.getByName(my_conf.getMyAddress()));
+
+		my_infos.setDoor(my_conf.getPort());
+
+		my_infos.setCallbacksInterface(callbacks_stub);
+
+		my_infos.setIsSn(my_conf.getIsSN());
+
+		my_infos.setId(this.my_conf.getMyAddress()+
+						":"+this.my_conf.getPort());
+	} catch (UnknownHostException ex) {
+		//Log
+	}
+	try {
+		//Aspetto di essere reputato affidabile
+		Thread.sleep(15000);
+	} catch (InterruptedException ex) {
+		//Log
+	}
+
+	callbacks_remote.addSuperNode(my_infos);
+
+} catch (RemoteException ex) {
+	//Log
+} catch (NotBoundException ex) {
+	//Log
+}
+\end{lstlisting}
+L'\emph{RMIManager} di un Super Node inizializza le classi per le callback, si da effettuare presso il Bootstrap Server, sia quelle che il Bootstrap Server può richiamare sul Super Node.
+
+Appena ottenuta la lista dei Super Nodi effettua un \emph{ping} su di loro, per poter essere subito disponibile a interrogarli anche se lui non è ancora registrato come SN da poter interrogare.
+Infatti un Super Node, contrariamente a quanto accade per gli Ordinary Node, ha un tempo di attesa prima di potersi registrare sul Bootstrap Server, richiamando l'apposita. Questo tempo di attesa viene dettato da una \emph{sleep} che esegue il thread per un valore in millisecondi cablato all'interno del codice.
+Passato questo tempo il Super Nodo si iscrive al servizio di callback presso il Bootstrap server e fornisce il suo servizio di smistamento query a tutti gli effetti.
+
+Abbiamo omesso le operazioni di log in caso di errori ma non sono particolarmente interessanti ai fini della descrizione della funzionalità.
 
 \subsection{SN in ascolto su socket TCP}
 Ogni client Mini-KaZaA deve stare costantemente in ascolto sul socket TPC poichè da esso giungono la maggior parte delle comunicazioni e un Super Node non fa eccezione.
@@ -91,7 +328,7 @@ Ogni client, pertanto, dedica un \emph{thread} alla funzione di ascolto su tale 
 In un Super Node il thread dedicato a questa funzione è contenuto nella classe \verb|SupernodeTCPListener.java|.
 Questa classe contiene un task che ha la seguente firma
 \begin{verbatim}
-public class OrdinarynodeTCPListener implements Runnable
+public class SupernodeTCPListener implements Runnable
 \end{verbatim}
 e i seguenti attributi.
 \begin{lstlisting}
@@ -117,9 +354,53 @@ public SupernodeTCPListener(
 	this.my_found_list = found_list;
 }
 \end{lstlisting}
+Gli attributi appena mostrati occorrono al \emph{TCPListener} per poterli poi far ereditare ai \emph{sotto-thread}. Essi poi li utilizzeranno per rispondere alle richieste che arrivano dalla rete.
+Diamo uno sguardo al codice che si occupa di ricevere le richieste e far partire i \emph{sotto-thread}.
 
+\begin{lstlisting}
+//Socket che ascolta tutte le richieste
+//provenienti dalla rete
+ServerSocket listen_sock = null;
+Socket client_socket = null;
+SupernodeQueryList query_list = 
+		new SupernodeQueryList();
 
-\ref{sec:thread_pool}
+ThreadPoolExecutor answer_pool = 
+		new ThreadPoolExecutor(
+		10,
+		this.my_conf.getMaxConnection(),
+		50000L,
+		TimeUnit.MILLISECONDS,
+		new LinkedBlockingQueue<Runnable>());
+try {
+	listen_sock = 
+		new ServerSocket(this.my_conf.getPort());
+} catch (IOException ex) {
+}
+
+while (true) {
+	try {
+		client_socket = listen_sock.accept();
+		SupernodeTCPWorkingThread answer = 
+				new SupernodeTCPWorkingThread(
+				client_socket,
+				this.my_conf,
+				this.my_list,
+				query_list, 
+				this.on_files,
+				this.my_files,
+				this.my_dl_monitor,
+				this.my_found_list);
+		answer_pool.execute(answer);
+	} catch (IOException ex) {
+		//Log
+	}
+
+}
+\end{lstlisting}
+
+Il codice mostrato utilizza una tecnologia Java molto utile: \emph{Thread Pool}\ref{sec:thread_pool}.
+Ogni richiesta che il client riceve sul socket TCP viene infatti delegata a un \emph{sotto-thread} che la elabora, lasciando libero il thread principale di ricevere altre richieste sul socket.
 
 
 
