@@ -11,8 +11,9 @@ import javax.swing.ImageIcon;
 import lpr.minikazaa.minikazaaclient.SupernodeList;
 
 /**
- *
- * @author  giovine
+ * @date 30/04/2009
+ * @author  Andrea Di Grazia, Massimiliano Giovine
+ * @file BootStrapGui.java
  */
 public class BootStrapGui extends javax.swing.JFrame {
     SupernodeList sn_list;
@@ -23,7 +24,7 @@ public class BootStrapGui extends javax.swing.JFrame {
         
         initComponents();
 
-        //Add observable object to the table
+        //Aggiunge un oggetto observable alla tabella
         this.sn_list.addObserver((BootstrapPeerTable)this.address_table);
         
         close_item.addActionListener(
@@ -39,7 +40,7 @@ public class BootStrapGui extends javax.swing.JFrame {
 
                     public void actionPerformed(ActionEvent event) {
                         BootStrapAboutFrame about = new BootStrapAboutFrame();
-                        //Frame appears in the center of the screen
+                        //Il frame appare al centro dello schermo
                         about.setLocationRelativeTo(null);
                         about.setVisible(true);
                     }

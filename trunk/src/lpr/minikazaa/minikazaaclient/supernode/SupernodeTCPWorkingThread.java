@@ -148,8 +148,7 @@ public class SupernodeTCPWorkingThread implements Runnable {
                 } else if (peer_query.getBodyA() != null &&
                         peer_query.getBodyF() == null) {
 
-                    //ATTENZIONE:   inserire qui un meccanismo per riconoscere
-                    //              le nostre query da quelle degli on affiliati
+                    
                     NodeInfo origin = peer_query.getOrigin();
                     String origin_id = origin.getId();
 

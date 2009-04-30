@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import lpr.minikazaa.bootstrap.BootstrapRMIWrapper;
@@ -39,12 +36,12 @@ public class OrdinarynodeEngine implements Runnable {
         OrdinarynodeRefSn my_ref_sn = new OrdinarynodeRefSn();
         sn_list.addObserver((OrdinarynodeRefSn) my_ref_sn);
 
-        //Init TCP listener
+        //Ascoltatore Init TCP 
         OrdinarynodeTCPListener on_tcp = new OrdinarynodeTCPListener(this.my_conf, found_list, dl_monitor, my_file_list);
         Thread tcp_thread = new Thread(on_tcp);
         tcp_thread.start();
 
-        //Init main GUI of supernode
+        //Inizializzazione main GUI of supernode
         MainGui main_gui = new MainGui(
                 this.my_conf,
                 my_file_list,
@@ -57,7 +54,7 @@ public class OrdinarynodeEngine implements Runnable {
         main_gui.setLocationRelativeTo(null);
         main_gui.setVisible(true);
 
-        //Init RMI manager
+        //Inizializzazione RMI manager
         OrdinarynodeRMIManager on_rmi = new OrdinarynodeRMIManager(
                 this.my_conf,
                 my_infos,
@@ -67,8 +64,7 @@ public class OrdinarynodeEngine implements Runnable {
         Thread rmi_thread = new Thread(on_rmi);
         rmi_thread.start();
 
-        //Init ping service to receive pings
-        NodePong pong = new NodePong(this.my_conf);
+        //Inizializzazione servizio di invio e ricezione ping         	  NodePong pong = new NodePong(this.my_conf);
         Thread ping_service = new Thread(pong);
         ping_service.start();
 

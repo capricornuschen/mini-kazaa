@@ -59,7 +59,6 @@ public class OrdinarynodeDownloadMonitor extends Observable {
     }
 
     public synchronized boolean addBytes(DownloadResponse part){
-        //To be written
         for(Download d : downloads){
             if(d.getFile().getMd5().equals(part.getFile())){
                 d.updateDownloadBytes(part.getPart().length);

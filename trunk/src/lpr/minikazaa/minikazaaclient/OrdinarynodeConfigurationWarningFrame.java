@@ -1,8 +1,4 @@
-/*
- * SupernodeConfigurationWarningFrame.java
- *
- * Created on 15 settembre 2008, 14.12
- */
+
 
 package lpr.minikazaa.minikazaaclient;
 
@@ -12,11 +8,13 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author  giovine
+ * @author  Andrea Di Grazia, Giovine Massimiliano
+ * @date 15/08/08
+ * @file OrdinarynodeCOnfigurationWarningFrame.java
  */
 public class OrdinarynodeConfigurationWarningFrame extends javax.swing.JFrame {
 
-    /** Creates new form SupernodeConfigurationWarningFrame */
+    /** Crea nuovo form SupernodeConfigurationWarningFrame */
     public OrdinarynodeConfigurationWarningFrame(String warning_string) {
         initComponents();
         warning_message.setText(warning_string);

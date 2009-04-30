@@ -65,7 +65,7 @@ public class OrdinarynodeRMIManager implements Runnable {
 
             System.out.println("Client Registry:" + bootstrap_service.toString());
 
-            //Logical division of remote porcedure calls.
+            //Divisione logica delle chiamate di procedure remote.
             rmi_stub.setStub((BootStrapServerInterface) bootstrap_service.lookup("BootStrap"));
             callbacks_remote = (BootStrapServerInterface) bootstrap_service.lookup("BootStrap");
 

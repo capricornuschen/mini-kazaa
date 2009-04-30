@@ -29,7 +29,7 @@ public class SupernodeOnFileList extends Observable{
         
         for(OrdinarynodeFiles o : this.file_list){
             if(f.getOwner().getId().equals(o.getOwner().getId())){
-                //Owner found, it is already in list.
+                //Owner trovato, pronto nella lista.
                 return true;
             }
         }
@@ -38,11 +38,11 @@ public class SupernodeOnFileList extends Observable{
     }
     
     public synchronized void addNewOnFileList(OrdinarynodeFiles new_file_list){
-        //Check if we already have it in our data struct.
+        
         
         for(OrdinarynodeFiles o : this.file_list){
             if(o.getOwner().getId().equals(new_file_list.getOwner().getId())){
-                //We already have a list for this owner.
+                //pronta la lista per questo owner.
                 o.resetList(new_file_list.getFileList());
                 return;
             }

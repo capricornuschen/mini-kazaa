@@ -7,7 +7,6 @@ import java.net.InetAddress;
 import lpr.minikazaa.minikazaaclient.supernode.SupernodeCallbacksInterface;
 
 /**
- * Da commentare.
  * 
  * @author Andrea Di Grazia, Massimiliano Giovine
  * @date 11-set-2008

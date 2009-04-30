@@ -1,8 +1,7 @@
 /*
  * InitialChoiceFrame.java
  *
- * Created on 15 settembre 2008, 9.49
- */
+
 package lpr.minikazaa.minikazaaclient;
 
 import java.awt.event.ActionEvent;
@@ -10,11 +9,13 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author  giovine
+ * @author  Andrea Di Grazia, Massimiliano Giovine
+ * @date 15/08/2008
+ * @file InitialChoiceFrame.java
  */
 public class InitialChoiceFrame extends javax.swing.JFrame {
 
-    /** Creates new form InitialChoiceFrame */
+    /** Crea un nuovo form InitialChoiceFrame */
     public InitialChoiceFrame() {
        
         initComponents();
