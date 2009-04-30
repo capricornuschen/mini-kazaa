@@ -1,8 +1,4 @@
-/*
- * SupernodeConfigurationFrame.java
- *
- * Created on 15 settembre 2008, 10.19
- */
+
 package lpr.minikazaa.minikazaaclient;
 
 import java.awt.event.ActionEvent;
@@ -21,15 +17,17 @@ import lpr.minikazaa.util.StringManipulationUtil;
 
 /**
  *
- * @author  giovine
+ * @author  Andrea Di Grazia, Massimiliano Giovine
+ * @date 15/08/2008
+ * @file SupernodeConfigurationFrame.java
  */
 public class SupernodeConfigurationFrame extends javax.swing.JFrame {
 
-    /** Creates new form SupernodeConfigurationFrame */
+    /** Crea nuovo form SupernodeConfigurationFrame */
     public SupernodeConfigurationFrame() {
         initComponents();
 
-        //Adding events on the frame.
+        //Aggiungi un evento al frame.
         close_bt.addActionListener(
                 new ActionListener() {
 
@@ -50,7 +48,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                     }
                 });
 
-        //Small buttons that clean text field
+        //Piccolo bottone che pulisce la text field
         clean_user_bt.addActionListener(
                 new ActionListener() {
 
@@ -92,9 +90,9 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                 new ActionListener() {
 
                     public void actionPerformed(ActionEvent event) {
-                        //Check parameters
+                        //Controllo parametri
 
-                        //User name must be under 20 characters.
+                        //User name deve essere inferiore a 20 caratteri.
                         String user_name_str = user_name_tf.getText();
                         if (user_name_str.length() == 0) {
                             String warning = "You must insert an user name.";
@@ -111,7 +109,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             return;
                         }
 
-                        //Port must be over 1024, default 5520
+                        //Port deve essere maggiore di 1024, default 5520
                         int port;
                         if (port_tf.getText().equals("")) {
                             port = 5520;
@@ -126,7 +124,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             }
                         }
 
-                        //Checking bootstrap address
+                        //Controllo indirizzo bootstrap 
                         String bs_address = bootstrap_address_tf.getText();
                         if (StringManipulationUtil.isInetAddress(bs_address)) {
                         } else {
@@ -137,7 +135,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             return;
                         }
 
-                        //Checking maximum numerber of connection permitted
+                        //Controlla massimo numero di connessioni permesse
                         int max_conn = -1;
 
                         try {
@@ -157,7 +155,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             war.setVisible(true);                                                       
                         }
 
-                        //Checking time to live, min 100.
+                        //Controlla time to live, min 100.
                         int ttl;
 
                         if (ttl_tf.getText().equals("")) {
@@ -182,9 +180,9 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                             }
                         }
 
-                        //End check.
+                        //Fine controlli.
 
-                        //Creating file Cnfiguration.
+                        //Creazione file di Cnfigurazione.
                         NodeConfig config = new NodeConfig();
                         config.setUserName(user_name_str);
                         config.setPort(port);
@@ -215,7 +213,7 @@ public class SupernodeConfigurationFrame extends javax.swing.JFrame {
                         } catch (FileNotFoundException ex) {
                             System.err.println("Error while saving configuration on config.xml.");
                         }
-                        //End writing configuration file.
+                        //End scrittura del file di configurazione.
 
                         dispose();
 

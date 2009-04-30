@@ -51,7 +51,7 @@ public class BootStrapService {
             registry.bind("BootStrap", stub);
             registry.bind("Callback", client_stub);
             
-            //List of remote interfaces
+            //Lista di interfaccia remota
             String [] list = registry.list();
             for(String i : list){
                 System.out.println("Interface:"+ i);

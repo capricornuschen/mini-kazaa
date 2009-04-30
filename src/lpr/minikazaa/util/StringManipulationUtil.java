@@ -13,8 +13,8 @@ import java.util.StringTokenizer;
 public class StringManipulationUtil {
     
     /**
-     * Function che controlla la stringa e verifica se è un indirizzo valido
-     * no.
+     * Functione che controlla la stringa e verifica se si tratta di         
+     * un indirizzo valido
      * 
      * @param addr
      * @return true se si tratta di un indirizzo, false altrimenti.

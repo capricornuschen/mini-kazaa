@@ -30,7 +30,7 @@ public class NetUtil {
 
             Enumeration<InetAddress> ia_en = ni.getInetAddresses();
 
-            //We use only ipv4 address.    
+            //Noi usiamo esclusivamente ipv4   
             ipv6_addr = ia_en.nextElement();
             System.out.println(ipv6_addr.toString());
             ipv4_addr = ia_en.nextElement();
@@ -47,7 +47,7 @@ public class NetUtil {
 
                 Enumeration<InetAddress> ia_en = ni.getInetAddresses();
 
-                //We use only ipv4 address.    
+                    
                 ipv6_addr = ia_en.nextElement();
                 System.out.println(ipv6_addr.toString());
                 ipv4_addr = ia_en.nextElement();
@@ -61,7 +61,7 @@ public class NetUtil {
 
                     Enumeration<InetAddress> ia_en = ni.getInetAddresses();
 
-                    //We use only ipv4 address.    
+                        
                     ipv6_addr = ia_en.nextElement();
                     System.out.println(ipv6_addr.toString());
                     ipv4_addr = ia_en.nextElement();

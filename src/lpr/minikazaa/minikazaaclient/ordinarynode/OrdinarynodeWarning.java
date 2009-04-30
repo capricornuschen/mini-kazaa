@@ -1,8 +1,4 @@
-/*
- * OrdinarynodeWarning.java
- *
- * Created on 17 settembre 2008, 8.39
- */
+
 package lpr.minikazaa.minikazaaclient.ordinarynode;
 
 import java.awt.event.ActionEvent;
@@ -15,7 +11,9 @@ import lpr.minikazaa.minikazaaclient.NodeConfig;
 
 /**
  *
- * @author  giovine
+ * @author  Andrea Di Grazia, Massimiliano Giovine
+ * @date 17/08/2008
+ * @file OrdinarynodeWarning.java
  */
 public class OrdinarynodeWarning extends javax.swing.JFrame {
 

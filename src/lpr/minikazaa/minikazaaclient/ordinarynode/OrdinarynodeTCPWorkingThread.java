@@ -42,9 +42,6 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
     }
 
     public void run() {
-        //We may have 2 kinds of object in:
-        //1 - Download request;
-        //2 - Answer from an outgone query.
         ObjectInputStream input_object = null;
         Query peer_query = null;
         DownloadRequest peer_request = null;
@@ -56,18 +53,18 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
             incoming_obj = input_object.readObject();
 
             if (incoming_obj instanceof Query) {
-                //incoming query contains files relativ our regex research.
+                
                 peer_query = (Query) incoming_obj;
 
                 System.out.println("DEBUG: risposta alla query: "+peer_query.getBodyQ());
-                //Check if incoming query is not corrupt.
+                //Controlla se la query non è corrotta.
                 if ((peer_query.getBodyA() != null) &&
                         (peer_query.getBodyF() == null) ) {
 
                     System.out.println("DEBUG: la query "+peer_query.getBodyQ()+" Ã¨ corretta.");
                     System.out.println("DEBUG: risposta alla query: "+peer_query.getBodyA().toString());
                     
-                    //This query is correct
+                    //Questa query è corretta
                     this.my_found_list.add(peer_query.getBodyA());
                 }
             } else if (incoming_obj instanceof DownloadRequest) {

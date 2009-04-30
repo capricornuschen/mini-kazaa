@@ -42,7 +42,7 @@ public class NodePing implements Runnable {
         
         DatagramPacket pack = new DatagramPacket(data,data.length, host_ia, host_port);
         
-        //Preparing package
+        //Preparazione package
         pack.setData(data,0,data.length);
         pack.setLength(data.length);
         

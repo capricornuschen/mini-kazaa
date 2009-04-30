@@ -1,7 +1,9 @@
 /*
- * MainGui.java
- *
- * Created on 12 novembre 2008, 10.00
+ * @author Andrea Di Grazia, Massimiliano Giovine
+ * @date 12/11/08
+ * @file MainGui.java
+ * 
+ * 
  */
 package lpr.minikazaa.minikazaaclient;
 
@@ -37,10 +39,7 @@ import lpr.minikazaa.minikazaaclient.ordinarynode.OrdinarynodeRefSn;
 import lpr.minikazaa.util.FileUtil;
 import lpr.minikazaa.util.NetUtil;
 
-/**
- *
- * @author Andrea Di Grazia, Massimiliano Giovine
- */
+
 public class MainGui extends javax.swing.JFrame implements WindowListener, WindowFocusListener, WindowStateListener {
 
     private NodeConfig my_conf;
@@ -53,7 +52,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
     private static int search_numer = 0;
     private OrdinarynodeRefSn my_sn_ref;
 
-    /** Creates new form MainGui */
+    /** Crea nuova form MainGui */
     public MainGui(
             NodeConfig conf,
             OrdinarynodeFiles file_list,
@@ -79,7 +78,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             this.net_bt.setEnabled(false);
         }
 
-        //Listeners to our window
+        //Ascoltatore della finestra
         addWindowListener(this);
         addWindowFocusListener(this);
         addWindowStateListener(this);
@@ -92,7 +91,7 @@ public class MainGui extends javax.swing.JFrame implements WindowListener, Windo
             Logger.getLogger(MainGui.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //Bottom left status bar.
+        //Bottone sinistro status bar.
         if (this.my_conf.getIsSN()) {
             this.kind_label.setText("Super node mode.");
         } else {

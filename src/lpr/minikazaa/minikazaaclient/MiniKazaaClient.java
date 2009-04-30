@@ -88,7 +88,7 @@ public class MiniKazaaClient {
             
             if (config.getIsSN()) {
                 System.out.println("We must load a Super node application.");
-                //Start a new thread with super node engine.
+                //Parte il nuovo thread con il motore del SuperNode.
                 SupernodeEngine sn_eng = new SupernodeEngine(config);
                 Thread super_node_thread = new Thread(sn_eng);
                 super_node_thread.start();

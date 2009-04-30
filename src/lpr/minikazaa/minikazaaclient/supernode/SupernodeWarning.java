@@ -1,8 +1,4 @@
-/*
- * SupernodeWarning.java
- *
- * Created on 17 settembre 2008, 8.39
- */
+
 package lpr.minikazaa.minikazaaclient.supernode;
 
 import java.awt.event.ActionEvent;
@@ -15,19 +11,21 @@ import lpr.minikazaa.minikazaaclient.NodeConfig;
 
 /**
  *
- * @author  giovine
+ * @author  Andrea Di Grazia, Massimiliano Giovine
+ * @date 17/08/2008
+ * @file SupernodeWarning.java
  */
 public class SupernodeWarning extends javax.swing.JFrame {
 
     NodeConfig new_config;
 
-    /** Creates new form SupernodeWarning */
+    /** Crea nuovo form SupernodeWarning */
     public SupernodeWarning(String warning_str, final String option, NodeConfig c) {
         new_config = c;
         initComponents();
         warning_message.setText(warning_str);
 
-        //Modify the change text field by the option passed
+        //Modifica i cambiamenti nella text field secondo le opzioni passate
         if (option.equals("bs_address")) {
             change.setText("New Bootstrap server address:");
         } else {

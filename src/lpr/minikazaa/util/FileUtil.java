@@ -56,11 +56,10 @@ public class FileUtil {
     }
 
     /**
-     * Funzione che prende una parte specifica di file e la traforma in un
+     * Funzione che prende una parte specifica di file e la traforma in 
      * array di byte per spedirlo sulla rete.
-     *
-     * @param absolute_path il path del file che deve essere trasformato
-     * @param part la parte del file che deve essere trasformata in byte[]
+     * @param absolute_path il path del file che deve essere cambiato  
+     * @param part la parte del file da trasformare in byte[]
      * @param length la lunghezza della parte di byte
      *
      * @return byte_part l' array che rappresenta la parte di byte.
@@ -125,7 +124,8 @@ public class FileUtil {
     }
 
 
-    //Functions that save and load already shared files.
+    //Function che salva e carica il file già condivisi in modo che al 
+    // prossimo riavvio siano già presenti del programma.
     public static void saveMySharedFiles(OrdinarynodeFiles shared_files){
         File sh_files_save = new File("shared.mk");
 

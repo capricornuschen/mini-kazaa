@@ -9,8 +9,6 @@ import lpr.minikazaa.minikazaaclient.SearchField;
 import lpr.minikazaa.util.MKFileDescriptor;
 
 /**
- * Class that lists the answers from super nodes with the shearched files.
- * 
  * @author Andrea Di Grazia, Massimiliano Giovine
  * @date 9-ott-2008
  * @file OrdinarynodeFoundList.java
@@ -42,11 +40,7 @@ public class OrdinarynodeFoundList extends Observable {
         this.notifyObservers();
     }
 
-   
 
-    /*public boolean isIn(Answer k) {
-
-    }*/
     
     public ArrayList <SearchField> getFoundList(){
         return this.found;
@@ -54,16 +48,5 @@ public class OrdinarynodeFoundList extends Observable {
     
     public int getId(){return this.id;}
     
-    /*public ArrayList <NodeInfo> getOwners(String md5){
-    ArrayList <NodeInfo> owner_list = new ArrayList();
-
-    for(Answer a : found){
-    ArrayList <OrdinarynodeFiles> files = a.getFilesList();
-    for(OrdinarynodeFiles f : files){
-
-    }
-    }
-
-    return owner_list;
-    }*/
+   
 }

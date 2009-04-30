@@ -1,14 +1,12 @@
-/*
- * GenericWarningFrame.java
- *
- * Created on 7 ottobre 2008, 9.31
- */
+
 
 package lpr.minikazaa.minikazaaclient;
 
 /**
  *
- * @author  giovine
+ * @author  Andrea Di Grazia, Giovine Massimiliano
+ * @date 24/04/2009
+ * @file GenericWarningFrame.java
  */
 public class GenericWarningFrame extends javax.swing.JFrame {
     

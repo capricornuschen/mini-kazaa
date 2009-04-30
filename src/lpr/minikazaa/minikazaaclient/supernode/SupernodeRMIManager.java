@@ -69,10 +69,10 @@ public class SupernodeRMIManager implements Runnable {
             }
             
             sn_list.refreshList(ni_list);
-            //Refreshing pings.
+            //Refreshing ping.
             sn_list.refreshPing();
             
-            //Managing callbacks.
+            //Gestione callbacks.
             callback_obj = new SupernodeCallbacksImpl(this.sn_list, this.my_conf);
             callbacks_stub = (SupernodeCallbacksInterface) UnicastRemoteObject.exportObject(callback_obj, 0);
 

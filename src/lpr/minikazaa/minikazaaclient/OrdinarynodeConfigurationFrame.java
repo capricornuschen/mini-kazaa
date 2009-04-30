@@ -1,8 +1,4 @@
-/*
- * SupernodeConfigurationFrame.java
- *
- * Created on 15 settembre 2008, 10.19
- */
+
 package lpr.minikazaa.minikazaaclient;
 
 import java.awt.event.ActionEvent;
@@ -21,15 +17,17 @@ import lpr.minikazaa.util.StringManipulationUtil;
 
 /**
  *
- * @author  giovine
+ * @author  Andrea Di Grazia, Massimiliano Giovine
+ * @date 15/08/08
+ * @file OrdinarynodeConfigurationFrame.java
  */
 public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
 
-    /** Creates new form SupernodeConfigurationFrame */
+    /** Crea nuova form SupernodeConfigurationFrame */
     public OrdinarynodeConfigurationFrame() {
         initComponents();
 
-        //Adding events on the frame.
+        //Aggiungi evento al frame.
         close_bt.addActionListener(
                 new ActionListener() {
 
@@ -50,7 +48,7 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
                     }
                 });
 
-        //Small buttons that clean text field
+        //Piccolo bottone che pulisce la  text field
         clean_user_bt.addActionListener(
                 new ActionListener() {
 
@@ -86,9 +84,9 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
                 new ActionListener() {
 
                     public void actionPerformed(ActionEvent event) {
-                        //Check parameters
+                        //Controllo parametri
 
-                        //User name must be under 20 characters.
+                        //User_name deve essere sotto i 20 caratteri
                         String user_name_str = user_name_tf.getText();
                         if (user_name_str.length() == 0) {
                             String warning = "You must insert an user name.";
@@ -105,7 +103,7 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
                             return;
                         }
 
-                        //Port must be over 1024, default 5520
+                        //Port deve essere piu' grande di 1024, default 5520
                         int port;
                         if (port_tf.getText().equals("")) {
                             port = 5520;
@@ -120,7 +118,7 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
                             }
                         }
 
-                        //Checking bootstrap address
+                        //Controlla indirizzo bootstrap 
                         String bs_address = bootstrap_address_tf.getText();
                         if (StringManipulationUtil.isInetAddress(bs_address)) {
                         } else {
@@ -133,7 +131,7 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
 
                         
 
-                        //Checking time to live, min 100.
+                        //Controlla time to live, minimo 100.
                         int ttl;
 
                         if (ttl_tf.getText().equals("")) {
@@ -158,16 +156,16 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
                             }
                         }
 
-                        //End check.
+                        //Fine controllo.
 
-                        //Creating file Cnfiguration.
+                        //Crea file di Configurazione.
                         NodeConfig config = new NodeConfig();
                         config.setUserName(user_name_str);
                         config.setPort(port);
                         config.setBootStrapAddress(bs_address);
                         config.setTimeToLeave(ttl);
                         config.setIsSN(false);
-                        //My numbers
+                        //Mio numero
                         InetAddress my_address;
                         try {
 
@@ -190,7 +188,7 @@ public class OrdinarynodeConfigurationFrame extends javax.swing.JFrame {
                         } catch (FileNotFoundException ex) {
                             System.err.println("Error while saving configuration on config.xml.");
                         }
-                        //End writing configuration file.
+                        //File scrittura file di configurazione.
 
                         dispose();
 
