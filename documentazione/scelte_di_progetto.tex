@@ -16,7 +16,7 @@ Utilizzando queste proprietà, i Java Bean sono risultati molto utili sia per cr
 \section{UML Logica}\label{sec:UML_logica}
 \begin{figure}[t]
  \centering
- \includegraphics[width=400px,height=225px,bb=14 14 593 376]{images/logica_uml.eps}
+ \includegraphics[width=400px,height=225px]{images/logica_uml.eps}
  % logica_uml.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 593 376
  \caption{Il diagramma UML che rappresenta la logica di Mini-KaZaA.}
  \label{fig:logica_uml}
@@ -57,36 +57,45 @@ A differenza del TCP, l'UDP è un protocollo di tipo connectionless, inoltre non
     \item verifica degli errori mediante una checksum, inserita in un campo dell'intestazione del pacchetto.
 \end{itemize}
 mentre TCP garantisce anche il trasferimento affidabile dei dati, il controllo di flusso e il controllo della congestione.
-L'UDP non tiene nota dello stato della connessione, dunque ha rispetto al TCP informazioni in meno da memorizzare. Un server dedicato ad una particolare applicazione che scelga UDP come protocollo di trasporto può supportare molti più client attivi.
+L'UDP non tiene nota dello stato della connessione, dunque ha rispetto al TCP informazioni in meno da memorizzare. Un server dedicato ad una particolare applicazione che scelga UDP come protocollo di trasporto pu� supportare molti pi� client attivi.
 
 \section{Remote Method Invocation}
-In informatica, e in particolare nel contesto del linguaggio di programmazione object-oriented Java, Remote Method Invocation (invocazione remota di metodi) o RMI è una tecnologia che consente a processi Java distribuiti di comunicare attraverso una rete. Questa tecnologia include una API (application programming interface) il cui scopo esplicito è quello di rendere trasparenti al programmatore quasi tutti i dettagli della comunicazione su rete. Essa consente infatti di invocare un metodo di un oggetto remoto (cioè appartenente a un diverso processo, potenzialmente su una diversa macchina) quasi come se tale oggetto fosse "locale" (ovvero appartenente allo stesso processo in cui viene eseguita l'invocazione). In questo senso, la tecnologia RMI può essere ricondotta, da un punto di vista concettuale, all'idea di chiamata di procedura remota riformulata per il paradigma object-oriented (in cui, appunto, le procedure sono sostituite da metodi).
-L'utilizzo di un meccanismo di invocazione remota di metodi in un sistema object-oriented comporta notevoli vantaggi di omogeneità e simmetria nel progetto, poiché consente di modellare le interazioni fra processi distribuiti usando lo stesso strumento concettuale che si utilizza per rappresentare le interazioni fra i diversi oggetti di una applicazione, ovvero la chiamata di metodo. 
+In informatica, e in particolare nel contesto del linguaggio di programmazione object-oriented Java, Remote Method Invocation (invocazione remota di metodi) o RMI � una tecnologia che consente a processi Java distribuiti di comunicare attraverso una rete. Questa tecnologia include una API (application programming interface) il cui scopo esplicito � quello di rendere trasparenti al programmatore quasi tutti i dettagli della comunicazione su rete. Essa consente infatti di invocare un metodo di un oggetto remoto (cio� appartenente a un diverso processo, potenzialmente su una diversa macchina) quasi come se tale oggetto fosse "locale" (ovvero appartenente allo stesso processo in cui viene eseguita l'invocazione). In questo senso, la tecnologia RMI può essere ricondotta, da un punto di vista concettuale, all'idea di chiamata di procedura remota riformulata per il paradigma object-oriented (in cui, appunto, le procedure sono sostituite da metodi).
+L'utilizzo di un meccanismo di invocazione remota di metodi in un sistema object-oriented comporta notevoli vantaggi di omogeneit� e simmetria nel progetto, poich� consente di modellare le interazioni fra processi distribuiti usando lo stesso strumento concettuale che si utilizza per rappresentare le interazioni fra i diversi oggetti di una applicazione, ovvero la chiamata di metodo. 
 
 \section{Utilizzo dei ThreadPool}\label{sec:thread_pool}
-In molte applicazioni vengono creati thread il cui stato è quasi sempre sospeso, in attesa che si verifichi un evento. Altri thread potrebbero entrare in uno stato di inattività ed essere attivati solo periodicamente alla ricerca di informazioni sullo stato di una modifica o di un aggiornamento. Il polling del thread consente di utilizzare i thread in modo più efficiente fornendo all'applicazione un pool di thread di lavoro gestiti dal sistema. Un unico thread consente di controllare lo stato di varie operazioni di attesa in coda nel pool di thread. Quando un'operazione di attesa viene completata, la funzione di callback corrispondente viene eseguita da un thread di lavoro contenuto nel pool di thread.
+In molte applicazioni vengono creati thread il cui stato è quasi sempre sospeso, in attesa che si verifichi un evento. Altri thread potrebbero entrare in uno stato di inattività ed essere attivati solo periodicamente alla ricerca di informazioni sullo stato di una modifica o di un aggiornamento. Il polling del thread consente di utilizzare i thread in modo pi� efficiente fornendo all'applicazione un pool di thread di lavoro gestiti dal sistema. Un unico thread consente di controllare lo stato di varie operazioni di attesa in coda nel pool di thread. Quando un'operazione di attesa viene completata, la funzione di callback corrispondente viene eseguita da un thread di lavoro contenuto nel pool di thread.
 
+Nel progetto Mini-KaZaA  abbiamo usato i ThreadPool, e in particolare \emph{ThreadPoolExecutor}, nel task che si occupava di elaborare le richieste provenienti dal socket TCP. Qui infatti si possono creare un numero elevato di thread, visto che a ogni richiesta da elaborare ne viene assegnato uno. Per ottimizzare le risorse, quindi, � stato conveniente demandare a Java la gestione della schedulazione dei thread utilizzando questo particolare costrutto.
 \section{Come funzionano le query}\label{sec:risposte_vuote}
-Per aiutare a comprendere il meccanismo che stà dietro al nostro sistema di comunicazione per la ricerca di un file abbiamo creato una semplice vignetta che facilita il tutto.
+Per aiutare a comprendere il meccanismo che st�� dietro al nostro sistema di comunicazione per la ricerca di un file abbiamo creato una semplice vignetta che facilita il tutto.
 \begin{figure}[t]
  \centering
- \includegraphics[width=400px,height=375px,bb=14 14 841 737]{images/pippo.eps}
+ \includegraphics[width=350px,height=325px]{images/pippo.eps}
  % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
  \caption{Richiesta file.}
  \label{fig:richiesta_file}
 \end{figure}
 Analiziamo insieme come avvengono le comunicazioni.
-Come possiamo notare dalla prima figura un utente che ricerca un file effettua la richiesta al SuperNode al quale � connesso direttamente. 
+Come possiamo notare dalla prima figura un utente che ricerca un file effettua la richiesta al SuperNode al quale � connesso direttamente. 
 Il SuperNode possiede la lista di tutti i file in possesso dei suoi OrdinaryNode, se il file richiesto appartiene a quelli in suo possesso risponde al mittente con l' indirizzo del nodo che possiede in file.
-Se non lo possiede invece chiede agli altri SuperNode ai quali lui � collegato nella rete e attende la risponsta.
+Se non lo possiede invece chiede agli altri SuperNode ai quali lui � collegato nella rete e attende la risponsta.
 La risposta che gli viene data comprende oltre a bit di controllo inseriti dai programmatori per verificare che la query che ritorna sia quella giusta e non una che abbia sbagliato percorso nella rete, l' indirizzo del nodo che possiede il file. Tale risposta viene girata al nodo che inizialmente ha richiesto il file.
 A questo punto come viene mostrato nella seconda figura avviene la comunicazione diretta tra il richiedente ed il possessore del file. Comunicazione che avviene tramite un protocollo TCP.
-Interessante sottolineare che � stata rispettata la richiesta del testo di avere un percorso a ritroso delle query dal mittente al destinatario.
+Interessante sottolineare che � stata rispettata la richiesta del testo di avere un percorso a ritroso delle query dal mittente al destinatario.
 \begin{figure}[t]
  \centering
- \includegraphics[width=400px,height=375px,bb=14 14 841 737]{images/pluto.eps}
+ \includegraphics[width=350px,height=325px]{images/pluto.eps}
  % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
  \caption{Download.}
  \label{fig:download}
 \end{figure}
 %Spiegare perchè mandiamo risposte vuote.
+
+Una cosa che pu� sicuramente saltare all'occhio guardando nel codice come vengono smistate le query � che non appena viene ricevuta una query di richiesta il Super Node invia due risposte, una contenente i riferimenti ai file che condivide il SN e una con le informazioni riguardanti i file che gli ON che sono connessi all'SN condividono.
+Queste due risposte vengono inviate indipendentemente dal loro contenuto, quindi pu� capitare, anzi molto spesso capita, che vengano inviate delle risposte vuote. Questo sicuramente aumenta il traffico di rete ma impedisce che rimangano per la rete risposte pendenti con conseguenti malfunzionamenti dei vari client.
+
+\section{La classe di log}
+Per salvare i codici di errore che il client Mini-KaZaA pu� sollevare durante la sua esecuzione, ci siamo avvalsi di una classe gi� presente nelle API Java: Logger.
+Questa classe interagisce direttamente con i logger del componente che gestisce l'applicazione, nel nostro caso il terminale Linux o il prompt DOS.
+Una volta passato il comando il messaggio di log viene salvato utilizzando la procedura standard di sistema.

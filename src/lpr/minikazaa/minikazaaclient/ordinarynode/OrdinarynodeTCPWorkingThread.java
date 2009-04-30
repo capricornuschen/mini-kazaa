@@ -57,14 +57,14 @@ public class OrdinarynodeTCPWorkingThread implements Runnable {
                 peer_query = (Query) incoming_obj;
 
                 System.out.println("DEBUG: risposta alla query: "+peer_query.getBodyQ());
-                //Controlla se la query non è corrotta.
+                //Controlla se la query non Ã¨ corrotta.
                 if ((peer_query.getBodyA() != null) &&
                         (peer_query.getBodyF() == null) ) {
 
                     System.out.println("DEBUG: la query "+peer_query.getBodyQ()+" Ã¨ corretta.");
                     System.out.println("DEBUG: risposta alla query: "+peer_query.getBodyA().toString());
                     
-                    //Questa query è corretta
+                    //Questa query Ã¨ corretta
                     this.my_found_list.add(peer_query.getBodyA());
                 }
             } else if (incoming_obj instanceof DownloadRequest) {

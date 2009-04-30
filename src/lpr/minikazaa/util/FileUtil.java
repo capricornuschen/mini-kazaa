@@ -124,8 +124,8 @@ public class FileUtil {
     }
 
 
-    //Function che salva e carica il file gi‡ condivisi in modo che al 
-    // prossimo riavvio siano gi‡ presenti del programma.
+    //Function che salva e carica il file gi√† condivisi in modo che al
+    // prossimo riavvio siano gi√† presenti del programma.
     public static void saveMySharedFiles(OrdinarynodeFiles shared_files){
         File sh_files_save = new File("shared.mk");
 
