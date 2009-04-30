@@ -56,7 +56,6 @@
 \BOOKMARK [2][-]{subsection.6.4.2}{transformFileToMKFile}{section.6.4}
 \BOOKMARK [2][-]{subsection.6.4.3}{saveMySharedFiles}{section.6.4}
 \BOOKMARK [2][-]{subsection.6.4.4}{loadMySharedFiles}{section.6.4}
-\BOOKMARK [1][-]{section.6.5}{Classe di log}{chapter.6}
 \BOOKMARK [0][-]{chapter.7}{Il package di grafica}{}
 \BOOKMARK [1][-]{section.7.1}{Il campo di testo}{chapter.7}
 \BOOKMARK [1][-]{section.7.2}{I bottoni}{chapter.7}
@@ -71,12 +70,14 @@
 \BOOKMARK [1][-]{section.8.6}{Remote Method Invocation}{chapter.8}
 \BOOKMARK [1][-]{section.8.7}{Utilizzo dei ThreadPool}{chapter.8}
 \BOOKMARK [1][-]{section.8.8}{Come funzionano le query}{chapter.8}
+\BOOKMARK [1][-]{section.8.9}{La classe di log}{chapter.8}
 \BOOKMARK [0][-]{appendix.A}{Manuale d'uso}{}
 \BOOKMARK [1][-]{section.A.1}{Installazione}{appendix.A}
-\BOOKMARK [1][-]{section.A.2}{Come funziona}{appendix.A}
-\BOOKMARK [2][-]{subsection.A.2.1}{Cercare e scaricare un file}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.2}{Aggiungere un file nella lista dei file condivisi}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.3}{Controllare lo stato dei download}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.4}{NetMonitor}{section.A.2}
-\BOOKMARK [2][-]{subsection.A.2.5}{Chiudere le schede}{section.A.2}
-\BOOKMARK [1][-]{section.A.3}{Consigli degli autori per l' utilizzo}{appendix.A}
+\BOOKMARK [1][-]{section.A.2}{Primo avvio}{appendix.A}
+\BOOKMARK [1][-]{section.A.3}{Come funziona}{appendix.A}
+\BOOKMARK [2][-]{subsection.A.3.1}{Cercare e scaricare un file}{section.A.3}
+\BOOKMARK [2][-]{subsection.A.3.2}{Aggiungere un file nella lista dei file condivisi}{section.A.3}
+\BOOKMARK [2][-]{subsection.A.3.3}{Controllare lo stato dei download}{section.A.3}
+\BOOKMARK [2][-]{subsection.A.3.4}{NetMonitor}{section.A.3}
+\BOOKMARK [2][-]{subsection.A.3.5}{Chiudere le schede}{section.A.3}
+\BOOKMARK [1][-]{section.A.4}{Consigli degli autori per l' utilizzo}{appendix.A}

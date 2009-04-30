@@ -6,6 +6,47 @@ Un computer della rete deve fornire il servizio di bootstrap Server e quindi dev
 All'avvio del programma l' utente può decidere se essere un SuperNode o un OrdinaryNode.
 Ricordiamo che questa decisione non sarà possibile modificarla nel seguito. 
 A seconda della scelta appariranno a video le schermate da utilizzare ed il programma è pronto a funzionare.
+\section{Primo avvio}
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=325px,height=75px]{images/what.eps}
+ % logica_uml.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 593 376
+ \caption{Pannello di decisione SuperNode o OrdinaryNode}
+ \label{fig:what}
+\end{figure}
+Per semplicità spieghiamo il primo avvio supponendo di lanciae la nostra applicazione in modalità SuperNode.
+Le cose che verranno scritte nella parte sottostante sono analoghe anche se si lanciasse la modalità
+OrdinaryNode.
+All'avvio appare la schermata mostrata in Figura \ref{fig:what}.
+Cliccando sul tasto che corrisponde alla creazione di supernode appare un nuovo pannello mostrato 
+in Figura \ref{fig:configuration}.
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=325px,height=200px]{images/configuration.eps}
+ % logica_uml.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 593 376
+ \caption{Il pannello di configurazione del SuperNode.}
+ \label{fig:configuration}
+\end{figure}
+E' necessario ora riempire i campi vuoti per la configurazione del peer.
+Inseriamo quindi un nikname che preferiamo, il numero della porta di comunicazione, l' indirizzo del bootstrap server,
+il massimo numero di nodi al quale verrà inviata la richiesta di un file ed infine il time to live.
+Il settaggio del time to live lo sconsigliamo ad utenti poco esperti dato che potrebbe, se impostato male, rendere l' applicazione
+poco funzionante.
+Consigliamo inoltre ad utenti esperti che intendano settare il time to live di farlo in modo oculato. 
+Per l'applicazione utilizzata su reti di grosse dimensioni è preferibile un time to live maggiore di quello 
+impostato di default, mentre al contrario se si lancia l' applicativo su reti di piccola dimensione è preferibile un time to live decisamente 
+più piccolo di quello di default.
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=350px,height=225px]{images/mini_kazaa_client.eps}
+ % logica_uml.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 593 376
+ \caption{L' interfaccia principale dell' ordinary node.}
+ \label{fig:mini}
+\end{figure}
+Riempiti tutti i campi correttamente e premuto il tasto ok, se tutto è andato a buon fine apparirà ora la finestra in figura 
+\ref{fig:mini}
+In caso di campi compilati in maniera non corretta il client provvede a segnalare l'errore con un'apposita \emph{dialog}.
+L' installazione è terminata, il programma è funzionanante non vi resta che divertirvi con Mini-KaZaA.
 
 \section{Come funziona}
 Bene se siamo di fronte al programma correttamente installato ora non ci rimane che usarlo.

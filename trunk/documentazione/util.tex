@@ -116,7 +116,7 @@ return result;
 \end{lstlisting}
 Questo metodo seziona la stringa di origine in quattro sotto-stringhe e cerca di convertirle in numero.
 Se ciò non è possibile significa già che l'indirizzo non è valido.
-Se la conversione è riuscita allora bisogna controllare che il numero non superi 255, che è il massimo numero consentito dagli indirizzi ip\footnote{Un indiritto IPv4 è formato da 4 byte separati da un punto e rappresentati in forma decimale $2^8 . 2^8 . 2^8 . 2^8. 2^8 è appunto 256.$}, o non sia inferiore di 0.
+Se la conversione è riuscita allora bisogna controllare che il numero non superi 255, che è il massimo numero consentito dagli indirizzi ip\footnote{Un indiritto IPv4 è formato da 4 byte separati da un punto e rappresentati in forma decimale $2^8 . 2^8 . 2^8 . 2^8 è appunto 256.$}, o non sia inferiore di 0.
 
 \subsubsection{getRappresentableSize}
 Questo è invece il metodo che, preso in input un numero di byte (\verb|long file_size|), restituisce una rappresentazione in stringa più leggibile e facilmente interpretabile.
@@ -250,6 +250,3 @@ Il duale del metodo presentato sopra è \verb|loadMySharedFiles| che prende in i
 Le affermazioni fatte sopra valgono anche in questo caso. Tutto è stato decisamente semplificato dal Java che si è occupato della fase a \emph{basso livello} di lettura die dati dal file.
 
 Non riportiamo il codice perchè è il duale di quello presentato prima.
-
-\section{Classe di log}
-%scrivere documentazione non appena si ha il codice

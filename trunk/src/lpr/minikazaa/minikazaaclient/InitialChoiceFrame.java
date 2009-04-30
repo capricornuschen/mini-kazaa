@@ -1,7 +1,7 @@
 /*
  * InitialChoiceFrame.java
  *
-
+*/
 package lpr.minikazaa.minikazaaclient;
 
 import java.awt.event.ActionEvent;

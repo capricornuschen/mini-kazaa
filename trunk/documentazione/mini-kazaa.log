@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  29 APR 2009 22:49
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.4.9)  30 APR 2009 22:49
 entering extended mode
  %&-line parsing enabled.
 **mini-kazaa.tex
@@ -603,33 +603,33 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 ) (./mini-kazaa.aux)
 \openout1 = `mini-kazaa.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 31.
-LaTeX Font Info:    Try loading font information for LGR+cmr on input line 31.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 37.
+LaTeX Font Info:    Try loading font information for LGR+cmr on input line 37.
 
 (/usr/share/texmf-texlive/tex/generic/babel/lgrcmr.fd
 File: lgrcmr.fd 2001/01/30 v2.2e Greek Computer Modern
 )
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 31.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 37.
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
-Package hyperref Info: Link coloring OFF on input line 31.
+Package hyperref Info: Link coloring OFF on input line 37.
 
 (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2006/12/27 v2.28 Cross-referencing by name of section
@@ -639,51 +639,54 @@ Package: refcount 2006/02/20 v3.0 Data extraction from references (HO)
 )
 \c@section@level=\count124
 )
-LaTeX Info: Redefining \ref on input line 31.
-LaTeX Info: Redefining \pageref on input line 31.
+LaTeX Info: Redefining \ref on input line 37.
+LaTeX Info: Redefining \pageref on input line 37.
  (./mini-kazaa.out)
 (./mini-kazaa.out)
 \@outlinefile=\write4
 \openout4 = `mini-kazaa.out'.
 
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 33.
- (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+File: images/mini-logo.eps Graphic file (type eps)
+ <images/mini-logo.eps>
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 39.
+
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 33.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 39.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 33.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 39.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 33.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 39.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 33.
+(Font)              <12> on input line 39.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 33.
+(Font)              <8> on input line 39.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 33.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 33.
+(Font)              <6> on input line 39.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 39.
 
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 33.
+LaTeX Font Info:    Try loading font information for U+msa on input line 39.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2002/01/19 v2.2g AMS font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 33.
+LaTeX Font Info:    Try loading font information for U+msb on input line 39.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
@@ -699,19 +702,26 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
  (./introduzione.tex [3]
 Capitolo 1.
+File: images/schema.eps Graphic file (type eps)
+<images/schema.eps>
+Overfull \hbox (41.49734pt too wide) in paragraph at lines 5--8
+ [][] 
+ []
+
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 5.
+(Font)              <9> on input line 12.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 5.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 9.
-(/usr/share/texmf/tex/latex/lm/omslmr.fd
+(Font)              <5> on input line 12.
+[4
+
+]
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 16.
+ (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 9.
- [4
-
-]) (./bootstrap_server.tex [5]
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 16.
+) (./bootstrap_server.tex [5]
 Capitolo 2.
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 14.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
@@ -898,22 +908,237 @@ Overfull \hbox (41.50618pt too wide) in paragraph at lines 19--21
 [62
 
 ] [63] [64]
-File: images/pippo.eps Graphic file (type eps)
- <images/pippo.eps>
-File: images/pluto.eps Graphic file (type eps)
- <images/pluto.eps>) [65] (./manuale_uso.tex
-[66] [67]
-Appendice A.
-[68
 
-]) [69] (./mini-kazaa.aux) ) 
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ...lga UDP come protocollo di trasporto pu�
+                                                   supportare molti pi� cl...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.60 ... di trasporto pu� supportare molti pi�
+                                                   client attivi.
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.63 ...n (invocazione remota di metodi) o RMI �
+                                                   una tecnologia che consen...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.63 ...ming interface) il cui scopo esplicito �
+                                                   quello di rendere traspar...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.63 ...are un metodo di un oggetto remoto (cio�
+                                                   appartenente a un diverso...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.64 ...comporta notevoli vantaggi di omogeneit�
+                                                   e simmetria nel progetto,...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.64 ...neit� e simmetria nel progetto, poich�
+                                                   consente di modellare le ...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.67 ...sente di utilizzare i thread in modo pi�
+                                                   efficiente fornendo all'a...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 ...o. Per ottimizzare le risorse, quindi, �
+                                                   stato conveniente demanda...
+
+? 
+[65]
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.71 ...tare a comprendere il meccanismo che st�
+                                                  � dietro al nostro siste...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.71 ...e a comprendere il meccanismo che st��
+                                                   dietro al nostro sistema ...
+
+? 
+File: images/pippo.eps Graphic file (type eps)
+<images/pippo.eps>
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.80 ...tua la richiesta al SuperNode al quale �
+                                                   connesso direttamente.
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 ...iede agli altri SuperNode ai quali lui �
+                                                   collegato nella rete e at...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.85 Interessante sottolineare che �
+                                       stata rispettata la richiesta del tes...
+
+? 
+File: images/pluto.eps Graphic file (type eps)
+<images/pluto.eps> [66]
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.95 Una cosa che pu�
+                        sicuramente saltare all'occhio guardando nel codice ...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.95 ... codice come vengono smistate le query �
+                                                   che non appena viene rice...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.96 ...entemente dal loro contenuto, quindi pu�
+                                                   capitare, anzi molto spes...
+
+? 
+[67]
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.99 ...i di errore che il client Mini-KaZaA pu�
+                                                   sollevare durante la sua ...
+
+? 
+
+! Package inputenc Error: Unicode char \u8:� not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.99 ...ione, ci siamo avvalsi di una classe gi�
+                                                   presente nelle API Java: ...
+
+? 
+) (./manuale_uso.tex [68]
+Appendice A.
+File: images/what.eps Graphic file (type eps)
+<images/what.eps>
+File: images/configuration.eps Graphic file (type eps)
+ <images/configuration.eps>
+File: images/mini_kazaa_client.eps Graphic file (type eps)
+ <images/mini_kazaa_client.eps>
+[69
+
+] [70] [71]) [72] (./mini-kazaa.aux) ) 
 Here is how much of TeX's memory you used:
- 7594 strings out of 94075
- 102644 string characters out of 1165177
- 177837 words of memory out of 1500000
- 10677 multiletter control sequences out of 10000+50000
+ 7609 strings out of 94075
+ 102848 string characters out of 1165177
+ 178295 words of memory out of 1500000
+ 10688 multiletter control sequences out of 10000+50000
  87435 words of font info for 72 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 29i,8n,40p,1024b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
+ 29i,8n,40p,1027b,1844s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on mini-kazaa.dvi (70 pages, 502768 bytes).
+Output written on mini-kazaa.dvi (73 pages, 512932 bytes).

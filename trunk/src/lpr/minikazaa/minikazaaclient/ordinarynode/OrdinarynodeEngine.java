@@ -64,7 +64,8 @@ public class OrdinarynodeEngine implements Runnable {
         Thread rmi_thread = new Thread(on_rmi);
         rmi_thread.start();
 
-        //Inizializzazione servizio di invio e ricezione ping         	  NodePong pong = new NodePong(this.my_conf);
+        //Inizializzazione servizio di invio e ricezione ping
+        NodePong pong = new NodePong(this.my_conf);
         Thread ping_service = new Thread(pong);
         ping_service.start();
 
