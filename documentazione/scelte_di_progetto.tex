@@ -70,15 +70,21 @@ In molte applicazioni vengono creati thread il cui stato √® quasi sempre sospeso
 Per aiutare a comprendere il meccanismo che st√† dietro al nostro sistema di comunicazione per la ricerca di un file abbiamo creato una semplice vignetta che facilita il tutto.
 \begin{figure}[t]
  \centering
- \includegraphics[width=300px,height=275px,bb=14 14 841 737]{images/pippo.eps}
+ \includegraphics[width=400px,height=375px,bb=14 14 841 737]{images/pippo.eps}
  % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
  \caption{Richiesta file.}
  \label{fig:richiesta_file}
 \end{figure}
-Ora che abbiamo trovato il file che desideriamo avviamo la comunicazione e lo scambio.
+Analiziamo insieme come avvengono le comunicazioni.
+Come possiamo notare dalla prima figura un utente che ricerca un file effettua la richiesta al SuperNode al quale Ë connesso direttamente. 
+Il SuperNode possiede la lista di tutti i file in possesso dei suoi OrdinaryNode, se il file richiesto appartiene a quelli in suo possesso risponde al mittente con l' indirizzo del nodo che possiede in file.
+Se non lo possiede invece chiede agli altri SuperNode ai quali lui Ë collegato nella rete e attende la risponsta.
+La risposta che gli viene data comprende oltre a bit di controllo inseriti dai programmatori per verificare che la query che ritorna sia quella giusta e non una che abbia sbagliato percorso nella rete, l' indirizzo del nodo che possiede il file. Tale risposta viene girata al nodo che inizialmente ha richiesto il file.
+A questo punto come viene mostrato nella seconda figura avviene la comunicazione diretta tra il richiedente ed il possessore del file. Comunicazione che avviene tramite un protocollo TCP.
+Interessante sottolineare che Ë stata rispettata la richiesta del testo di avere un percorso a ritroso delle query dal mittente al destinatario.
 \begin{figure}[t]
  \centering
- \includegraphics[width=300px,height=275px,bb=14 14 841 737]{images/pluto.eps}
+ \includegraphics[width=400px,height=375px,bb=14 14 841 737]{images/pluto.eps}
  % mini_kazaa_client.eps: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=14 14 841 737
  \caption{Download.}
  \label{fig:download}
